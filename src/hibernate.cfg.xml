@@ -6,7 +6,8 @@
   <session-factory>
     <property name="connection.url">jdbc:mysql://dmng.cv24g4w4ewep.eu-west-1.rds.amazonaws.com:3306/</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    
+      <mapping class="model.User"/>
+
       <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
