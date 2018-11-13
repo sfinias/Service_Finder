@@ -12,4 +12,5 @@ public interface UserDAOInterface {
     ArrayList<User> getAllUsers();
     User findUserByEmail(String email);
     boolean userExists(String email);
+    void createVerificationToken(User user, String token);
 }

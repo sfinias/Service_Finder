@@ -1,6 +1,8 @@
 package dao;
 
 import model.User;
+import model.VerificationTokenEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,9 @@ public class UserDAO implements UserDAOInterface {
 
     @PersistenceContext
     private EntityManager em;
+
+    @Autowired
+    private VerificationTokenRepository tokenRepository;
 
     @Transactional
     public void insertUser(User u) {
@@ -45,5 +50,11 @@ public class UserDAO implements UserDAOInterface {
             flag = false;
         }
         return flag;
+    }
+
+    @Override
+    public void createVerificationToken(User user, String token) {
+        VerificationTokenEntity myToken = new VerificationTokenEntity(token, user);
+        tokenRepository.save(myToken);
     }
 }

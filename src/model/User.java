@@ -46,6 +46,9 @@ public class User implements Serializable {
     private String address;
     @Column(name = "phone")
     private String phone;
+    @Basic(optional = false)
+    @Column(name = "enabled", nullable = false)
+    private byte enabled;
     @Lob
     @Column(name = "photo")
     private byte[] photo;
@@ -55,23 +58,6 @@ public class User implements Serializable {
     private String emailConfirm;
     @Transient
     private String passwordConfirm;
-
-    public String getEmailConfirm() {
-        return emailConfirm;
-    }
-
-    public void setEmailConfirm(String emailConfirm) {
-        this.emailConfirm = emailConfirm;
-    }
-
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
-    }
-
 
 
     public User() {
@@ -87,6 +73,22 @@ public class User implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
+    }
+
+    public String getEmailConfirm() {
+        return emailConfirm;
+    }
+
+    public void setEmailConfirm(String emailConfirm) {
+        this.emailConfirm = emailConfirm;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 
     public String getEmail() {
@@ -153,6 +155,14 @@ public class User implements Serializable {
         this.file = file;
     }
 
+    public byte getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(byte enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -176,5 +186,4 @@ public class User implements Serializable {
     public String toString() {
         return "model.User[ email=" + email + " ]";
     }
-
 }

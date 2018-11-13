@@ -4,11 +4,12 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url">jdbc:mysql://dmng.cv24g4w4ewep.eu-west-1.rds.amazonaws.com:3306/</property>
+    <property name="connection.url">jdbc:mysql://dmng.cv24g4w4ewep.eu-west-1.rds.amazonaws.com:3306</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-      <mapping class="model.User"/>
+    <mapping class="model.User"/>
+    <mapping class="model.VerificationTokenEntity"/>
 
-      <!-- <property name="connection.username"/> -->
+    <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
     <!-- DB schema will be updated if needed -->
