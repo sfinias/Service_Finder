@@ -6,15 +6,19 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,6 +36,14 @@ import javax.xml.bind.annotation.XmlRootElement;
         , @NamedQuery(name = "User.findByAddress", query = "SELECT u FROM User u WHERE u.address = :address")
         , @NamedQuery(name = "User.findByPhone", query = "SELECT u FROM User u WHERE u.phone = :phone")})
 public class User implements Serializable {
+
+    @Lob
+    @Column(name = "photo")
+    private byte[] photo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Association> associationCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
+    private Collection<Association> associationCollection1;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,9 +63,6 @@ public class User implements Serializable {
     private String address;
     @Column(name = "phone")
     private String phone;
-    @Lob
-    @Column(name = "photo")
-    private byte[] photo;
 
     public User() {
     }
@@ -118,13 +127,6 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-    public byte[] getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
-    }
 
     @Override
     public int hashCode() {
@@ -148,6 +150,32 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "model.User[ email=" + email + " ]";
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
+    @XmlTransient
+    public Collection<Association> getAssociationCollection() {
+        return associationCollection;
+    }
+
+    public void setAssociationCollection(Collection<Association> associationCollection) {
+        this.associationCollection = associationCollection;
+    }
+
+    @XmlTransient
+    public Collection<Association> getAssociationCollection1() {
+        return associationCollection1;
+    }
+
+    public void setAssociationCollection1(Collection<Association> associationCollection1) {
+        this.associationCollection1 = associationCollection1;
     }
 
 }
