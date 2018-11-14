@@ -1,6 +1,7 @@
 package dao;
 
 import model.User;
+import model.VerificationTokenEntity;
 
 import java.util.ArrayList;
 
@@ -13,4 +14,7 @@ public interface UserDAOInterface {
     User findUserByEmail(String email);
     boolean userExists(String email);
     void createVerificationToken(User user, String token);
+    User getUser(String verificationToken);
+    void saveRegisteredUser(User user);
+    VerificationTokenEntity getVerificationToken(String VerificationToken);
 }

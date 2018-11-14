@@ -17,6 +17,14 @@ public class VerificationTokenEntity {
     private Date expiryDate;
     private User userByUserEmail;
 
+    public VerificationTokenEntity(String token, User userByUserEmail) {
+        this.token = token;
+        this.userByUserEmail = userByUserEmail;
+    }
+
+    public VerificationTokenEntity() {
+    }
+
     private Date calculateExpiryDate(int expiryTimeInMinutes) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Timestamp(cal.getTime().getTime()));

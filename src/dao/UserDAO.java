@@ -21,7 +21,10 @@ public class UserDAO implements UserDAOInterface {
     private EntityManager em;
 
     @Autowired
-    private VerificationTokenRepository tokenRepository;
+    private VerificationTokenDAOInterface verificationTokenDAOInterface;
+
+    @Autowired
+    private UserDAOInterface userDAOInterface;
 
     @Transactional
     public void insertUser(User u) {
@@ -55,6 +58,22 @@ public class UserDAO implements UserDAOInterface {
     @Override
     public void createVerificationToken(User user, String token) {
         VerificationTokenEntity myToken = new VerificationTokenEntity(token, user);
-        tokenRepository.save(myToken);
+        verificationTokenDAOInterface.save(myToken);
+    }
+
+    @Override
+    public User getUser(String verificationToken) {
+        User user = verificationTokenDAOInterface.findByToken(verificationToken).getUserByUserEmail();
+        return user;
+    }
+
+    @Override
+    public void saveRegisteredUser(User user) {
+        userDAOInterface.insertUser(user);
+    }
+
+    @Override
+    public VerificationTokenEntity getVerificationToken(String VerificationToken) {
+        return verificationTokenDAOInterface.findByToken(VerificationToken);
     }
 }

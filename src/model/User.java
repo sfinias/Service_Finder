@@ -47,8 +47,8 @@ public class User implements Serializable {
     @Column(name = "phone")
     private String phone;
     @Basic(optional = false)
-    @Column(name = "enabled", nullable = false)
-    private byte enabled;
+    @Column(name = "enabled", nullable = false, columnDefinition = "BIT", length = 1)
+    private boolean enabled;
     @Lob
     @Column(name = "photo")
     private byte[] photo;
@@ -155,11 +155,11 @@ public class User implements Serializable {
         this.file = file;
     }
 
-    public byte getEnabled() {
+    public boolean getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(byte enabled) {
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 

@@ -18,8 +18,8 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     @Autowired
     private MessageSource messages;
   
-    @Autowired
-    private MailService mailSender;
+    //Needs checking
+    private MailService mailSender=new MailService();
  
     @Override
     public void onApplicationEvent(OnRegistrationCompleteEvent event) {
