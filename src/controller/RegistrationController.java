@@ -3,8 +3,10 @@ package controller;
 import dao.UserDAOInterface;
 import dao.VerificationTokenDAOInterface;
 import model.User;
+import model.UserEntity;
 import model.VerificationTokenEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,7 @@ public class RegistrationController {
     @Autowired
     private VerificationTokenDAOInterface verificationTokenDAOInterface;
 
+    @Qualifier("webApplicationContext")
     @Autowired
     private MessageSource messages;
 
@@ -44,7 +47,7 @@ public class RegistrationController {
             return "redirect:/badUser.html?lang=" + locale.getLanguage();
         }
 
-        User user = verificationToken.getUserByUserEmail();
+        UserEntity user = verificationToken.getUserByUserEmail();
         Calendar cal = Calendar.getInstance();
         if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
             String messageValue = messages.getMessage("auth.message.expired", null, locale);

@@ -1,6 +1,6 @@
 package dao;
 
-import model.User;
+import model.UserEntity;
 import model.VerificationTokenEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface VerificationTokenDAOInterface extends JpaRepository<VerificationTokenEntity, Long> {
     VerificationTokenEntity findByToken(String token);
-    VerificationTokenEntity findByUser(User user);
+    VerificationTokenEntity findByUser(UserEntity user);
     void save(VerificationTokenEntity verificationTokenEntity);
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
@@ -20,6 +21,7 @@ import java.util.Locale;
 @Component
 public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
+    @Qualifier("webApplicationContext")
     @Autowired
     private MessageSource messages;
 

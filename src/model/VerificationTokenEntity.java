@@ -15,9 +15,9 @@ public class VerificationTokenEntity {
     private int id;
     private String token;
     private Date expiryDate;
-    private User userByUserEmail;
+    private UserEntity userByUserEmail;
 
-    public VerificationTokenEntity(String token, User userByUserEmail) {
+    public VerificationTokenEntity(String token, UserEntity userByUserEmail) {
         this.token = token;
         this.userByUserEmail = userByUserEmail;
     }
@@ -77,13 +77,13 @@ public class VerificationTokenEntity {
         return Objects.hash(id, token, expiryDate);
     }
 
-    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = UserEntity.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_email", referencedColumnName = "email", nullable = false)
-    public User getUserByUserEmail() {
+    public UserEntity getUserByUserEmail() {
         return userByUserEmail;
     }
 
-    public void setUserByUserEmail(User userByUserEmail) {
+    public void setUserByUserEmail(UserEntity userByUserEmail) {
         this.userByUserEmail = userByUserEmail;
     }
 }

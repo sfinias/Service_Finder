@@ -1,6 +1,6 @@
 package dao;
 
-import model.User;
+import model.UserEntity;
 import model.VerificationTokenEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +24,7 @@ public abstract class VerificationTokenDAO implements VerificationTokenDAOInterf
     }
 
     @Transactional
-    public VerificationTokenEntity findByUser(User user) {
+    public VerificationTokenEntity findByUser(UserEntity user) {
         VerificationTokenEntity vte = em.find(VerificationTokenEntity.class,user);
         return vte;
     }
