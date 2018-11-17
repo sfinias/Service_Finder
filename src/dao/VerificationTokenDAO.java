@@ -32,27 +32,32 @@ public class VerificationTokenDAO implements VerificationTokenDAOInterface {
     @Transactional
     @Override
     public UserEntity getUserFromToken(VerificationTokenEntity v) {
-        return em.find(UserEntity.class, v.getId());
+        return em.find(UserEntity.class, v.getUserId());
     }
 
     @Transactional
     @Override
     public boolean checkIfTokenExists(String token) {
-        VerificationTokenEntity v = em.find(VerificationTokenEntity.class, token);
+        Query query = em.createQuery("SELECT v FROM VerificationTokenEntity v WHERE v.token='" + token+"'");
+        ArrayList<VerificationTokenEntity> tokenEntities = (ArrayList<VerificationTokenEntity>) query.getResultList();
         boolean flag;
-        if (v != null) {
-            flag = true;
-        } else {
+        if (tokenEntities.size()==0) {
             flag = false;
+        } else {
+            flag = true;
         }
         return flag;
     }
 
+    @Transactional
     @Override
     public VerificationTokenEntity getTokenEntityFromToken(String token) {
-        return em.find(VerificationTokenEntity.class, token);
+        Query query = em.createQuery("SELECT v FROM VerificationTokenEntity v WHERE v.token='" + token+"'");
+        ArrayList<VerificationTokenEntity> tokenEntities = (ArrayList<VerificationTokenEntity>) query.getResultList();
+        return tokenEntities.get(0);
     }
 
+    @Transactional
     @Override
     public boolean checkIfTimeLessThan24Hours(Timestamp timestamp) {
         boolean flag;
@@ -67,12 +72,15 @@ public class VerificationTokenDAO implements VerificationTokenDAOInterface {
         return flag;
     }
 
+    @Transactional
     @Override
     public Timestamp getTimestampOfTokenCreation(String token) {
-        VerificationTokenEntity v = em.find(VerificationTokenEntity.class, token);
-        return v.getGeneratedTokenDateTime();
+        Query query = em.createQuery("SELECT v FROM VerificationTokenEntity v WHERE v.token='" + token+"'");
+        ArrayList<VerificationTokenEntity> tokenEntities = (ArrayList<VerificationTokenEntity>) query.getResultList();
+        return tokenEntities.get(0).getGeneratedTokenDateTime();
     }
 
+    @Transactional
     @Override
     public void createTokenForUser(int userId) {
         VerificationTokenEntity v = new VerificationTokenEntity();
@@ -86,10 +94,11 @@ public class VerificationTokenDAO implements VerificationTokenDAOInterface {
         em.persist(v);
     }
 
+    @Transactional
     @Override
     public String getTokenOfUser(int userId) {
         Query query = em.createQuery("SELECT v.token FROM VerificationTokenEntity v WHERE v.userId=" + userId);
-        ArrayList<VerificationTokenEntity> tokenEntities = (ArrayList<VerificationTokenEntity>) query.getResultList();
-        return tokenEntities.get(0).getToken();
+        ArrayList<String> tokenEntities = (ArrayList<String>) query.getResultList();
+        return tokenEntities.get(0);
     }
 }

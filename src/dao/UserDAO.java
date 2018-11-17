@@ -42,27 +42,31 @@ public class UserDAO implements UserDAOInterface {
     @Transactional
     @Override
     public boolean userExists(String email) {
-        UserEntity user = em.find(UserEntity.class, email);
         boolean flag;
-        if (user != null) {
-            flag = true;
-        } else {
+        Query query = em.createQuery("SELECT u FROM UserEntity u WHERE u.email='" + email + "'");
+        ArrayList<UserEntity> users = (ArrayList<UserEntity>) query.getResultList();
+        if (users.size() == 0) {
             flag = false;
+        } else {
+            flag = true;
         }
         return flag;
     }
 
+    @Transactional
     @Override
     public void enableUser(UserEntity u) {
         u.setEnabled(true);
         em.merge(u);
     }
 
+    @Transactional
     @Override
     public int getUserid(UserEntity user) {
         Query query = em.createQuery("SELECT u.id FROM UserEntity u WHERE u.email='" + user.getEmail() + "'");
-        ArrayList<UserEntity> users = (ArrayList<UserEntity>) query.getResultList();
-        return users.get(0).getId();
+        ArrayList<Integer> ids = (ArrayList<Integer>) query.getResultList();
+        int uid=ids.get(0);
+        return uid;
     }
 
 }

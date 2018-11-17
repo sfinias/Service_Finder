@@ -29,7 +29,7 @@
           p:suffix=".jsp"/>
 
     <bean id="springJPA" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="java:comp/env/jdbc/dmng" />
+        <property name="jndiName" value="java:comp/env/jdbc/dmng2" />
         <property name="expectedType" value="javax.sql.DataSource" />
     </bean>
 
