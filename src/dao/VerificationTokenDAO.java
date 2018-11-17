@@ -38,10 +38,10 @@ public class VerificationTokenDAO implements VerificationTokenDAOInterface {
     @Transactional
     @Override
     public boolean checkIfTokenExists(String token) {
-        Query query = em.createQuery("SELECT v FROM VerificationTokenEntity v WHERE v.token='" + token+"'");
+        Query query = em.createQuery("SELECT v FROM VerificationTokenEntity v WHERE v.token='" + token + "'");
         ArrayList<VerificationTokenEntity> tokenEntities = (ArrayList<VerificationTokenEntity>) query.getResultList();
         boolean flag;
-        if (tokenEntities.size()==0) {
+        if (tokenEntities.size() == 0) {
             flag = false;
         } else {
             flag = true;
@@ -52,9 +52,8 @@ public class VerificationTokenDAO implements VerificationTokenDAOInterface {
     @Transactional
     @Override
     public VerificationTokenEntity getTokenEntityFromToken(String token) {
-        Query query = em.createQuery("SELECT v FROM VerificationTokenEntity v WHERE v.token='" + token+"'");
-        ArrayList<VerificationTokenEntity> tokenEntities = (ArrayList<VerificationTokenEntity>) query.getResultList();
-        return tokenEntities.get(0);
+        Query query = em.createQuery("SELECT v FROM VerificationTokenEntity v WHERE v.token='" + token + "'");
+        return (VerificationTokenEntity) query.getSingleResult();
     }
 
     @Transactional
@@ -75,9 +74,8 @@ public class VerificationTokenDAO implements VerificationTokenDAOInterface {
     @Transactional
     @Override
     public Timestamp getTimestampOfTokenCreation(String token) {
-        Query query = em.createQuery("SELECT v FROM VerificationTokenEntity v WHERE v.token='" + token+"'");
-        ArrayList<VerificationTokenEntity> tokenEntities = (ArrayList<VerificationTokenEntity>) query.getResultList();
-        return tokenEntities.get(0).getGeneratedTokenDateTime();
+        Query query = em.createQuery("SELECT v.generatedTokenDateTime FROM VerificationTokenEntity v WHERE v.token='" + token + "'");
+        return (Timestamp) query.getSingleResult();
     }
 
     @Transactional
@@ -98,7 +96,6 @@ public class VerificationTokenDAO implements VerificationTokenDAOInterface {
     @Override
     public String getTokenOfUser(int userId) {
         Query query = em.createQuery("SELECT v.token FROM VerificationTokenEntity v WHERE v.userId=" + userId);
-        ArrayList<String> tokenEntities = (ArrayList<String>) query.getResultList();
-        return tokenEntities.get(0);
+        return (String) query.getSingleResult();
     }
 }

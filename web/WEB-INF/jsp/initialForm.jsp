@@ -107,11 +107,13 @@
                         <form:input path="userEntity.firstName" id="firstName" type="text" class="validate" required="required"
                                     onkeypress="return blockSpecialChar(event)"/>
                         <form:label path="userEntity.firstName" for="firstName">First Name</form:label>
+                        <form:errors path="userEntity.firstName" />
                     </div>
                     <div class="input-field col s6">
                         <form:input path="userEntity.lastName" id="lastName" type="text" class="validate" required="required"
                                     onkeypress="return blockSpecialChar(event)"/>
                         <form:label path="userEntity.lastName" for="lastName">Last Name</form:label>
+                        <form:errors path="userEntity.lastName" />
                     </div>
                 </div>
                 <div class="row">
@@ -121,6 +123,7 @@
                         <form:label path="userEntity.email" for="email">Email</form:label>
                         <span id='message3'></span>
                         <span id='message4'></span>
+                        <form:errors path="userEntity.email" />
                     </div>
                 </div>
                 <div class="row">
@@ -138,6 +141,7 @@
                                     onkeyup='CheckPassword(); EnableSubmit2();' required="required" pattern=".{8,50}"
                                     title="8 to 50 characters"/>
                         <form:label path="userEntity.passwordHash" for="pass">Password</form:label>
+                        <form:errors path="userEntity.passwordHash" />
                     </div>
                 </div>
                 <div class="row">
@@ -155,11 +159,13 @@
                         <form:input path="phoneEntity.mobile" id="phone1" name="phone1"
                                     class="validate"/>
                         <form:label path="phoneEntity.mobile" for="phone1">Mobile</form:label>
+                        <form:errors path="phoneEntity.mobile" />
                     </div>
                     <div class="input-field col s6">
                         <form:input path="phoneEntity.landline" id="phone2" name="phone2"
                                     class="validate"/>
                         <form:label path="phoneEntity.landline" for="phone2">Landline</form:label>
+                        <form:errors path="phoneEntity.landline" />
                     </div>
                 </div>
                 <div class="row">
@@ -231,35 +237,35 @@
         }
     };
 
-    // function blockSpecialChar(e) {
-    //     var k = e.keyCode;
-    //     return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || (k >= 48 && k <= 57));
-    // }
-    //
-    // $(document).ready(function () {
-    //     $("#email").keyup(function () {
-    //         var text = $(this).val();
-    //         document.getElementById('message4').style.color = 'blue';
-    //         document.getElementById('message4').innerHTML = 'Please allow some seconds to check the base';
-    //         $.ajax({
-    //             url: '/usersREST.htm',
-    //             contentType: 'application/json',
-    //             success: function (result) {
-    //                 var jsonobj = $.parseJSON(result);
-    //                 $.each(jsonobj, function (i, item) {
-    //                     if (item == text) {
-    //                         document.getElementById('message4').style.color = 'red';
-    //                         document.getElementById('message4').innerHTML = 'E-mail already exists!!';
-    //                     }
-    //                     else {
-    //                         document.getElementById('message4').style.color = 'green';
-    //                         document.getElementById('message4').innerHTML = 'This e-mail is acceptable!!';
-    //                     }
-    //                 });
-    //             }
-    //         });
-    //     });
-    // });
+    function blockSpecialChar(e) {
+        var k = e.keyCode;
+        return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || (k >= 48 && k <= 57));
+    }
+
+    $(document).ready(function () {
+        $("#email").keyup(function () {
+            var text = $(this).val();
+            document.getElementById('message4').style.color = 'blue';
+            document.getElementById('message4').innerHTML = 'Please allow some seconds to check the base';
+            $.ajax({
+                url: '/usersREST.htm',
+                contentType: 'application/json',
+                success: function (result) {
+                    var jsonobj = $.parseJSON(result);
+                    $.each(jsonobj, function (i, item) {
+                        if (item == text) {
+                            document.getElementById('message4').style.color = 'red';
+                            document.getElementById('message4').innerHTML = 'E-mail already exists!!';
+                        }
+                        else {
+                            document.getElementById('message4').style.color = 'green';
+                            document.getElementById('message4').innerHTML = 'This e-mail is acceptable!!';
+                        }
+                    });
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>

@@ -46,12 +46,11 @@ public class UserController {
     @RequestMapping(value = "/checkLogin.htm")
     public String handleForm3(ModelMap model, UserEntity user) {
         String emailSubmitted = user.getEmail();
-        String hashedpassword = DigestUtils.sha512Hex(user.getPasswordConfirm());
-
+        String password = user.getPasswordConfirm();
         if (!userDAOInterface.userExists(emailSubmitted)) {
             model.addAttribute("userEmail", emailSubmitted);
             return "userDoesNotExist";
-        } else if (userDAOInterface.userExists(emailSubmitted) && !userDAOInterface.findUserByEmail(emailSubmitted).getPasswordHash().equals(hashedpassword)) {
+        } else if (userDAOInterface.userExists(emailSubmitted) && !userDAOInterface.findUserByEmail(emailSubmitted).getPasswordHash().equals(DigestUtils.sha512Hex(password+userDAOInterface.getSalt(emailSubmitted)))) {
             model.addAttribute("userEmail", emailSubmitted);
             return "wrongPassword";
         } else {
@@ -67,9 +66,9 @@ public class UserController {
             return "userAlreadyExists";
         } else {
             userDAOInterface.insertUser(user2.getUserEntity());
-            userDAOInterface.insertAddress(user2.getAddressEntity());
-            userDAOInterface.insertPhone(user2.getPhoneEntity());
             int uid=userDAOInterface.getUserid(user2.getUserEntity());
+            userDAOInterface.insertAddress(user2.getAddressEntity(),uid);
+            userDAOInterface.insertPhone(user2.getPhoneEntity(),uid);
             v.createTokenForUser(uid);
             String token=v.getTokenOfUser(uid);
             model.addAttribute("registeredEmail", user2.getUserEntity().getEmail());

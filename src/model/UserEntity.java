@@ -1,15 +1,14 @@
 package model;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Objects;
 
 /**
  * @author tsamo
  */
 @Entity
-@Table(name = "user", schema = "dnmgdb", catalog = "")
+@Table(name = "user", schema = "dnmgdb")
 public class UserEntity {
     private int id;
     private String firstName;
@@ -93,11 +92,11 @@ public class UserEntity {
         this.enabled = enabled;
     }
 
+    @Transient
     public String getEmailConfirm() {
         return emailConfirm;
     }
 
-    @Transient
     public void setEmailConfirm(String emailConfirm) {
         this.emailConfirm = emailConfirm;
     }

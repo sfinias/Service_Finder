@@ -10,12 +10,14 @@ import java.util.ArrayList;
  * @author tsamo
  */
 public interface UserDAOInterface {
+    ArrayList<String> getAllEmails();
     void insertUser(UserEntity u);
-    void insertAddress(AddressEntity a);
-    void insertPhone(PhoneEntity p);
+    void insertAddress(AddressEntity a,int userid);
+    void insertPhone(PhoneEntity p,int userid);
     ArrayList<UserEntity> getAllUsers();
     UserEntity findUserByEmail(String email);
     boolean userExists(String email);
     void enableUser(UserEntity u);
     int getUserid(UserEntity u);
+    String getSalt(String email);
 }
