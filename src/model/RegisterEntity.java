@@ -15,6 +15,7 @@ public class RegisterEntity {
     @Valid
     private AddressEntity addressEntity;
 
+    @Valid
     public UserEntity getUserEntity() {
         return userEntity;
     }
@@ -23,6 +24,7 @@ public class RegisterEntity {
         this.userEntity = userEntity;
     }
 
+    @Valid
     public PhoneEntity getPhoneEntity() {
         return phoneEntity;
     }
@@ -31,6 +33,7 @@ public class RegisterEntity {
         this.phoneEntity = phoneEntity;
     }
 
+    @Valid
     public AddressEntity getAddressEntity() {
         return addressEntity;
     }

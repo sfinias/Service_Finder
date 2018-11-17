@@ -42,7 +42,7 @@ public class UserDetailsEntity {
 
     @Basic
     @Column(name = "photo", nullable = true)
-    @Lob(type = LobType.BLOB)
+    @Lob
     public byte[] getPhoto() {
         return photo;
     }

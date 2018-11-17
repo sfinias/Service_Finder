@@ -22,22 +22,23 @@
 
     <context:component-scan base-package="model"/>
     <context:component-scan base-package="controller"/>
-    <context:component-scan base-package="dao" />
+    <context:component-scan base-package="dao"/>
+    <context:component-scan base-package="validation"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp"/>
 
     <bean id="springJPA" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="java:comp/env/jdbc/dmng" />
-        <property name="expectedType" value="javax.sql.DataSource" />
+        <property name="jndiName" value="java:comp/env/jdbc/dmng"/>
+        <property name="expectedType" value="javax.sql.DataSource"/>
     </bean>
 
     <bean id='em' class='org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean'>
         <property name='dataSource' ref='springJPA'/>
-        <property name="packagesToScan" value="model" />
+        <property name="packagesToScan" value="model"/>
         <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
         </property>
         <property name="jpaProperties">
             <props>
@@ -48,7 +49,7 @@
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="em" />
+        <property name="entityManagerFactory" ref="em"/>
     </bean>
 
     <bean id="multipartResolver" name="filterMultipartResolver"
@@ -61,8 +62,8 @@
 
     <bean id="messageSource"
           class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="/WEB-INF/message_en" />
-        <property name="defaultEncoding" value="UTF-8" />
+        <property name="basename" value="/WEB-INF/message_en"/>
+        <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 
     <tx:annotation-driven/>

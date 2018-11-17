@@ -10,14 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import utils.MailService;
+import validation.FormValids;
 
 
-import java.io.IOException;
+import javax.validation.Valid;
 
 
 /**
@@ -34,7 +36,9 @@ public class UserController {
     @Autowired
     private VerificationTokenDAOInterface v;
 
-    private MailService mailService=new MailService();
+    private FormValids formValids=new FormValids();
+
+    private MailService mailService = new MailService();
 
     @RequestMapping(value = "/initialForm.htm")
     public String handleForm2(ModelMap modelMap) {
@@ -50,7 +54,7 @@ public class UserController {
         if (!userDAOInterface.userExists(emailSubmitted)) {
             model.addAttribute("userEmail", emailSubmitted);
             return "userDoesNotExist";
-        } else if (userDAOInterface.userExists(emailSubmitted) && !userDAOInterface.findUserByEmail(emailSubmitted).getPasswordHash().equals(DigestUtils.sha512Hex(password+userDAOInterface.getSalt(emailSubmitted)))) {
+        } else if (userDAOInterface.userExists(emailSubmitted) && !userDAOInterface.findUserByEmail(emailSubmitted).getPasswordHash().equals(DigestUtils.sha512Hex(password + userDAOInterface.getSalt(emailSubmitted)))) {
             model.addAttribute("userEmail", emailSubmitted);
             return "wrongPassword";
         } else {
@@ -60,19 +64,25 @@ public class UserController {
     }
 
     @RequestMapping(value = "/checkRegister.htm", method = RequestMethod.POST, consumes = {MediaType.ALL_VALUE})
-    public String handleForm4(ModelMap model, @ModelAttribute @Validated RegisterEntity user2) throws IOException {
+    public String handleForm4(ModelMap model, @ModelAttribute("user2") @Valid RegisterEntity user2, BindingResult bindingResult) {
+        formValids.validate(user2, bindingResult);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", new UserEntity());
+            model.addAttribute("user2", user2);
+            return "initialForm";
+        }
         if (userDAOInterface.userExists(user2.getUserEntity().getEmail())) {
             model.addAttribute("alreadyUser", user2.getUserEntity().getEmail());
             return "userAlreadyExists";
         } else {
             userDAOInterface.insertUser(user2.getUserEntity());
-            int uid=userDAOInterface.getUserid(user2.getUserEntity());
-            userDAOInterface.insertAddress(user2.getAddressEntity(),uid);
-            userDAOInterface.insertPhone(user2.getPhoneEntity(),uid);
+            int uid = userDAOInterface.getUserid(user2.getUserEntity());
+            userDAOInterface.insertAddress(user2.getAddressEntity(), uid);
+            userDAOInterface.insertPhone(user2.getPhoneEntity(), uid);
             v.createTokenForUser(uid);
-            String token=v.getTokenOfUser(uid);
+            String token = v.getTokenOfUser(uid);
             model.addAttribute("registeredEmail", user2.getUserEntity().getEmail());
-            mailService.sendMail(user2.getUserEntity().getEmail(),"Activation","http://localhost:8080/verification/token/"+token+".htm");
+            mailService.sendMail(user2.getUserEntity().getEmail(), "Activation", "http://localhost:8080/verification/token/" + token + ".htm");
             return "registrationSuccess";
         }
     }
