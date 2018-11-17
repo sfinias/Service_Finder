@@ -7,7 +7,7 @@ import java.util.Objects;
  * @author tsamo
  */
 @Entity
-@Table(name = "phone", schema = "dnmgdb", catalog = "")
+@Table(name = "phone", schema = "dnmgdb")
 public class PhoneEntity {
     private int userId;
     private String landline;

@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author tsamo
  */
 @Entity
-@Table(name = "verificationToken", schema = "dnmgdb", catalog = "")
+@Table(name = "verificationToken", schema = "dnmgdb")
 public class VerificationTokenEntity {
     private int id;
     private String token;

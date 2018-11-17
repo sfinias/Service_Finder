@@ -106,14 +106,14 @@
                     <div class="input-field col s6">
                         <form:input path="userEntity.firstName" id="firstName" type="text" class="validate"
                                     required="required"
-                                    onkeypress="return blockSpecialChar(event)"/>
+                                    />
                         <form:label path="userEntity.firstName" for="firstName">First Name</form:label>
                         <form:errors path="userEntity.firstName"/>
                     </div>
                     <div class="input-field col s6">
                         <form:input path="userEntity.lastName" id="lastName" type="text" class="validate"
                                     required="required"
-                                    onkeypress="return blockSpecialChar(event)"/>
+                                    />
                         <form:label path="userEntity.lastName" for="lastName">Last Name</form:label>
                         <form:errors path="userEntity.lastName"/>
                     </div>
@@ -121,7 +121,7 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <form:input path="userEntity.email" id="email" type="email" class="validate"
-                                    onkeyup='CheckEmail(); EnableSubmit2()' required="required"/>
+                                    />
                         <form:label path="userEntity.email" for="email">Email</form:label>
                         <span id='message3'></span>
                         <span id='message4'></span>
@@ -132,7 +132,7 @@
                     <div class="input-field col s12">
                         <form:input path="userEntity.emailConfirm" id="emailConfirm" name="email-confirm" type="email"
                                     class="validate"
-                                    onkeyup='CheckEmail(); EnableSubmit2()' required="required"/>
+                                    />
                         <form:label path="userEntity.emailConfirm" for="emailConfirm">Email Confirmation</form:label>
                         <span id='message1'></span>
                     </div>
@@ -140,7 +140,6 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <form:input path="userEntity.passwordHash" id="pass" type="password" class="validate"
-                                    onkeyup='CheckPassword(); EnableSubmit2();' required="required" pattern=".{8,50}"
                                     title="8 to 50 characters"/>
                         <form:label path="userEntity.passwordHash" for="pass">Password</form:label>
                         <form:errors path="userEntity.passwordHash"/>
@@ -151,7 +150,6 @@
                         <form:input path="userEntity.passwordConfirm" id="passwordConfirm" name="password-confirm"
                                     type="password"
                                     class="validate"
-                                    onkeyup='CheckPassword(); EnableSubmit2();' required="required" pattern=".{8,50}"
                                     title="8 to 50 characters"/>
                         <form:label path="userEntity.passwordConfirm"
                                     for="passwordConfirm">Password Confirmation</form:label>
@@ -194,82 +192,82 @@
     </form>
 </div>
 <script>
-    EnableSubmit = function (val) {
-        var sbmt = document.getElementById("actionLogin");
-
-        if (val.checked === true) {
-            sbmt.disabled = false;
-        }
-        else {
-            sbmt.disabled = true;
-        }
-    };
-
-    EnableSubmit2 = function () {
-        var sbmt = document.getElementById("actionRegister");
-
-        if (document.getElementById('email').value ===
-            document.getElementById('emailConfirm').value &&
-            document.getElementById('pass').value ===
-            document.getElementById('passwordConfirm').value) {
-            sbmt.disabled = false;
-        }
-        else {
-            sbmt.disabled = true;
-        }
-    };
-
-    CheckEmail = function () {
-        if (document.getElementById('email').value ===
-            document.getElementById('emailConfirm').value) {
-            document.getElementById('message1').style.color = 'green';
-            document.getElementById('message1').innerHTML = 'E-mails match';
-        } else {
-            document.getElementById('message1').style.color = 'red';
-            document.getElementById('message1').innerHTML = 'E-mails do not match';
-        }
-    };
-
-    CheckPassword = function () {
-        if (document.getElementById('pass').value ===
-            document.getElementById('passwordConfirm').value) {
-            document.getElementById('message2').style.color = 'green';
-            document.getElementById('message2').innerHTML = 'Passwords match';
-        } else {
-            document.getElementById('message2').style.color = 'red';
-            document.getElementById('message2').innerHTML = 'Passwords do not match';
-        }
-    };
-
-    function blockSpecialChar(e) {
-        var k = e.keyCode;
-        return ((k > 64 && k < 91) || (k > 96 && k < 123) || k === 8 || (k >= 48 && k <= 57));
-    }
-
-    $(document).ready(function () {
-        $("#email").keyup(function () {
-            var text = $(this).val();
-            document.getElementById('message4').style.color = 'blue';
-            document.getElementById('message4').innerHTML = 'Please allow some seconds to check the base';
-            $.ajax({
-                url: '/usersREST.htm',
-                contentType: 'application/json',
-                success: function (result) {
-                    var jsonobj = $.parseJSON(result);
-                    $.each(jsonobj, function (i, item) {
-                        if (item === text) {
-                            document.getElementById('message4').style.color = 'red';
-                            document.getElementById('message4').innerHTML = 'E-mail already exists!!';
-                        }
-                        else {
-                            document.getElementById('message4').style.color = 'green';
-                            document.getElementById('message4').innerHTML = 'This e-mail is acceptable!!';
-                        }
-                    });
-                }
-            });
-        });
-    });
+    // EnableSubmit = function (val) {
+    //     var sbmt = document.getElementById("actionLogin");
+    //
+    //     if (val.checked === true) {
+    //         sbmt.disabled = false;
+    //     }
+    //     else {
+    //         sbmt.disabled = true;
+    //     }
+    // };
+    //
+    // EnableSubmit2 = function () {
+    //     var sbmt = document.getElementById("actionRegister");
+    //
+    //     if (document.getElementById('email').value ===
+    //         document.getElementById('emailConfirm').value &&
+    //         document.getElementById('pass').value ===
+    //         document.getElementById('passwordConfirm').value) {
+    //         sbmt.disabled = false;
+    //     }
+    //     else {
+    //         sbmt.disabled = true;
+    //     }
+    // };
+    //
+    // CheckEmail = function () {
+    //     if (document.getElementById('email').value ===
+    //         document.getElementById('emailConfirm').value) {
+    //         document.getElementById('message1').style.color = 'green';
+    //         document.getElementById('message1').innerHTML = 'E-mails match';
+    //     } else {
+    //         document.getElementById('message1').style.color = 'red';
+    //         document.getElementById('message1').innerHTML = 'E-mails do not match';
+    //     }
+    // };
+    //
+    // CheckPassword = function () {
+    //     if (document.getElementById('pass').value ===
+    //         document.getElementById('passwordConfirm').value) {
+    //         document.getElementById('message2').style.color = 'green';
+    //         document.getElementById('message2').innerHTML = 'Passwords match';
+    //     } else {
+    //         document.getElementById('message2').style.color = 'red';
+    //         document.getElementById('message2').innerHTML = 'Passwords do not match';
+    //     }
+    // };
+    //
+    // function blockSpecialChar(e) {
+    //     var k = e.keyCode;
+    //     return ((k > 64 && k < 91) || (k > 96 && k < 123) || k === 8 || (k >= 48 && k <= 57));
+    // }
+    //
+    // $(document).ready(function () {
+    //     $("#email").keyup(function () {
+    //         var text = $(this).val();
+    //         document.getElementById('message4').style.color = 'blue';
+    //         document.getElementById('message4').innerHTML = 'Please allow some seconds to check the base';
+    //         $.ajax({
+    //             url: '/usersREST.htm',
+    //             contentType: 'application/json',
+    //             success: function (result) {
+    //                 var jsonobj = $.parseJSON(result);
+    //                 $.each(jsonobj, function (i, item) {
+    //                     if (item === text) {
+    //                         document.getElementById('message4').style.color = 'red';
+    //                         document.getElementById('message4').innerHTML = 'E-mail already exists!!';
+    //                     }
+    //                     else {
+    //                         document.getElementById('message4').style.color = 'green';
+    //                         document.getElementById('message4').innerHTML = 'This e-mail is acceptable!!';
+    //                     }
+    //                 });
+    //             }
+    //         });
+    //     });
+    // });
 </script>
 </body>
 </html>

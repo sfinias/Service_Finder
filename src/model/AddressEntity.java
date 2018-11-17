@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author tsamo
  */
 @Entity
-@Table(name = "address", schema = "dnmgdb", catalog = "")
+@Table(name = "address", schema = "dnmgdb")
 public class AddressEntity {
     private int userId;
     private String address;
