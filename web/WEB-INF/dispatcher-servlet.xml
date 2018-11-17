@@ -42,6 +42,11 @@
         </property>
         <property name="jpaProperties">
             <props>
+                <prop key="connection.useUnicode">true</prop>
+                <prop key="connection.characterEncoding">UTF-8</prop>
+                <prop key="spring.datasource.sqlScriptEncoding">UTF-8</prop>
+                <prop key="hibernate.connection.useUnicode">true</prop>
+                <prop key="hibernate.connection.characterEncoding">UTF-8</prop>
                 <prop key="hibernate.hbm2ddl.auto">validate</prop>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
             </props>
@@ -57,7 +62,6 @@
 
         <!-- one of the properties available; the maximum file size in bytes -->
         <property name="maxUploadSize" value="100000"/>
-
     </bean>
 
     <bean id="messageSource"

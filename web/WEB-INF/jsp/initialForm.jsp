@@ -53,6 +53,7 @@
             margin-left: 30px;
         }
     </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
@@ -98,8 +99,7 @@
         </form:form>
     </div>
     <div id="register" class="col s12">
-        <form:form class="col s12" method="post" action="/user/checkRegister.htm" modelAttribute="user2"
-                   enctype="multipart/form-data">
+        <form:form class="col s12" method="post" action="/user/checkRegister.htm" modelAttribute="user2" accept-charset="UTF-8">
             <div class="form-container">
                 <h3 class="red-text">Welcome</h3>
                 <div class="row">
