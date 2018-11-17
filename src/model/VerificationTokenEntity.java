@@ -14,7 +14,6 @@ public class VerificationTokenEntity {
     private String token;
     private Timestamp generatedTokenDateTime;
     private int userId;
-    private UserEntity userByUserId;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -53,6 +52,7 @@ public class VerificationTokenEntity {
     }
 
     public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -69,15 +69,5 @@ public class VerificationTokenEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, token, generatedTokenDateTime, userId);
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    public UserEntity getUserByUserId() {
-        return userByUserId;
-    }
-
-    public void setUserByUserId(UserEntity userByUserId) {
-        this.userByUserId = userByUserId;
     }
 }

@@ -52,4 +52,17 @@ public class UserDAO implements UserDAOInterface {
         return flag;
     }
 
+    @Override
+    public void enableUser(UserEntity u) {
+        u.setEnabled(true);
+        em.merge(u);
+    }
+
+    @Override
+    public int getUserid(UserEntity user) {
+        Query query = em.createQuery("SELECT u.id FROM UserEntity u WHERE u.email='" + user.getEmail() + "'");
+        ArrayList<UserEntity> users = (ArrayList<UserEntity>) query.getResultList();
+        return users.get(0).getId();
+    }
+
 }

@@ -50,6 +50,7 @@
       <h3 class="red-text center ">
         Welcome!! Push Start to go to the Home menu.
       </h3>
+      <a href="/verification/token/1234567890.htm">Check if token works</a>
       <form action="/user/initialForm.htm">
         <button id="homebutton" class="home">Start</button>
       </form>
