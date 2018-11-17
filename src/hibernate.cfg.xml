@@ -6,8 +6,10 @@
   <session-factory>
     <property name="connection.url">jdbc:mysql://dmng.cv24g4w4ewep.eu-west-1.rds.amazonaws.com:3306</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-      <mapping class="model.UserEntity"/>
       <mapping class="model.VerificationTokenEntity"/>
+      <mapping class="model.UserEntity"/>
+      <mapping class="model.AddressEntity"/>
+      <mapping class="model.PhoneEntity"/>
 
       <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->

@@ -1,5 +1,7 @@
 package dao;
 
+import model.AddressEntity;
+import model.PhoneEntity;
 import model.UserEntity;
 
 import java.util.ArrayList;
@@ -9,6 +11,8 @@ import java.util.ArrayList;
  */
 public interface UserDAOInterface {
     void insertUser(UserEntity u);
+    void insertAddress(AddressEntity a);
+    void insertPhone(PhoneEntity p);
     ArrayList<UserEntity> getAllUsers();
     UserEntity findUserByEmail(String email);
     boolean userExists(String email);

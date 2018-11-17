@@ -1,5 +1,7 @@
 package dao;
 
+import model.AddressEntity;
+import model.PhoneEntity;
 import model.UserEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,18 @@ public class UserDAO implements UserDAOInterface {
     @Override
     public void insertUser(UserEntity u) {
         em.persist(u);
+    }
+
+    @Transactional
+    @Override
+    public void insertAddress(AddressEntity a) {
+        em.persist(a);
+    }
+
+    @Transactional
+    @Override
+    public void insertPhone(PhoneEntity p) {
+        em.persist(p);
     }
 
     @Transactional

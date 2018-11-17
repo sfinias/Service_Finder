@@ -63,8 +63,120 @@
         <li class="tab col s3"><a class="white-text active" href="#login" onclick="">login</a></li>
         <li class="tab col s3"><a class="white-text" href="#register">register</a></li>
     </ul>
-    <jsp:include page="form1.jsp"></jsp:include>
-    <jsp:include page="form2.jsp"></jsp:include>
+    <div id="login" class="col s12">
+        <form:form class="col s12" method="post" action="/user/checkLogin.htm" modelAttribute="user">
+            <div class="form-container">
+                <h3 class="red-text">Hello</h3>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <form:input path="email" id="emailLogin" type="email" class="validate" required="required"/>
+                        <form:label path="email" for="emailLogin">Email</form:label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <form:input path="passwordConfirm" id="passwordLogin" type="password" class="validate"
+                                    required="required"/>
+                        <form:label path="passwordConfirm" for="passwordLogin">Password</form:label>
+                    </div>
+                </div>
+                <br>
+                <p>
+                    <input type="checkbox" id="consent" onClick="EnableSubmit(this)"/>
+                    <label for="consent">I consent to surrender all my personal data</label>
+                </p>
+                <center>
+                    <button class="btn waves-effect waves-light red" type="submit" id="actionLogin" name="actionLogin"
+                            disabled>Connect
+                    </button>
+                    <br>
+                    <br>
+                    <a href="/user/forgotPassword.htm">Forgotten password?</a>
+                    <a href="/user/deleteUser.htm">Delete your account.</a>
+                </center>
+            </div>
+        </form:form>
+    </div>
+    <div id="register" class="col s12">
+        <form:form class="col s12" method="post" action="/user/checkRegister.htm" modelAttribute="user2"
+                   enctype="multipart/form-data">
+            <div class="form-container">
+                <h3 class="red-text">Welcome</h3>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <form:input path="userEntity.firstName" id="firstName" type="text" class="validate" required="required"
+                                    onkeypress="return blockSpecialChar(event)"/>
+                        <form:label path="userEntity.firstName" for="firstName">First Name</form:label>
+                    </div>
+                    <div class="input-field col s6">
+                        <form:input path="userEntity.lastName" id="lastName" type="text" class="validate" required="required"
+                                    onkeypress="return blockSpecialChar(event)"/>
+                        <form:label path="userEntity.lastName" for="lastName">Last Name</form:label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <form:input path="userEntity.email" id="email" type="email" class="validate"
+                                    onkeyup='CheckEmail(); EnableSubmit2()' required="required"/>
+                        <form:label path="userEntity.email" for="email">Email</form:label>
+                        <span id='message3'></span>
+                        <span id='message4'></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <form:input path="userEntity.emailConfirm" id="emailConfirm" name="email-confirm" type="email"
+                                    class="validate"
+                                    onkeyup='CheckEmail(); EnableSubmit2()' required="required"/>
+                        <form:label path="userEntity.emailConfirm" for="emailConfirm">Email Confirmation</form:label>
+                        <span id='message1'></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <form:input path="userEntity.passwordHash" id="pass" type="password" class="validate"
+                                    onkeyup='CheckPassword(); EnableSubmit2();' required="required" pattern=".{8,50}"
+                                    title="8 to 50 characters"/>
+                        <form:label path="userEntity.passwordHash" for="pass">Password</form:label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <form:input path="userEntity.passwordConfirm" id="passwordConfirm" name="password-confirm" type="password"
+                                    class="validate"
+                                    onkeyup='CheckPassword(); EnableSubmit2();' required="required" pattern=".{8,50}"
+                                    title="8 to 50 characters"/>
+                        <form:label path="userEntity.passwordConfirm" for="passwordConfirm">Password Confirmation</form:label>
+                        <span id='message2'></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <form:input path="phoneEntity.mobile" id="phone1" name="phone1"
+                                    class="validate"/>
+                        <form:label path="phoneEntity.mobile" for="phone1">Mobile</form:label>
+                    </div>
+                    <div class="input-field col s6">
+                        <form:input path="phoneEntity.landline" id="phone2" name="phone2"
+                                    class="validate"/>
+                        <form:label path="phoneEntity.landline" for="phone2">Landline</form:label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <form:input path="addressEntity.address" id="address" name="address"
+                                    class="validate"/>
+                        <form:label path="addressEntity.address" for="address">Address</form:label>
+                    </div>
+                </div>
+                <center>
+                    <button class="btn waves-effect waves-light red" type="submit" name="actionRegister"
+                            id="actionRegister" disabled>Submit
+                    </button>
+                </center>
+            </div>
+        </form:form>
+    </div>
 </div>
 <div id="homebutton">
     <form action="/user/initialForm.htm">
