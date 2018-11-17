@@ -71,13 +71,13 @@ public class UserController {
 
     @RequestMapping(value = "/initialForm.htm")
     public String handleForm2(WebRequest request, ModelMap modelMap) {
-        modelMap.addAttribute("user", new UserDTO());
-        modelMap.addAttribute("user2", new UserDTO());
+        modelMap.addAttribute("user", new UserEntity());
+        modelMap.addAttribute("user2", new UserEntity());
         return "initialForm";
     }
 
     @RequestMapping(value = "/checkLogin.htm")
-    public String handleForm3(ModelMap model, @Valid UserDTO user, WebRequest request) {
+    public String handleForm3(ModelMap model, @Valid UserEntity user, WebRequest request) {
         String emailSubmitted = user.getEmail();
         String passwordSubmitted = user.getPass();
         if (!userDAOInterface.userExists(emailSubmitted)) {
@@ -93,7 +93,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/checkRegister.htm", method = RequestMethod.POST, consumes = {MediaType.ALL_VALUE})
-    public String handleForm4(ModelMap model, @Valid UserDTO user2) throws IOException {
+    public String handleForm4(ModelMap model, @Valid UserEntity user2) throws IOException {
         if (userDAOInterface.userExists(user2.getEmail())) {
             model.addAttribute("alreadyUser", user2.getEmail());
             return "userAlreadyExists";
@@ -102,12 +102,5 @@ public class UserController {
             model.addAttribute("registeredEmail", user2.getEmail());
             return "registrationSuccess";
         }
-    }
-
-    private UserEntity createUserAccount(UserDTO accountDto) throws IOException {
-        UserEntity registered = null;
-        registered = userDAOInterface.registerNewUserAccount(accountDto);
-
-        return registered;
     }
 }

@@ -1,9 +1,7 @@
 package dao;
 
-import dto.UserDTO;
 import model.UserEntity;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -14,5 +12,4 @@ public interface UserDAOInterface {
     ArrayList<UserEntity> getAllUsers();
     UserEntity findUserByEmail(String email);
     boolean userExists(String email);
-    UserEntity registerNewUserAccount(UserDTO userDTO) throws IOException;
 }

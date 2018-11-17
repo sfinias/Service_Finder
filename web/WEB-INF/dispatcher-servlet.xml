@@ -23,7 +23,6 @@
     <context:component-scan base-package="model"/>
     <context:component-scan base-package="controller"/>
     <context:component-scan base-package="dao" />
-    <context:component-scan base-package="dto" />
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"

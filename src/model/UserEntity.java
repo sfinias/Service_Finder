@@ -12,11 +12,10 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
  * @author User
  */
 @Entity
-@Table(name = "user", schema = "dmngdb2")
+@Table(name = "user", schema = "dmngdb2", catalog = "")
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "User.findAll", query = "SELECT u FROM UserEntity u")
@@ -30,6 +29,8 @@ public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @Column(name = "id")
+    private int id;
     @Column(name = "email")
     private String email;
     @Basic(optional = false)
@@ -46,6 +47,9 @@ public class UserEntity implements Serializable {
     private String address;
     @Column(name = "phone")
     private String phone;
+    @Basic(optional = false)
+    @Column(name = "enabled", nullable = false, columnDefinition = "BIT", length = 1)
+    private boolean enabled;
     @Lob
     @Column(name = "photo")
     private byte[] photo;
@@ -55,6 +59,22 @@ public class UserEntity implements Serializable {
     private String emailConfirm;
     @Transient
     private String passwordConfirm;
+
+
+    public UserEntity() {
+    }
+
+    public UserEntity(String email) {
+        this.email = email;
+    }
+
+    public UserEntity(String email, String pass, String firstName, String lastName, String address) {
+        this.email = email;
+        this.pass = pass;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+    }
 
     public String getEmailConfirm() {
         return emailConfirm;
@@ -70,21 +90,6 @@ public class UserEntity implements Serializable {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
-    }
-
-    public UserEntity() {
-    }
-
-    public UserEntity(String email) {
-        this.email = email;
-    }
-
-    public UserEntity(String email, String pass, String firstName, String lastName, String address) {
-        this.email = email;
-        this.pass = pass;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
     }
 
     public String getEmail() {
@@ -151,6 +156,22 @@ public class UserEntity implements Serializable {
         this.file = file;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -174,5 +195,6 @@ public class UserEntity implements Serializable {
     public String toString() {
         return "model.UserEntity[ email=" + email + " ]";
     }
+
 
 }

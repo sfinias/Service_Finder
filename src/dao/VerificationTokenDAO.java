@@ -12,25 +12,21 @@ import javax.persistence.PersistenceContext;
  * @author tsamo
  */
 @Repository
-public abstract class VerificationTokenDAO implements VerificationTokenDAOInterface{
+public class VerificationTokenDAO implements VerificationTokenDAOInterface {
 
     @PersistenceContext
     private EntityManager em;
 
+
     @Transactional
-    public VerificationTokenEntity findByToken(String token) {
-        VerificationTokenEntity vte = em.find(VerificationTokenEntity.class,token);
-        return vte;
+    @Override
+    public void insertToken(VerificationTokenEntity v) {
+        em.persist(v);
     }
 
     @Transactional
-    public VerificationTokenEntity findByUser(UserEntity user) {
-        VerificationTokenEntity vte = em.find(VerificationTokenEntity.class,user);
-        return vte;
-    }
-
-    @Transactional
-    public void save(VerificationTokenEntity vte) {
-        em.persist(vte);
+    @Override
+    public UserEntity getUserFromToken(VerificationTokenEntity v) {
+        return em.find(UserEntity.class, v.getId());
     }
 }
