@@ -24,7 +24,6 @@ public class UserDAO implements UserDAOInterface {
     private EntityManager em;
 
     @Transactional
-    @Override
     public void insertUser(UserEntity u) {
         int length = 20;
         boolean useLetters = true;
@@ -39,35 +38,30 @@ public class UserDAO implements UserDAOInterface {
     }
 
     @Transactional
-    @Override
     public void insertAddress(AddressEntity a, int userid) {
         a.setUserId(userid);
         em.persist(a);
     }
 
     @Transactional
-    @Override
     public void insertPhone(PhoneEntity p, int userid) {
         p.setUserId(userid);
         em.persist(p);
     }
 
     @Transactional
-    @Override
     public ArrayList<UserEntity> getAllUsers() {
         Query query = em.createQuery("SELECT u FROM UserEntity u");
         return (ArrayList<UserEntity>) query.getResultList();
     }
 
     @Transactional
-    @Override
     public UserEntity findUserByEmail(String email) {
         Query query = em.createQuery("SELECT u FROM UserEntity u WHERE u.email='" + email + "'");
         return (UserEntity) query.getSingleResult();
     }
 
     @Transactional
-    @Override
     public boolean userExists(String email) {
         boolean flag;
         Query query = em.createQuery("SELECT u FROM UserEntity u WHERE u.email='" + email + "'");
@@ -81,28 +75,24 @@ public class UserDAO implements UserDAOInterface {
     }
 
     @Transactional
-    @Override
     public void enableUser(UserEntity u) {
         u.setEnabled(true);
         em.merge(u);
     }
 
     @Transactional
-    @Override
     public int getUserid(UserEntity user) {
         Query query = em.createQuery("SELECT u.id FROM UserEntity u WHERE u.email='" + user.getEmail() + "'");
         return (Integer) query.getSingleResult();
     }
 
     @Transactional
-    @Override
     public String getSalt(String email) {
         Query query = em.createQuery("SELECT u.passwordSalt FROM UserEntity u WHERE u.email='" + email + "'");
         return (String) query.getSingleResult();
     }
 
     @Transactional
-    @Override
     public ArrayList<String> getAllEmails() {
         Query query = em.createQuery("SELECT u.email FROM UserEntity u");
         return (ArrayList<String>) query.getResultList();

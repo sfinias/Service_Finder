@@ -57,12 +57,12 @@
         <property name="entityManagerFactory" ref="em"/>
     </bean>
 
-    <bean id="multipartResolver" name="filterMultipartResolver"
-          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <!--<bean id="multipartResolver" name="filterMultipartResolver"-->
+          <!--class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
 
-        <!-- one of the properties available; the maximum file size in bytes -->
-        <property name="maxUploadSize" value="100000"/>
-    </bean>
+        <!--&lt;!&ndash; one of the properties available; the maximum file size in bytes &ndash;&gt;-->
+        <!--<property name="maxUploadSize" value="100000"/>-->
+    <!--</bean>-->
 
     <bean id="messageSource"
           class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
