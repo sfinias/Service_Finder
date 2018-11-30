@@ -46,7 +46,7 @@
 <body>
 
 <div id="login" class="col s12">
-    <form:form class="col s12" method="post" action="/user/resetPassword.htm" modelAttribute="user">
+    <form:form class="col s12" method="post" action="${pageContext.request.contextPath}/user/resetPassword.htm" modelAttribute="user">
         <div class="form-container">
             <h3 class="red-text">Forgot password</h3>
             <h5 class="red-text">An email will be sent to your email, with a link to reset your password</h5>
@@ -68,7 +68,7 @@
     </form:form>
 </div>
 <div id="homebutton">
-    <form action="user/initialForm.htm">
+    <form action="${pageContext.request.contextPath}/user/initialForm.htm">
         <button class="home">Home</button>
     </form>
 </div>

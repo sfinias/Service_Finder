@@ -48,11 +48,11 @@
         <h3 class="red-text center" >Your account has not been activated</h3>
         <p>Check your inbox for an email from us to activate your account</p>
         <p>If you would like us to send you a new link to activate your account, please click the following link</p>
-        <a href="verification/newActivationLink.htm">I want a new activation link</a>
+        <a href="${pageContext.request.contextPath}/verification/newActivationLink.htm">I want a new activation link</a>
     </div>
 </div>
 <div id="homebutton">
-    <form action="user/initialForm.htm">
+    <form action="${pageContext.request.contextPath}/user/initialForm.htm">
         <button class="home">Home</button>
     </form>
 </div>

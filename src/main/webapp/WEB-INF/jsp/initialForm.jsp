@@ -64,7 +64,7 @@
         <li class="tab col s3"><a class="white-text" href="#register">register</a></li>
     </ul>
     <div id="login" class="col s12">
-        <form:form class="col s12" method="post" action="/checkLogin.htm" modelAttribute="user">
+        <form:form class="col s12" method="post" action="${pageContext.request.contextPath}/user/checkLogin.htm" modelAttribute="user">
             <div class="form-container">
                 <h3 class="red-text">Hello</h3>
                 <div class="row">
@@ -91,13 +91,13 @@
                     </button>
                     <br>
                     <br>
-                    <a href="user/forgotPassword.htm">Forgotten password?</a>
+                    <a href="${pageContext.request.contextPath}/user/forgotPassword.htm">Forgotten password?</a>
                 </center>
             </div>
         </form:form>
     </div>
     <div id="register" class="col s12">
-        <form:form class="col s12" method="post" action="checkRegister.htm" modelAttribute="user2"
+        <form:form class="col s12" method="post" action="${pageContext.request.contextPath}/user/checkRegister.htm" modelAttribute="user2"
                    accept-charset="UTF-8">
             <div class="form-container">
                 <h3 class="red-text">Welcome</h3>
@@ -188,7 +188,7 @@
     </div>
 </div>
 <div id="homebutton">
-    <form action="user/initialForm.htm">
+    <form action="${pageContext.request.contextPath}/user/initialForm.htm">
         <button class="home">Home</button>
     </form>
 </div>
@@ -249,7 +249,7 @@
             document.getElementById('message4').style.color = 'blue';
             document.getElementById('message4').innerHTML = 'Please allow some seconds to check the database';
             $.ajax({
-                url: 'http://localhost:8080/dmngMaven2_war_exploded/usersREST.htm',
+                url: '${pageContext.request.contextPath}/usersREST.htm',
                 contentType: 'application/json',
                 success: function (result) {
                     var jsonobj = $.parseJSON(result);

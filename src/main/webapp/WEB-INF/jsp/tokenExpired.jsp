@@ -47,11 +47,11 @@
     <div class="form-container">
         <h3 class="red-text center" >Your link has expired or no longer exists</h3>
         <p>If you would like us to send you a new link to activate your account, please click the following link</p>
-        <a href="verification/newActivationLink.htm">I want a new activation link</a>
+        <a href="${pageContext.request.contextPath}/verification/newActivationLink.htm">I want a new activation link</a>
     </div>
 </div>
 <div id="homebutton">
-    <form action="user/initialForm.htm">
+    <form action="${pageContext.request.contextPath}/user/initialForm.htm">
         <button class="home">Home</button>
     </form>
 </div>

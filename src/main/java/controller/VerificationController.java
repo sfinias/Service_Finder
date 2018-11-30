@@ -31,7 +31,7 @@ public class VerificationController {
         if (v.checkIfTokenExists(token) && v.checkIfTimeLessThan24Hours(v.getTimestampOfTokenCreation(token))) {
             UserEntity user = v.getUserFromToken(v.getTokenEntityFromToken(token));
             u.enableUser(user);
-            v.removeTokenByUserId(user.getId());
+//            v.removeTokenByUserId(user.getId());
             return "verificationSuccess";
         } else if (v.checkIfTokenExists(token) && !v.checkIfTimeLessThan24Hours(v.getTimestampOfTokenCreation(token))) {
             return "tokenExpired";

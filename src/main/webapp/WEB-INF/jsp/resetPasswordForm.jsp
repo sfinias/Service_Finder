@@ -46,7 +46,7 @@
 <body>
 
 <div id="login" class="col s12">
-    <form:form class="col s12" method="post" action="/user/changePassword.htm" modelAttribute="user">
+    <form:form class="col s12" method="post" action="${pageContext.request.contextPath}/user/changePassword.htm" modelAttribute="user">
         <div class="form-container">
             <h3 class="red-text">Reset Password</h3>
             <div class="row">
@@ -73,7 +73,7 @@
     </form:form>
 </div>
 <div id="homebutton">
-    <form action="user/initialForm.htm">
+    <form action="${pageContext.request.contextPath}/user/initialForm.htm">
         <button class="home">Home</button>
     </form>
 </div>

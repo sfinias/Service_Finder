@@ -122,7 +122,7 @@ public class UserController {
         if (v.checkIfTokenExists(token) && v.checkIfTimeLessThan24Hours(v.getTimestampOfTokenCreation(token))) {
             UserEntity user = v.getUserFromToken(v.getTokenEntityFromToken(token));
             modelMap.addAttribute("user", user);
-//            v.removeTokenByUserId(user.getId());           //Έχει θέμα με το delete. Χρειάζεται το @Modifying αλλά δεν μπορώ να βρω jarάκι που να το έχει. Μπορεί να ανήκει στο Spring Boot
+            v.removeTokenByUserId(user.getId());
             return "resetPasswordForm";
         } else if (v.checkIfTokenExists(token) && !v.checkIfTimeLessThan24Hours(v.getTimestampOfTokenCreation(token))) {
             return "tokenExpired";

@@ -45,7 +45,7 @@
 </head>
 <body>
 <div id="login" class="col s12">
-    <form:form class="col s12" method="post" action="/verification/sendNewLink.htm" modelAttribute="user">
+    <form:form class="col s12" method="post" action="${pageContext.request.contextPath}/verification/sendNewLink.htm" modelAttribute="user">
         <div class="form-container">
             <h3 class="red-text">Input your email to send a new activation link</h3>
             <div class="row">
@@ -63,7 +63,7 @@
     </form:form>
 </div>
 <div id="homebutton">
-    <form action="user/initialForm.htm">
+    <form action="${pageContext.request.contextPath}/user/initialForm.htm">
         <button class="home">Home</button>
     </form>
 </div>

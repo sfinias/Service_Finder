@@ -3,6 +3,7 @@ package dao;
 import model.UserEntity;
 import model.VerificationTokenEntity;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -115,9 +116,10 @@ public class VerificationTokenDAO implements VerificationTokenDAOInterface {
         return (String) query.getSingleResult();
     }
 
+    @Modifying
     @Transactional
     public int removeTokenByUserId(int userId) {
         Query query = em.createQuery("DELETE FROM VerificationTokenEntity v WHERE v.userId=" + userId);
-        return (int) query.getSingleResult();
+        return query.executeUpdate();
     }
 }

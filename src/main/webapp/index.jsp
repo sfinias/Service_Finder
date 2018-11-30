@@ -50,7 +50,7 @@
       <h3 class="red-text center ">
         Welcome!! Push Start to go to the Home menu.
       </h3>
-      <form action="user/initialForm.htm">
+      <form action="${pageContext.request.contextPath}/user/initialForm.htm">
         <button id="homebutton" class="home">Start</button>
       </form>
     </div>
