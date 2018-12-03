@@ -107,6 +107,7 @@ public class UserController {
             v.createTokenForUser(uid);
             String token = v.getTokenOfUser(uid);
             String subject = "Reset Password";
+            //Το όνομα του site πρέπει να μπει χειροκίνητα. Δεν υπάρχεις τρόπος να το βάλουμε να το παίρνει δυναμικά.
             String text = "You have have asked for a password reset for the e-mail:" + emailSubmitted + ". \n" +
                     "To reset your password, please follow the following link. http://localhost:8080/user/resetPasssword/" + token + ".htm \n\n" +
                     "With regards, \n" +
