@@ -61,7 +61,7 @@ public class UserController {
         } else {
             boolean test= u.isUserActivated(emailSubmitted);
             model.addAttribute("userEmail", emailSubmitted);
-            return "loggedIn";
+            return "loggedin";
         }
     }
 
