@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import utils.MailService;
 import validation.FormValids;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
@@ -46,7 +47,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/checkLogin.htm")
-    public String checksBeforeLoign(ModelMap model, UserEntity user) {
+    public String checksBeforeLoign(ModelMap model, UserEntity user, HttpSession session) {
         String emailSubmitted = user.getEmail();
         String password = user.getPasswordConfirm();
         if (!u.userExists(emailSubmitted)) {
@@ -59,8 +60,9 @@ public class UserController {
             model.addAttribute("userEmail", emailSubmitted);
             return "notActivated";
         } else {
-            boolean test= u.isUserActivated(emailSubmitted);
-            model.addAttribute("userEmail", emailSubmitted);
+//            boolean test= u.isUserActivated(emailSubmitted);
+//            model.addAttribute("userEmail", emailSubmitted);
+            session.setAttribute("user", u.findUserByEmail(emailSubmitted));
             return "loggedin";
         }
     }

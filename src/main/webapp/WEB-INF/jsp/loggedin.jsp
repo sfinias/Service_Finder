@@ -7,17 +7,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Work+Sans:300,400,700" rel="stylesheet">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/fonts/icomoon/style.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/fonts/flaticon/flaticon.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/animate.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/aos.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/bootstrap-datepicker.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/jquery-ui.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/magnific-popup.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/owl.theme.default.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/style.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/flaticon/flaticon.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/aos.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/magnific-popup.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">        
 
@@ -54,9 +54,7 @@
                                                         class="icon-menu h3"></span></a></div>
 
                                             <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                                </li>
-                                                <a>Welcome</a>
-                                                <a>Name</a>
+                                                Welcome ${user.firstName}
                                             </ul>
                                         </div>
                                     </nav>
@@ -134,38 +132,38 @@
         </footer>
     </div>
 
-    <script src="${pageContext.request.contextPath}/dist/js/aos.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/bootstrap-datepicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/jquery.countdown.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/jquery.magnific-popup.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/jquery.stellar.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/jquery-3.3.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/jquery-ui.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/mediaelement-and-player.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/aos.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap-datepicker.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.countdown.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.magnific-popup.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.stellar.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/mediaelement-and-player.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/popper.min.js"></script>
 
 
     <script>
-                                                        document.addEventListener('DOMContentLoaded', function () {
-                                                            var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
+        document.addEventListener('DOMContentLoaded', function () {
+            var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
 
-                                                            for (var i = 0; i < total; i++) {
-                                                                new MediaElementPlayer(mediaElements[i], {
-                                                                    pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
-                                                                    shimScriptAccess: 'always',
-                                                                    success: function () {
-                                                                        var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
-                                                                        for (var j = 0; j < targetTotal; j++) {
-                                                                            target[j].style.visibility = 'visible';
-                                                                        }
-                                                                    }
-                                                                });
-                                                            }
-                                                        });
+            for (var i = 0; i < total; i++) {
+                new MediaElementPlayer(mediaElements[i], {
+                    pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
+                    shimScriptAccess: 'always',
+                    success: function () {
+                        var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
+                        for (var j = 0; j < targetTotal; j++) {
+                            target[j].style.visibility = 'visible';
+                        }
+                    }
+                });
+            }
+        });
     </script>
 
 
