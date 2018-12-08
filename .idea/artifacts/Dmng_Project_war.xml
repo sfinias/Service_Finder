@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Dmng_Project:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Dmng_Project</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="dmng-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Dmng_Project:war exploded" />
+    </root>
+  </artifact>
+</component>

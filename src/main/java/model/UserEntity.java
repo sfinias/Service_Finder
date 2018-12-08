@@ -20,6 +20,7 @@ public class UserEntity {
     private String emailConfirm;
     @Transient
     private String passwordConfirm;
+    private int professionId;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -126,5 +127,15 @@ public class UserEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, email, passwordSalt, passwordHash, enabled);
+    }
+
+    @Basic
+    @Column(name = "profession_id", nullable = false)
+    public int getProfessionId() {
+        return professionId;
+    }
+
+    public void setProfessionId(int professionId) {
+        this.professionId = professionId;
     }
 }

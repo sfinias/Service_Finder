@@ -8,6 +8,7 @@ package validation;
 import model.RegisterEntity;
 import org.hazlewood.connor.bottema.emailaddress.EmailAddressCriteria;
 import org.hazlewood.connor.bottema.emailaddress.EmailAddressValidator;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -16,6 +17,7 @@ import org.springframework.validation.Validator;
  *
  * @author matina
  */
+@Component
 public class FormValids implements Validator{
 
     @Override

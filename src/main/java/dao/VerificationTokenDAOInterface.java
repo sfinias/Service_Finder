@@ -24,4 +24,8 @@ public interface VerificationTokenDAOInterface {
     void createTokenForUser(int userId);
 
     String getTokenOfUser(int userId);
+
+    int removeTokenByUserId(int userId);
+
+    boolean tokenForUserExists(int userId);
 }

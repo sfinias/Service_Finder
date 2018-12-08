@@ -36,7 +36,7 @@ public class AddressEntity {
     }
 
     @Basic
-    @Column(name = "longit", nullable = false, precision = 8)
+    @Column(name = "longit", precision = 8)
     public BigDecimal getLongit() {
         return longit;
     }
@@ -46,7 +46,7 @@ public class AddressEntity {
     }
 
     @Basic
-    @Column(name = "latit", nullable = false, precision = 8)
+    @Column(name = "latit", precision = 8)
     public BigDecimal getLatit() {
         return latit;
     }
