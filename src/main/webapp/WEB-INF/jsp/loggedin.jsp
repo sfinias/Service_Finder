@@ -7,17 +7,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Work+Sans:300,400,700" rel="stylesheet">
-        <link rel="stylesheet" href="../../dist/fonts/icomoon/style.css">
-        <link rel="stylesheet" href="../../dist/fonts/flaticon/flaticon.css">        
-        <link rel="stylesheet" href="../../dist/css/animate.css">  
-        <link rel="stylesheet" href="../../dist/css/aos.css">
-        <link rel="stylesheet" href="../../dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../../dist/css/bootstrap-datepicker.css">               
-        <link rel="stylesheet" href="../../dist/css/jquery-ui.css">
-        <link rel="stylesheet" href="../../dist/css/magnific-popup.css">        
-        <link rel="stylesheet" href="../../dist/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="../../dist/css/owl.theme.default.min.css">                          
-        <link rel="stylesheet" href="../../dist/css/style.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/fonts/icomoon/style.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/fonts/flaticon/flaticon.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/animate.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/aos.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/jquery-ui.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/magnific-popup.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/style.css">
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">        
 
@@ -69,7 +69,7 @@
 
             <div style="height: 113px;"></div>
 
-            <div class="site-blocks-cover overlay" style="background-image: url('../../dist/images/hero_1.jpg');" data-aos="fade"
+            <div class="site-blocks-cover overlay" style="background-image: url('${pageContext.request.contextPath}/dist/images/hero_1.jpg');" data-aos="fade"
                  data-stellar-background-ratio="0.5">
                 <div class="container">
                     <div class="row align-items-center">
@@ -122,7 +122,7 @@
                     <div class="col-md-12">
                         <p>
                             Copyright &copy;
-                            <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+                            <%--<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>--%>
                             <script>document.write(new Date().getFullYear());</script> All Rights Reserved | This template is made
                             with <i class="icon-heart text-warning" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">DMNG
                                 team</a>
@@ -134,19 +134,19 @@
         </footer>
     </div>
 
-    <script src="../../dist/js/aos.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <script src="../../dist/js/bootstrap-datepicker.min.js"></script>
-    <script src="../../dist/js/jquery.countdown.min.js"></script>
-    <script src="../../dist/js/jquery.magnific-popup.min.js"></script>
-    <script src="../../dist/js/jquery.stellar.min.js"></script>    
-    <script src="../../dist/js/jquery-3.3.1.min.js"></script>        
-    <script src="../../dist/js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="../../dist/js/jquery-ui.js"></script>
-    <script src="../../dist/js/main.js"></script>
-    <script src="../../dist/js/mediaelement-and-player.min.js"></script>
-    <script src="../../dist/js/owl.carousel.min.js"></script>
-    <script src="../../dist/js/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/aos.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/jquery.countdown.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/jquery.magnific-popup.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/jquery.stellar.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/jquery-3.3.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/jquery-ui.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/mediaelement-and-player.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/owl.carousel.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/popper.min.js"></script>
 
 
     <script>
