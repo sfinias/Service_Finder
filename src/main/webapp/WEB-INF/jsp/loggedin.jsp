@@ -54,7 +54,7 @@
                                                         class="icon-menu h3"></span></a></div>
 
                                             <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                                Welcome ${user.firstName}
+                                                Welcome ${sessionScope.user.firstName}
                                             </ul>
                                         </div>
                                     </nav>
@@ -102,8 +102,8 @@
                                         <input type="submit" class="btn btn-search btn-primary btn-block" value="Search">
                                     </div>
                                 </div>
+                            </form>
                         </div>
-                        </form>
                     </div>
                 </div>
             </div>
