@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import utils.MailService;
 import validation.FormValids;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -36,6 +37,10 @@ public class UserController {
 
     @Autowired
     private FormValids formValids;
+
+    @Autowired
+    ServletContext servletContext;
+
 
     private MailService mailService = new MailService();
 
@@ -62,6 +67,7 @@ public class UserController {
         } else {
 //            boolean test= u.isUserActivated(emailSubmitted);
 //            model.addAttribute("userEmail", emailSubmitted);
+            servletContext.setAttribute("allProfessions", u.getAllProfessions());
             session.setAttribute("user", u.findUserByEmail(emailSubmitted));
             return "loggedin";
         }

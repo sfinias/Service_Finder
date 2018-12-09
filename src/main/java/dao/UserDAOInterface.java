@@ -2,6 +2,7 @@ package dao;
 
 import model.AddressEntity;
 import model.PhoneEntity;
+import model.ProfessionsEntity;
 import model.UserEntity;
 
 import java.util.ArrayList;
@@ -22,4 +23,5 @@ public interface UserDAOInterface {
     String getSalt(String email);
     boolean isUserActivated(String email);
     void changePasswordOfUser(String email, String newPassword);
+    ArrayList<ProfessionsEntity> getAllProfessions();
 }

@@ -2,6 +2,7 @@ package dao;
 
 import model.AddressEntity;
 import model.PhoneEntity;
+import model.ProfessionsEntity;
 import model.UserEntity;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -121,4 +122,9 @@ public class UserDAO implements UserDAOInterface {
         return (ArrayList<String>) query.getResultList();
     }
 
+    @Transactional
+    public ArrayList<ProfessionsEntity> getAllProfessions() {
+        Query query = em.createQuery("SELECT p FROM ProfessionsEntity p");
+        return (ArrayList<ProfessionsEntity>) query.getResultList();
+    }
 }
