@@ -10,6 +10,7 @@ utils\MailService.class
 dao\UserDAOInterface.class
 model\PhoneEntity.class
 validation\ExtraDetailsForm.class
+model\ProfessionsEntity.class
 dao\UserDAO.class
 model\UserDetailsEntity.class
 model\VerificationTokenEntity.class
