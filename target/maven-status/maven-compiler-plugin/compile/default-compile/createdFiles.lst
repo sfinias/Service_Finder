@@ -1,3 +1,4 @@
+dao\ProfessionsDAO.class
 model\AddressEntity.class
 model\RegisterEntity.class
 controller\SpringRest.class
@@ -9,6 +10,7 @@ dao\VerificationTokenDAOInterface.class
 utils\MailService.class
 dao\UserDAOInterface.class
 model\PhoneEntity.class
+dao\ProfessionsDAOInterface.class
 validation\ExtraDetailsForm.class
 model\ProfessionsEntity.class
 dao\UserDAO.class

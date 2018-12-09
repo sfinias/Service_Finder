@@ -5,6 +5,7 @@ C:\Users\Nah\OneDrive\testWork\git\tower\dmng\src\main\java\dao\UserDAO.java
 C:\Users\Nah\OneDrive\testWork\git\tower\dmng\src\main\java\model\VerificationTokenEntity.java
 C:\Users\Nah\OneDrive\testWork\git\tower\dmng\src\main\java\validation\ExtraDetailsForm.java
 C:\Users\Nah\OneDrive\testWork\git\tower\dmng\src\main\java\controller\SpringRest.java
+C:\Users\Nah\OneDrive\testWork\git\tower\dmng\src\main\java\dao\ProfessionsDAOInterface.java
 C:\Users\Nah\OneDrive\testWork\git\tower\dmng\src\main\java\model\RegisterEntity.java
 C:\Users\Nah\OneDrive\testWork\git\tower\dmng\src\main\java\model\UserEntity.java
 C:\Users\Nah\OneDrive\testWork\git\tower\dmng\src\main\java\controller\VerificationController.java
@@ -14,4 +15,5 @@ C:\Users\Nah\OneDrive\testWork\git\tower\dmng\src\main\java\model\PhoneEntity.ja
 C:\Users\Nah\OneDrive\testWork\git\tower\dmng\src\main\java\controller\UserController.java
 C:\Users\Nah\OneDrive\testWork\git\tower\dmng\src\main\java\dao\VerificationTokenDAOInterface.java
 C:\Users\Nah\OneDrive\testWork\git\tower\dmng\src\main\java\model\UserDetailsEntity.java
+C:\Users\Nah\OneDrive\testWork\git\tower\dmng\src\main\java\dao\ProfessionsDAO.java
 C:\Users\Nah\OneDrive\testWork\git\tower\dmng\src\main\java\model\ProfessionsEntity.java
