@@ -1,7 +1,12 @@
 package controller;
 
+import dao.ProfessionsDAOInterface;
 import dao.UserDAOInterface;
 import dao.VerificationTokenDAOInterface;
+import java.util.List;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import model.RegisterEntity;
 import model.UserEntity;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -18,14 +23,20 @@ import utils.MailService;
 import validation.FormValids;
 
 import javax.validation.Valid;
+import model.ProfessionsEntity;
 
 /**
  * @author tsamo
  */
-
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
+
+    @Autowired
+    private ProfessionsDAOInterface p;
+
+    @Autowired
+    ServletContext servletContext;
 
     @Autowired
     private UserDAOInterface u;
@@ -46,7 +57,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/checkLogin.htm")
-    public String checksBeforeLoign(ModelMap model, UserEntity user) {
+    public String checksBeforeLoign(ModelMap model, UserEntity user, HttpServletRequest request) {
         String emailSubmitted = user.getEmail();
         String password = user.getPasswordConfirm();
         if (!u.userExists(emailSubmitted)) {
@@ -55,12 +66,18 @@ public class UserController {
         } else if (u.userExists(emailSubmitted) && !u.findUserByEmail(emailSubmitted).getPasswordHash().equals(DigestUtils.sha512Hex(password + u.getSalt(emailSubmitted)))) {
             model.addAttribute("userEmail", emailSubmitted);
             return "wrongPassword";
-        } else if(u.userExists(emailSubmitted) && u.findUserByEmail(emailSubmitted).getPasswordHash().equals(DigestUtils.sha512Hex(password + u.getSalt(emailSubmitted))) && !u.isUserActivated(emailSubmitted)) {
+        } else if (u.userExists(emailSubmitted) && u.findUserByEmail(emailSubmitted).getPasswordHash().equals(DigestUtils.sha512Hex(password + u.getSalt(emailSubmitted))) && !u.isUserActivated(emailSubmitted)) {
             model.addAttribute("userEmail", emailSubmitted);
             return "notActivated";
         } else {
-            boolean test= u.isUserActivated(emailSubmitted);
+            boolean test = u.isUserActivated(emailSubmitted);
             model.addAttribute("userEmail", emailSubmitted);
+            UserEntity newUser = u.findUserByEmail(emailSubmitted);
+            List<ProfessionsEntity> professionsList = p.getAllProfessions();
+            servletContext.setAttribute("allProfessions", professionsList);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("user", newUser);
             return "loggedin";
         }
     }
@@ -108,10 +125,10 @@ public class UserController {
             String token = v.getTokenOfUser(uid);
             String subject = "Reset Password";
             //Το όνομα του site πρέπει να μπει χειροκίνητα. Δεν υπάρχεις τρόπος να το βάλουμε να το παίρνει δυναμικά.
-            String text = "You have have asked for a password reset for the e-mail:" + emailSubmitted + ". \n" +
-                    "To reset your password, please follow the following link. http://localhost:8080/user/resetPasssword/" + token + ".htm \n\n" +
-                    "With regards, \n" +
-                    "The Awesome Inc. Team";
+            String text = "You have have asked for a password reset for the e-mail:" + emailSubmitted + ". \n"
+                    + "To reset your password, please follow the following link. http://localhost:8080/user/resetPasssword/" + token + ".htm \n\n"
+                    + "With regards, \n"
+                    + "The Awesome Inc. Team";
             mailService.sendMail(emailSubmitted, subject, text);
             modelMap.addAttribute("userEmail", emailSubmitted);
             return "resetEmailSent";
@@ -119,7 +136,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/resetPasssword/{token}")
-    public String handleForm(@PathVariable String token,ModelMap modelMap) {
+    public String handleForm(@PathVariable String token, ModelMap modelMap) {
         if (v.checkIfTokenExists(token) && v.checkIfTimeLessThan24Hours(v.getTimestampOfTokenCreation(token))) {
             UserEntity user = v.getUserFromToken(v.getTokenEntityFromToken(token));
             modelMap.addAttribute("user", user);
@@ -147,5 +164,12 @@ public class UserController {
             model.addAttribute("userEmail", emailSubmitted);
             return "resetSuccess";
         }
+
+    }
+
+    @RequestMapping(value = "/account.htm")
+    public String account(ModelMap model, UserEntity user) {
+        model.addAttribute("user", user);
+        return "profile";
     }
 }
