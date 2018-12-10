@@ -61,22 +61,22 @@
 </footer>
 </div>
 
-<script src="../../dist/js/jquery-3.3.1.min.js"></script>
-<script src="../../dist/js/jquery-migrate-3.0.1.min.js"></script>
-<script src="../../dist/js/jquery-ui.js"></script>
-<script src="../../dist/js/popper.min.js"></script>
-<script src="../../dist/js/bootstrap.min.js"></script>
-<script src="../../dist/js/owl.carousel.min.js"></script>
-<script src="../../dist/js/jquery.stellar.min.js"></script>
-<script src="../../dist/js/jquery.countdown.min.js"></script>
-<script src="../../dist/js/jquery.magnific-popup.min.js"></script>
-<script src="../../dist/js/bootstrap-datepicker.min.js"></script>
-<script src="../../dist/js/aos.js"></script>
+<script src="${pageContext.request.contextPath}/dist/js/jquery-3.3.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/dist/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/dist/js/jquery-ui.js"></script>
+<script src="${pageContext.request.contextPath}/dist/js/popper.min.js"></script>
+<script src="${pageContext.request.contextPath}/dist/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/dist/js/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/dist/js/jquery.stellar.min.js"></script>
+<script src="${pageContext.request.contextPath}/dist/js/jquery.countdown.min.js"></script>
+<script src="${pageContext.request.contextPath}/dist/js/jquery.magnific-popup.min.js"></script>
+<script src="${pageContext.request.contextPath}/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="${pageContext.request.contextPath}/dist/js/aos.js"></script>
 
 
-<script src="../../dist/js/mediaelement-and-player.min.js"></script>
+<script src="${pageContext.request.contextPath}/dist/js/mediaelement-and-player.min.js"></script>
 
-<script src="../../dist/js/main.js"></script>
+<script src="${pageContext.request.contextPath}/dist/js/main.js"></script>
 
 
 <script>

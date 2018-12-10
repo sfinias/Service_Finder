@@ -57,28 +57,33 @@ public class UserController {
     }
 
     @RequestMapping(value = "/checkLogin.htm")
-    public String checksBeforeLoign(ModelMap model, UserEntity user, HttpServletRequest request) {
+    public String checksBeforeLoign(ModelMap model, UserEntity user, HttpSession session) {
         String emailSubmitted = user.getEmail();
         String password = user.getPasswordConfirm();
         if (!u.userExists(emailSubmitted)) {
             model.addAttribute("userEmail", emailSubmitted);
             return "userDoesNotExist";
-        } else if (u.userExists(emailSubmitted) && !u.findUserByEmail(emailSubmitted).getPasswordHash().equals(DigestUtils.sha512Hex(password + u.getSalt(emailSubmitted)))) {
-            model.addAttribute("userEmail", emailSubmitted);
-            return "wrongPassword";
-        } else if (u.userExists(emailSubmitted) && u.findUserByEmail(emailSubmitted).getPasswordHash().equals(DigestUtils.sha512Hex(password + u.getSalt(emailSubmitted))) && !u.isUserActivated(emailSubmitted)) {
-            model.addAttribute("userEmail", emailSubmitted);
-            return "notActivated";
         } else {
-            boolean test = u.isUserActivated(emailSubmitted);
-            model.addAttribute("userEmail", emailSubmitted);
-            UserEntity newUser = u.findUserByEmail(emailSubmitted);
-            List<ProfessionsEntity> professionsList = p.getAllProfessions();
-            servletContext.setAttribute("allProfessions", professionsList);
-
-            HttpSession session = request.getSession();
-            session.setAttribute("user", newUser);
-            return "loggedin";
+            if (!u.findUserByEmail(emailSubmitted).getPasswordHash().equals(DigestUtils.sha512Hex(password + u.getSalt(emailSubmitted)))) {
+                model.addAttribute("userEmail", emailSubmitted);
+                return "wrongPassword";
+            } else {
+                if (!u.isUserActivated(emailSubmitted)) {
+                    model.addAttribute("userEmail", emailSubmitted);
+                    return "notActivated";
+                } else {
+//            boolean test= u.isUserActivated(emailSubmitted);
+//            model.addAttribute("userEmail", emailSubmitted);
+                    UserEntity userEntity = u.findUserByEmail(emailSubmitted);
+                    session.setAttribute("user", userEntity);
+                    if(userEntity.getProfessionId()==1) {
+                        servletContext.setAttribute("allProfessions", p.getAllProfessions());
+                        return "index";
+                    }else{
+                        return "homeProf";
+                    }
+                }
+            }
         }
     }
 

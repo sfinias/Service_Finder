@@ -1,7 +1,7 @@
 <%@include file = "header.jsp" %>
 
 
-<div class="site-blocks-cover overlay" style="background-image: url('images/hero_1.jpg');" data-aos="fade" data-stellar-background-ratio="0.5">
+<div class="site-blocks-cover overlay" style="background-image: url('${pageContext.request.contextPath}/dist/images/hero_1.jpg');" data-aos="fade" data-stellar-background-ratio="0.5">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-12" data-aos="fade">
@@ -11,7 +11,12 @@
                         <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-6 mb-3 mb-md-0">
-                                    <input type="text" class="mr-3 form-control border-0 px-4" placeholder="job title, keywords or company name ">
+                                    <select class="mr-3 form-control border-0 px-4">
+                                        <option selected>Choose Service...</option>
+                                        <c:forEach items="${allProfessions}" var="item">
+                                            <option value="${item.id}">${item.profession}</option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
                                 <div class="col-md-6 mb-3 mb-md-0">
                                     <div class="input-wrap">
@@ -115,9 +120,9 @@
                 <h2 class="mb-5 h3">Recent Jobs</h2>
                 <div class="rounded border jobs-wrap">
 
-                    <a href="job-single.html" class="job-item d-block d-md-flex align-items-center  border-bottom fulltime">
+                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center  border-bottom fulltime">
                         <div class="company-logo blank-logo text-center text-md-left pl-3">
-                            <img src="images/company_logo_blank.png" alt="Image" class="img-fluid mx-auto">
+                            <img src="${pageContext.request.contextPath}/dist/images/company_logo_blank.png" alt="Image" class="img-fluid mx-auto">
                         </div>
                         <div class="job-details h-100">
                             <div class="p-3 align-self-center">
@@ -136,9 +141,9 @@
                         </div>  
                     </a>
 
-                    <a href="job-single.html" class="job-item d-block d-md-flex align-items-center freelance">
+                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center freelance">
                         <div class="company-logo blank-logo text-center text-md-left pl-3">
-                            <img src="images/logo_1.png" alt="Image" class="img-fluid mx-auto">
+                            <img src="${pageContext.request.contextPath}/dist/images/logo_1.png" alt="Image" class="img-fluid mx-auto">
                         </div>
                         <div class="job-details h-100">
                             <div class="p-3 align-self-center">
@@ -158,9 +163,9 @@
                     </a>
 
 
-                    <a href="job-single.html" class="job-item d-block d-md-flex align-items-center freelance">
+                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center freelance">
                         <div class="company-logo blank-logo text-center text-md-left pl-3">
-                            <img src="images/logo_1.png" alt="Image" class="img-fluid mx-auto">
+                            <img src="${pageContext.request.contextPath}/dist/images/logo_1.png" alt="Image" class="img-fluid mx-auto">
                         </div>
                         <div class="job-details h-100">
                             <div class="p-3 align-self-center">
@@ -180,9 +185,9 @@
                     </a>
 
 
-                    <a href="job-single.html" class="job-item d-block d-md-flex align-items-center fulltime">
+                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center fulltime">
                         <div class="company-logo blank-logo text-center text-md-left pl-3">
-                            <img src="images/company_logo_blank.png" alt="Image" class="img-fluid mx-auto">
+                            <img src="${pageContext.request.contextPath}/dist/images/company_logo_blank.png" alt="Image" class="img-fluid mx-auto">
                         </div>
                         <div class="job-details h-100">
                             <div class="p-3 align-self-center">
@@ -201,9 +206,9 @@
                         </div>  
                     </a>
 
-                    <a href="job-single.html" class="job-item d-block d-md-flex align-items-center partime">
+                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center partime">
                         <div class="company-logo blank-logo text-center text-md-left pl-3">
-                            <img src="images/logo_2.png" alt="Image" class="img-fluid mx-auto">
+                            <img src="${pageContext.request.contextPath}/dist/images/logo_2.png" alt="Image" class="img-fluid mx-auto">
                         </div>
                         <div class="job-details h-100">
                             <div class="p-3 align-self-center">
@@ -297,7 +302,7 @@
                         <span class="icon-wrap">
                             <span class="icon icon-play"></span>
                         </span>
-                        <img src="images/hero_2.jpg" alt="Image" class="img-fluid rounded">
+                        <img src="${pageContext.request.contextPath}/dist/images/hero_2.jpg" alt="Image" class="img-fluid rounded">
                     </a>
                 </div>
 
@@ -316,7 +321,7 @@
 </div>
 
 
-<div class="site-blocks-cover overlay inner-page" style="background-image: url('images/hero_1.jpg');" data-aos="fade" data-stellar-background-ratio="0.5">
+<div class="site-blocks-cover overlay inner-page" style="background-image: url('${pageContext.request.contextPath}/dist/images/hero_1.jpg');" data-aos="fade" data-stellar-background-ratio="0.5">
     <div class="container">
         <div class="row align-items-center justify-content-center">
             <div class="col-md-6 text-center" data-aos="fade">
@@ -387,7 +392,7 @@
             <div class="media-with-text">
                 <div class="img-border-sm mb-4">
                     <a href="#" class="image-play">
-                        <img src="images/img_1.jpg" alt="" class="img-fluid">
+                        <img src="${pageContext.request.contextPath}/dist/images/img_1.jpg" alt="" class="img-fluid">
                     </a>
                 </div>
                 <h2 class="heading mb-0 h5"><a href="#">Jobs are made easy</a></h2>
@@ -398,7 +403,7 @@
             <div class="media-with-text">
                 <div class="img-border-sm mb-4">
                     <a href="#" class="image-play">
-                        <img src="images/img_2.jpg" alt="" class="img-fluid">
+                        <img src="${pageContext.request.contextPath}/dist/images/img_2.jpg" alt="" class="img-fluid">
                     </a>
                 </div>
                 <h2 class="heading mb-0 h5"><a href="#">Jobs are made easy</a></h2>
@@ -409,7 +414,7 @@
             <div class="media-with-text">
                 <div class="img-border-sm mb-4">
                     <a href="#" class="image-play">
-                        <img src="images/img_3.jpg" alt="" class="img-fluid">
+                        <img src="${pageContext.request.contextPath}/dist/images/img_3.jpg" alt="" class="img-fluid">
                     </a>
                 </div>
                 <h2 class="heading mb-0 h5"><a href="#">Jobs are made easy</a></h2>
@@ -420,7 +425,7 @@
             <div class="media-with-text">
                 <div class="img-border-sm mb-4">
                     <a href="#" class="image-play">
-                        <img src="images/img_1.jpg" alt="" class="img-fluid">
+                        <img src="${pageContext.request.contextPath}/dist/images/img_1.jpg" alt="" class="img-fluid">
                     </a>
                 </div>
                 <h2 class="heading mb-0 h5"><a href="#">Jobs are made easy</a></h2>
@@ -431,7 +436,7 @@
             <div class="media-with-text">
                 <div class="img-border-sm mb-4">
                     <a href="#" class="image-play">
-                        <img src="images/img_2.jpg" alt="" class="img-fluid">
+                        <img src="${pageContext.request.contextPath}/dist/images/img_2.jpg" alt="" class="img-fluid">
                     </a>
                 </div>
                 <h2 class="heading mb-0 h5"><a href="#">Jobs are made easy</a></h2>
@@ -442,7 +447,7 @@
             <div class="media-with-text">
                 <div class="img-border-sm mb-4">
                     <a href="#" class="image-play">
-                        <img src="images/img_3.jpg" alt="" class="img-fluid">
+                        <img src="${pageContext.request.contextPath}/dist/images/img_3.jpg" alt="" class="img-fluid">
                     </a>
                 </div>
                 <h2 class="heading mb-0 h5"><a href="#">Jobs are made easy</a></h2>
@@ -453,7 +458,7 @@
             <div class="media-with-text">
                 <div class="img-border-sm mb-4">
                     <a href="#" class="image-play">
-                        <img src="images/img_1.jpg" alt="" class="img-fluid">
+                        <img src="${pageContext.request.contextPath}/dist/images/img_1.jpg" alt="" class="img-fluid">
                     </a>
                 </div>
                 <h2 class="heading mb-0 h5"><a href="#">Jobs are made easy</a></h2>
@@ -464,7 +469,7 @@
             <div class="media-with-text">
                 <div class="img-border-sm mb-4">
                     <a href="#" class="image-play">
-                        <img src="images/img_2.jpg" alt="" class="img-fluid">
+                        <img src="${pageContext.request.contextPath}/dist/images/img_2.jpg" alt="" class="img-fluid">
                     </a>
                 </div>
                 <h2 class="heading mb-0 h5"><a href="#">Jobs are made easy</a></h2>
@@ -475,7 +480,7 @@
             <div class="media-with-text">
                 <div class="img-border-sm mb-4">
                     <a href="#" class="image-play">
-                        <img src="images/img_3.jpg" alt="" class="img-fluid">
+                        <img src="${pageContext.request.contextPath}/dist/images/img_3.jpg" alt="" class="img-fluid">
                     </a>
                 </div>
                 <h2 class="heading mb-0 h5"><a href="#">Jobs are made easy</a></h2>

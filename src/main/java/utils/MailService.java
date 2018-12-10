@@ -3,6 +3,7 @@ package utils;
 import org.simplejavamail.email.Email;
 import org.simplejavamail.email.EmailBuilder;
 import org.simplejavamail.mailer.MailerBuilder;
+import org.springframework.stereotype.Component;
 
 /**
  * @author tsamo
