@@ -172,9 +172,8 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/account.htm")
-    public String account(ModelMap model, UserEntity user) {
-        model.addAttribute("user", user);
-        return "profile";
+    @RequestMapping(value = "/search.htm")
+    public String searchProf(){
+        return "testSearch";
     }
 }

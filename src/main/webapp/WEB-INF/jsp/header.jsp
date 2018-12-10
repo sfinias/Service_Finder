@@ -58,7 +58,7 @@
                                             <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
 
                                             <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                                <li><a href="categories.html">For Candidates</a></li>
+                                                <li><a href="${pageContext.request.contextPath}/user/search.htm">For Candidates</a></li>
                                                 <li class="has-children">
                                                     <a href="category.html">For Employees</a>
                                                     <ul class="dropdown arrow-top">
