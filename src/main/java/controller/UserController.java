@@ -51,6 +51,13 @@ public class UserController {
         return "initialForm";
     }
 
+    @RequestMapping(value = "/testing.htm")
+    public String testing(ModelMap modelMap) {
+        modelMap.addAttribute("user", new UserEntity());
+        modelMap.addAttribute("user2", new RegisterEntity());
+        return "TestingForm";
+    }
+
     @RequestMapping(value = "/checkLogin.htm")
     public String checksBeforeLoign(ModelMap model, UserEntity user, HttpSession session) {
         String emailSubmitted = user.getEmail();

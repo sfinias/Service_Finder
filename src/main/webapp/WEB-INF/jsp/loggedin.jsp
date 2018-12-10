@@ -18,15 +18,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.css">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
-
-
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/flaticon/font/flaticon.css">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/aos.css">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 
 </head>
@@ -75,8 +69,7 @@
 
     <div style="height: 113px;"></div>
 
-    <div class="site-blocks-cover overlay" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" data-aos="fade"
-         data-stellar-background-ratio="0.5">
+    <div class="site-blocks-cover overlay" style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');" data-aos="fade" data-stellar-background-ratio="0.5">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-12" data-aos="fade">
