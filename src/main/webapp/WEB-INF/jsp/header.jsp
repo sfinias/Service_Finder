@@ -27,7 +27,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/aos.css">
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/style.css">
-
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpNb7KwtNgmsphG-7u8AhPPZ_h_4ZkG5Y&libraries=places&callback=initMap"></script>
     </head>
     <body>
 

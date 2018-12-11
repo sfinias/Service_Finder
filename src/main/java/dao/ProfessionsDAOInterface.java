@@ -3,6 +3,7 @@ package dao;
 
 import java.util.List;
 import model.ProfessionsEntity;
+import model.UserEntity;
 
 /**
  *
@@ -11,6 +12,6 @@ import model.ProfessionsEntity;
 
 
 public interface ProfessionsDAOInterface {
-    public List<ProfessionsEntity> getAllProfessions();
-   
+    List<ProfessionsEntity> getAllProfessions();
+    List<UserEntity> getProfessionals(int id);
 }
