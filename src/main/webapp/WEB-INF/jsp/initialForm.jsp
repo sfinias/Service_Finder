@@ -1,12 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: tsamo
-  Date: 05-Nov-18
-  Time: 7:15 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>Welcome</title>
@@ -64,20 +57,20 @@
         <li class="tab col s3"><a class="white-text" href="#register">register</a></li>
     </ul>
     <div id="login" class="col s12">
-        <form:form class="col s12" method="post" action="${pageContext.request.contextPath}/user/checkLogin.htm" modelAttribute="user">
+        <spring:form class="col s12" method="post" action="${pageContext.request.contextPath}/user/checkLogin.htm" modelAttribute="user">
             <div class="form-container">
                 <h3 class="red-text">Hello</h3>
                 <div class="row">
                     <div class="input-field col s12">
-                        <form:input path="email" id="emailLogin" type="email" class="validate" required="required"/>
-                        <form:label path="email" for="emailLogin">Email</form:label>
+                        <spring:input path="email" id="emailLogin" type="email" class="validate" required="required"/>
+                        <spring:label path="email" for="emailLogin">Email</spring:label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <form:input path="passwordConfirm" id="passwordLogin" type="password" class="validate"
+                        <spring:input path="passwordConfirm" id="passwordLogin" type="password" class="validate"
                                     required="required"/>
-                        <form:label path="passwordConfirm" for="passwordLogin">Password</form:label>
+                        <spring:label path="passwordConfirm" for="passwordLogin">Password</spring:label>
                     </div>
                 </div>
                 <br>
@@ -94,88 +87,88 @@
                     <a href="${pageContext.request.contextPath}/user/forgotPassword.htm">Forgotten password?</a>
                 </center>
             </div>
-        </form:form>
+        </spring:form>
     </div>
     <div id="register" class="col s12">
-        <form:form class="col s12" method="post" action="${pageContext.request.contextPath}/user/checkRegister.htm" modelAttribute="user2"
+        <spring:form class="col s12" method="post" action="${pageContext.request.contextPath}/user/checkRegister.htm" modelAttribute="user2"
                    accept-charset="UTF-8">
             <div class="form-container">
                 <h3 class="red-text">Welcome</h3>
                 <div class="row">
                     <div class="input-field col s6">
-                        <form:input path="userEntity.firstName" id="firstName" type="text" class="validate"
+                        <spring:input path="userEntity.firstName" id="firstName" type="text" class="validate"
                                     required="required"
                                     onkeypress="return blockSpecialChar(event)"/>
-                        <form:label path="userEntity.firstName" for="firstName">First Name</form:label>
-                        <form:errors path="userEntity.firstName"/>
+                        <spring:label path="userEntity.firstName" for="firstName">First Name</spring:label>
+                        <spring:errors path="userEntity.firstName"/>
                     </div>
                     <div class="input-field col s6">
-                        <form:input path="userEntity.lastName" id="lastName" type="text" class="validate"
+                        <spring:input path="userEntity.lastName" id="lastName" type="text" class="validate"
                                     required="required"
                                     onkeypress="return blockSpecialChar(event)"/>
-                        <form:label path="userEntity.lastName" for="lastName">Last Name</form:label>
-                        <form:errors path="userEntity.lastName"/>
+                        <spring:label path="userEntity.lastName" for="lastName">Last Name</spring:label>
+                        <spring:errors path="userEntity.lastName"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <form:input path="userEntity.email" id="email" type="email" class="validate"
+                        <spring:input path="userEntity.email" id="email" type="email" class="validate"
                                     onkeyup='CheckEmail(); EnableSubmit2()' required="required"/>
-                        <form:label path="userEntity.email" for="email">Email</form:label>
+                        <spring:label path="userEntity.email" for="email">Email</spring:label>
                         <span id='message3'></span>
                         <span id='message4'></span>
-                        <form:errors path="userEntity.email"/>
+                        <spring:errors path="userEntity.email"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <form:input path="userEntity.emailConfirm" id="emailConfirm" name="email-confirm" type="email"
+                        <spring:input path="userEntity.emailConfirm" id="emailConfirm" name="email-confirm" type="email"
                                     class="validate"
                                     onkeyup='CheckEmail(); EnableSubmit2()' required="required"/>
-                        <form:label path="userEntity.emailConfirm" for="emailConfirm">Email Confirmation</form:label>
+                        <spring:label path="userEntity.emailConfirm" for="emailConfirm">Email Confirmation</spring:label>
                         <span id='message1'></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <form:input path="userEntity.passwordHash" id="pass" type="password" class="validate"
+                        <spring:input path="userEntity.passwordHash" id="pass" type="password" class="validate"
                                     onkeyup='CheckPassword(); EnableSubmit2();' required="required" pattern=".{8,50}"
                                     title="8 to 50 characters"/>
-                        <form:label path="userEntity.passwordHash" for="pass">Password</form:label>
-                        <form:errors path="userEntity.passwordHash"/>
+                        <spring:label path="userEntity.passwordHash" for="pass">Password</spring:label>
+                        <spring:errors path="userEntity.passwordHash"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <form:input path="userEntity.passwordConfirm" id="passwordConfirm" name="password-confirm"
+                        <spring:input path="userEntity.passwordConfirm" id="passwordConfirm" name="password-confirm"
                                     type="password"
                                     class="validate"
                                     onkeyup='CheckPassword(); EnableSubmit2();' required="required" pattern=".{8,50}"
                                     title="8 to 50 characters"/>
-                        <form:label path="userEntity.passwordConfirm"
-                                    for="passwordConfirm">Password Confirmation</form:label>
+                        <spring:label path="userEntity.passwordConfirm"
+                                    for="passwordConfirm">Password Confirmation</spring:label>
                         <span id='message2'></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <form:input path="phoneEntity.mobile" id="phone1" name="phone1"
+                        <spring:input path="phoneEntity.mobile" id="phone1" name="phone1"
                                     class="validate"/>
-                        <form:label path="phoneEntity.mobile" for="phone1">Mobile</form:label>
-                        <form:errors path="phoneEntity.mobile"/>
+                        <spring:label path="phoneEntity.mobile" for="phone1">Mobile</spring:label>
+                        <spring:errors path="phoneEntity.mobile"/>
                     </div>
                     <div class="input-field col s6">
-                        <form:input path="phoneEntity.landline" id="phone2" name="phone2"
+                        <spring:input path="phoneEntity.landline" id="phone2" name="phone2"
                                     class="validate"/>
-                        <form:label path="phoneEntity.landline" for="phone2">Landline</form:label>
-                        <form:errors path="phoneEntity.landline"/>
+                        <spring:label path="phoneEntity.landline" for="phone2">Landline</spring:label>
+                        <spring:errors path="phoneEntity.landline"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <form:input path="addressEntity.address" id="address" name="address"
+                        <spring:input path="addressEntity.address" id="address" name="address"
                                     class="validate"/>
-                        <form:label path="addressEntity.address" for="address">Address</form:label>
+                        <spring:label path="addressEntity.address" for="address">Address</spring:label>
                     </div>
                 </div>
                 <center>
@@ -184,7 +177,7 @@
                     </button>
                 </center>
             </div>
-        </form:form>
+        </spring:form>
     </div>
 </div>
 <div id="homebutton">

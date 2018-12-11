@@ -78,24 +78,80 @@
 
 <script src="${pageContext.request.contextPath}/dist/js/main.js"></script>
 
+<script type="text/javascript">
+                        $(document).ready(function () { // ???? ???????? ? ?????? ?????....
+                            $("#uploadAjax").click(function (e) { // ???? handler ??? input type
+                                alert("88888")
+                                e.preventDefault();//??? ???? ?? ????? submit
+                                var form = document.forms[0];//???? ??? ????? ????
+                                var formData = new FormData(form);//html5 FormData
+                                var ajaxReq = $.ajax({
+                                    url: 'search.htm?userinput=' + text,
+                                    type: 'POST',
+                                    data: formData,
+                                    cache: false, //mporei k na mi xreiazetai sto post
+                                    //to documentation leei na mi cacharetai i selida
+                                    contentType: false, // ???? ?? ??? ????? content-type ??? request
+                                    //den jerw ti arxeio tha m steilei
+                                    processData: false, // ?? ??? ?? ????? string ??? ?? ?? ???????
+                                    //Callback for creating the XMLHttpRequest object
+                                    xhr: function () { //to xreiazomai gia tin progress ber
+                                        //exei mesa kapoious listeners 
+                                        // alert("create request")
+                                        //Get XmlHttpRequest object
+                                        var xhr = $.ajaxSettings.xhr();
+                                        //Set onprogress event handler
+                                        xhr.upload.onprogress = function (event) { //oso ginetai to upload
+                                            // alert("sending")
+                                            var perc = Math.round((event.loaded / event.total) * 100);
+                                            $('#progressBar').text(perc + '%');
+                                            $('#progressBar').css('width', perc + '%');
+                                        };
+                                        return xhr;
+                                    },
+                                    beforeSend: function (xhr) {
+                                        // alert("before send")
+                                        //Reset alert message and progress bar
+                                        $('#alertMsg').text('');
+                                        $('#progressBar').text('');
+                                        $('#progressBar').css('width', '0%');
+                                    }
+                                });
+                                // Called on success of file upload
+                                ajaxReq.done(function (msg) {
+                                    //alert("done")
+                                    $('#alertMsg').text(msg);
+                                    $('input[type=file]').val('');
+                                    $('button[type=submit]').prop('disabled', false);
+                                });
+                                // Called on failure of file upload
+                                ajaxReq.fail(function (jqXHR) {
+                                    $('#alertMsg').text(jqXHR.responseText + '(' + jqXHR.status +
+                                            ' - ' + jqXHR.statusText + ')');
+                                    $('button[type=submit]').prop('disabled', false);
+                                });
+                            });
+                        });
+</script>
+
 
 <script>
-              document.addEventListener('DOMContentLoaded', function () {
-                  var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
+    document.addEventListener('DOMContentLoaded', function () {
+        var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
 
-                  for (var i = 0; i < total; i++) {
-                      new MediaElementPlayer(mediaElements[i], {
-                          pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
-                          shimScriptAccess: 'always',
-                          success: function () {
-                              var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
-                              for (var j = 0; j < targetTotal; j++) {
-                                  target[j].style.visibility = 'visible';
-                              }
-                          }
-                      });
-                  }
-              });
+        for (var i = 0; i < total; i++) {
+            new MediaElementPlayer(mediaElements[i], {
+                pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
+                shimScriptAccess: 'always',
+                success: function () {
+                    var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
+                    for (var j = 0; j < targetTotal; j++) {
+                        target[j].style.visibility = 'visible';
+                    }
+                }
+            });
+        }
+    });
 </script>
 
 

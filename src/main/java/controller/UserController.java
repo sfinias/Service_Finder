@@ -177,4 +177,10 @@ public class UserController {
         model.addAttribute("user", user);
         return "profile";
     }
+    
+    @RequestMapping(value = "/search.htm")
+    public String Search(ModelMap model, UserEntity user) {
+        model.addAttribute("user", user);
+        return "loggedin";
+    }
 }
