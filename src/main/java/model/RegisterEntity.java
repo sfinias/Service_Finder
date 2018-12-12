@@ -14,6 +14,9 @@ public class RegisterEntity {
 
     @Valid
     private AddressEntity addressEntity;
+    
+    @Valid
+    private ProfessionsEntity professionsEntity;
 
     @Valid
     public UserEntity getUserEntity() {
@@ -41,4 +44,15 @@ public class RegisterEntity {
     public void setAddressEntity(AddressEntity addressEntity) {
         this.addressEntity = addressEntity;
     }
+
+    @Valid
+    public ProfessionsEntity getProfessionsEntity() {
+        return professionsEntity;
+    }
+
+    public void setProfessionsEntity(ProfessionsEntity professionsEntity) {
+        this.professionsEntity = professionsEntity;
+    }
+    
+    
 }

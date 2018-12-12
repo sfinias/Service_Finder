@@ -1,9 +1,12 @@
 <%@include file = "header.jsp" %>
 
-<div class="unit-5 overlay" style="background-image: url('${pageContext.request.contextPath}/dist/images/hero_1.jpg');">
+<div class="unit-5 overlay" style="background-image: url('${pageContext.request.contextPath}/dist/images/woodWallpaper1.jpg');">
     <div class="container text-center">
         <h2 class="mb-0">Profile</h2>
-        <p class="mb-0 unit-6"><a href="${pageContext.request.contextPath}/user/initialForm.htm">Home</a> <span class="sep">></span> <span>Profile</span></p>
+        <p class="mb-0 unit-6">
+            <a href="${pageContext.request.contextPath}/user/initialForm.htm">Home</a> 
+            <span class="sep">></span> 
+            <span>Profile</span></p>
     </div>
 </div>
 
@@ -14,66 +17,63 @@
 
             <div id="login" class="col-md-12 col-lg-8 mb-5">
 
-                <form action="#" class="p-5 bg-white">
+                <spring:form action="p.htm" method="post" modelAttribute="user" class="p-5 bg-white">
                     <h4 class="h4 text-black mb-3">Edit profile</h4>
 
                     <div class="row form-group">
                         <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="font-weight-bold" for="firstName">First Name</label><a href="#"><span style="padding-left:15px" class="icon-edit">Edit</span></a>
-                            <input type="text" id="firstName" class="form-control" placeholder="First Name">
+                            <spring:label path="userEntity.firstName" class="font-weight-bold" for="firstName">First Name</spring:label>
+                            <a id="switch-disable-fn" href="">
+                                <span style="padding-left:15px" class="icon-edit">Edit</span>
+                            </a>
+                            <spring:input path="userEntity.firstName" type="text" id="firstName" class="form-control" disabled="true"/>                            
                         </div>
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="font-weight-bold" for="lastName">Last Name</label>
-                            <input type="text" id="lastName" class="form-control" placeholder="Last Name">
+                            <label class="font-weight-bold switch-disable" for="lastName">Last Name</label>
+                            <a id="switch-disable-ln" href="">
+                                <span style="padding-left:15px" class="icon-edit">Edit</span>
+                            </a>
+                            <input type="text" id="lastName" class="form-control" placeholder="Last Name" disabled>
                         </div>
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12">
                             <label class="font-weight-bold" for="email">Email</label>
-                            <input type="email" id="email" class="form-control" placeholder="Email Address">
+                            <a id="switch-disable-e" href="">
+                                <span style="padding-left:15px" class="icon-edit">Edit</span>
+                            </a>
+                            <input type="email" id="email" class="form-control" placeholder="Email Address" disabled>
                         </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-md-12">
-                            <label class="font-weight-bold" for="emailConfirm">Email Confirmation</label>
-                            <input type="email" id="emailConfirm" class="form-control" placeholder="Email Address">
-                        </div>
-                    </div>
+                    </div>                   
                     <div class="row form-group">
                         <div class="col-md-12">
                             <label class="font-weight-bold" for="password">Password</label>
-                            <input type="password" id="password" class="form-control" placeholder="Password">
+                            <a id="switch-disable-p" href="">
+                                <span style="padding-left:15px" class="icon-edit">Edit</span>
+                            </a>
+                            <input type="password" id="password" class="form-control" placeholder="Password" disabled>
                         </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-md-12">
-                            <label class="font-weight-bold" for="passwordComfirm">Password Confirmation</label>
-                            <input type="password" id="passwordComfirm" class="form-control" placeholder="Password">
-                        </div>
-                    </div>
-
-
+                    </div>                  
                     <div class="row form-group">
                         <div class="col-md-12 mb-3 mb-md-0">
                             <label class="font-weight-bold" for="phone1">Mobile</label>
-                            <input type="text" id="phone1" class="form-control" placeholder="Phone #">
+                            <a id="switch-disable-m" href="">
+                                <span style="padding-left:15px" class="icon-edit">Edit</span>
+                            </a>
+                            <input type="text" id="phone1" class="form-control" placeholder="Phone #" disabled>
                         </div>
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12 mb-3 mb-md-0">
                             <label class="font-weight-bold" for="phone2">Landline</label>
-                            <input type="text" id="phone2" class="form-control" placeholder="Phone #">
+                            <a id="switch-disable-l" href="">
+                                <span style="padding-left:15px" class="icon-edit">Edit</span>
+                            </a>
+                            <input type="text" id="phone2" class="form-control" placeholder="Phone #" disabled>
                         </div>
-                    </div>   
-                    <div class="row form-group">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="font-weight-bold" for="address">Address</label>
-                            <input type="text" id="address" class="form-control" placeholder="Address">
-                        </div>
-                    </div> 
-
+                    </div>                      
                     <div class="row form-group">
                         <div class="col-md-12">
                             <input type="submit" value="Comfirm Changes" class="btn btn-primary pill px-4 py-2">
@@ -81,7 +81,7 @@
                     </div>
 
 
-                </form>
+                </spring:form>
             </div>
 
             <div class="col-lg-4">

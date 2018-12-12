@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-12" data-aos="fade">
-                <h1>Find Job</h1>
+                <h1>Find Service</h1>
                 <form action="#">
                     <div class="row mb-3">
                         <div class="col-md-9">
