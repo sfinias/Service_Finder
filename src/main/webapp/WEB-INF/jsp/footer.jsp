@@ -78,24 +78,90 @@
 
 <script src="${pageContext.request.contextPath}/dist/js/main.js"></script>
 
+<script type="text/javascript">
+                        $(document).ready(function () {
+                            if ($("#switch-disable-fn")) {
+                                $("#switch-disable-fn").click(function (e) {
+                                    e.preventDefault();
+                                    if ($("#firstName").attr("disabled")) {
+                                        $("#firstName").prop("disabled", false);
+                                    } else {
+                                        $("#firstName").prop("disabled", true);
+                                    }
+                                });
+                            }
+                            if ($("#switch-disable-ln")) {
+                                $("#switch-disable-ln").click(function (e) {
+                                    e.preventDefault();
+                                    if ($("#lastName").attr("disabled")) {
+                                        $("#lastName").prop("disabled", false);
+                                    } else {
+                                        $("#lastName").prop("disabled", true);
+                                    }
+                                });
+                            }
+                            if ($("#switch-disable-e")) {
+                                $("#switch-disable-e").click(function (e) {
+                                    e.preventDefault();
+                                    if ($("#email").attr("disabled")) {
+                                        $("#email").prop("disabled", false);
+                                    } else {
+                                        $("#email").prop("disabled", true);
+                                    }
+                                });
+                            }
+                            if ($("#switch-disable-p")) {
+                                $("#switch-disable-p").click(function (e) {
+                                    e.preventDefault();
+                                    if ($("#password").attr("disabled")) {
+                                        $("#password").prop("disabled", false);
+                                    } else {
+                                        $("#password").prop("disabled", true);
+                                    }
+                                });
+                            }
+                            if ($("#switch-disable-m")) {
+                                $("#switch-disable-m").click(function (e) {
+                                    e.preventDefault();
+                                    if ($("#phone1").attr("disabled")) {
+                                        $("#phone1").prop("disabled", false);
+                                    } else {
+                                        $("#phone1").prop("disabled", true);
+                                    }
+                                });
+                            }
+                            if ($("#switch-disable-l")) {
+                                $("#switch-disable-l").click(function (e) {
+                                    e.preventDefault();
+                                    if ($("#phone2").attr("disabled")) {
+                                        $("#phone2").prop("disabled", false);
+                                    } else {
+                                        $("#phone2").prop("disabled", true);
+                                    }
+                                });
+                            }
 
-<script>
-              document.addEventListener('DOMContentLoaded', function () {
-                  var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
 
-                  for (var i = 0; i < total; i++) {
-                      new MediaElementPlayer(mediaElements[i], {
-                          pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
-                          shimScriptAccess: 'always',
-                          success: function () {
-                              var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
-                              for (var j = 0; j < targetTotal; j++) {
-                                  target[j].style.visibility = 'visible';
-                              }
-                          }
-                      });
-                  }
-              });
+                        });
+</script>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
+
+        for (var i = 0; i < total; i++) {
+            new MediaElementPlayer(mediaElements[i], {
+                pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
+                shimScriptAccess: 'always',
+                success: function () {
+                    var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
+                    for (var j = 0; j < targetTotal; j++) {
+                        target[j].style.visibility = 'visible';
+                    }
+                }
+            });
+        }
+    });
 </script>
 
 

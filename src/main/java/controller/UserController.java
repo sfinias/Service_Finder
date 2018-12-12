@@ -3,9 +3,7 @@ package controller;
 import dao.ProfessionsDAOInterface;
 import dao.UserDAOInterface;
 import dao.VerificationTokenDAOInterface;
-import java.util.List;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.RegisterEntity;
 import model.UserEntity;
@@ -23,7 +21,6 @@ import utils.MailService;
 import validation.FormValids;
 
 import javax.validation.Valid;
-import model.ProfessionsEntity;
 
 /**
  * @author tsamo
@@ -74,13 +71,12 @@ public class UserController {
                 } else {
 //            boolean test= u.isUserActivated(emailSubmitted);
 //            model.addAttribute("userEmail", emailSubmitted);
-//                    UserEntity userEntity = u.findUserByEmail(emailSubmitted);
-                    RegisterEntity userEntity = u.getUserByEmail(emailSubmitted);
-                    session.setAttribute("user", userEntity);
-                    if(userEntity.getProfessionEntity().getId()==1) {
+                    RegisterEntity regEntity = u.getUserByEmail(emailSubmitted);
+                    session.setAttribute("user", regEntity);
+                    if (regEntity.getProfessionsEntity().getId() == 1) {
                         servletContext.setAttribute("allProfessions", p.getAllProfessions());
                         return "index";
-                    }else{
+                    } else {
                         return "homeProf";
                     }
                 }
@@ -173,8 +169,15 @@ public class UserController {
 
     }
 
+    @RequestMapping(value = "/account.htm")
+    public String account(ModelMap model, RegisterEntity user) {
+        model.addAttribute("user", user);        
+        return "profile";
+    }
+
     @RequestMapping(value = "/search.htm")
-    public String searchProf(){
-        return "testSearch";
+    public String Search(ModelMap model, UserEntity user) {
+        model.addAttribute("user", user);
+        return "loggedin";
     }
 }

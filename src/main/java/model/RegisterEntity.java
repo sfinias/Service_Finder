@@ -14,6 +14,9 @@ public class RegisterEntity {
 
     @Valid
     private AddressEntity addressEntity;
+    
+    @Valid
+    private ProfessionsEntity professionsEntity;
 
     @Valid
     private ProfessionsEntity professionEntity;
@@ -46,11 +49,13 @@ public class RegisterEntity {
     }
 
     @Valid
-    public ProfessionsEntity getProfessionEntity() {
-        return professionEntity;
+    public ProfessionsEntity getProfessionsEntity() {
+        return professionsEntity;
     }
 
-    public void setProfessionEntity(ProfessionsEntity professionEntity) {
-        this.professionEntity = professionEntity;
+    public void setProfessionsEntity(ProfessionsEntity professionsEntity) {
+        this.professionsEntity = professionsEntity;
     }
+    
+    
 }

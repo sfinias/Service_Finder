@@ -6,6 +6,7 @@ import model.RegisterEntity;
 import model.UserEntity;
 
 import java.util.ArrayList;
+import model.RegisterEntity;
 
 /**
  * @author tsamo
@@ -23,5 +24,5 @@ public interface UserDAOInterface {
     String getSalt(String email);
     boolean isUserActivated(String email);
     void changePasswordOfUser(String email, String newPassword);
-    RegisterEntity getUserByEmail(String email);
+    public RegisterEntity getUserByEmail(String email);
 }

@@ -11,6 +11,8 @@ import javax.persistence.Query;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import model.ProfessionsEntity;
+import model.RegisterEntity;
 
 //import org.springframework.transaction.annotation.Transactional;
 
@@ -118,6 +120,24 @@ public class UserDAO implements UserDAOInterface {
     public ArrayList<String> getAllEmails() {
         Query query = em.createQuery("SELECT u.email FROM UserEntity u");
         return (ArrayList<String>) query.getResultList();
+    }
+    
+    @Transactional
+    public RegisterEntity getUserByEmail(String email) {
+        Query query = em.createQuery("SELECT u, p, a, ph FROM UserEntity u " +
+                "LEFT JOIN ProfessionsEntity p ON u.professionId = p.id " +
+                "LEFT JOIN AddressEntity a ON u.id = a.userId " +
+                "LEFT JOIN PhoneEntity ph ON u.id = ph.userId " +
+                "WHERE u.email='" + email+"'");
+        List<Object[]> objs = query.getResultList();
+        if (objs.size()==0) return null;
+        Object[] result = objs.get(0);
+        RegisterEntity user = new RegisterEntity();
+        user.setUserEntity((UserEntity)result[0]);
+        user.setProfessionsEntity((ProfessionsEntity)result[1]);
+        user.setAddressEntity((AddressEntity)result[2]);
+        user.setPhoneEntity((PhoneEntity)result[3]);
+        return user;
     }
 
     @Transactional
