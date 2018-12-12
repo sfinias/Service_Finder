@@ -4,12 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.ProfessionsDAOInterface;
 import dao.UserDAOInterface;
+import model.RegisterEntity;
 import model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +24,7 @@ public class SpringRest {
     @Autowired
     ProfessionsDAOInterface professionsDAOInterface;
 
-    @RequestMapping(value = "/usersREST.htm", method = RequestMethod.GET, headers = "Accept=*/*", produces = "applcation/json")
+    @RequestMapping(value = "/usersREST.htm", method = RequestMethod.GET, headers = "Accept=*/*", produces = "application/json")
     public @ResponseBody
     String getAllUsersByRest() {
         ArrayList<String> emails = userDAOInterface.getAllEmails();
@@ -40,9 +38,10 @@ public class SpringRest {
         return emailsJSON;
     }
 
-    @RequestMapping(value = "/profsREST.htm", method = RequestMethod.GET, headers = "Accept=*/*", produces = "application/json")
-    public @ResponseBody String getProfsByRest(int id) {
-        List<UserEntity> profs = professionsDAOInterface.getProfessionals(id);
+    @RequestMapping(value = "/profsREST.htm", method = RequestMethod.POST, headers = "Accept=*/*", produces = "application/json")
+    public @ResponseBody String getProfsByRest(@RequestParam("pro") int id) {
+//        List<UserEntity> profs = professionsDAOInterface.getProfessionals(id);
+        List<RegisterEntity> profs = professionsDAOInterface.getProfs(id);
         ObjectMapper mapper = new ObjectMapper();
         String profsJSON = null;
         try {

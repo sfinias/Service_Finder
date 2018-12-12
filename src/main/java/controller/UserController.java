@@ -74,9 +74,10 @@ public class UserController {
                 } else {
 //            boolean test= u.isUserActivated(emailSubmitted);
 //            model.addAttribute("userEmail", emailSubmitted);
-                    UserEntity userEntity = u.findUserByEmail(emailSubmitted);
+//                    UserEntity userEntity = u.findUserByEmail(emailSubmitted);
+                    RegisterEntity userEntity = u.getUserByEmail(emailSubmitted);
                     session.setAttribute("user", userEntity);
-                    if(userEntity.getProfessionId()==1) {
+                    if(userEntity.getProfessionEntity().getId()==1) {
                         servletContext.setAttribute("allProfessions", p.getAllProfessions());
                         return "index";
                     }else{

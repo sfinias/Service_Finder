@@ -166,6 +166,52 @@
             });
         }
     }
+
+    $("#search").click(function (e) {
+        e.preventDefault();
+        $('.jobs-wrap').html('');
+        // var id = $('#pro').val();
+        // alert(id);
+        var form = document.forms[0];
+        //FormData makes all the files from the form in a name/value object
+        var formData = new FormData(form);
+        alert('ajax');
+        $.ajax({
+            url: '${pageContext.request.contextPath}/profsREST.htm',
+            contentType: false,
+            data: formData,
+            type: 'POST',
+            processData: false,
+            success: function (result) {
+                alert('Received');
+                var jsonobj = $.parseJSON(result);
+                alert(jsonobj);
+                if (jsonobj.length === 0) {
+                    alert('There are no profs of this kind');
+                } else {
+                    $.each(jsonobj, function (i, item) {
+                        $profCard = $('<a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center  border-bottom fulltime">').append(
+                                                    $('<div class="company-logo blank-logo text-center text-md-left pl-3">').append(
+                                                        $('<img src="${pageContext.request.contextPath}/dist/images/person_1.jpg" alt="Image" class="img-fluid mx-auto">')),
+                                                     $('<div class="job-details">').append(
+                                                        $('<div class="p-3 align-self-center">').append(
+                                                            $('<h3>').append(item.userEntity.firstName + ' ' + item.userEntity.lastName),
+                                                            $('<div class="d-block d-lg-flex">').append(
+                                                                $('<div class="row">').append(
+                                                                    $('<div class="mr-3">')).append(
+                                                                        $('<span class="icon-room mr-1">'),(item.addressEntity.address))))),
+                                                    $('<div class="job-category align-self-center">').append(
+                                                        $('<div class="p-3">').append(
+                                                            $('<a href="tel:' + item.phoneEntity.mobile + '" class="text-info p-2 rounded border border-info">').append(
+                                                                $('<span class="icon-phone2">')))));
+                        $('.jobs-wrap').append($profCard);
+                    });
+                }
+            }
+        });
+    });
+
+
 </script>
 <%--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpNb7KwtNgmsphG-7u8AhPPZ_h_4ZkG5Y&libraries=places&callback=initMap"></script>--%>
 <%--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&libraries=places&callback=initAutocomplete"--%>

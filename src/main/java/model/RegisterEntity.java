@@ -16,6 +16,9 @@ public class RegisterEntity {
     private AddressEntity addressEntity;
 
     @Valid
+    private ProfessionsEntity professionEntity;
+
+    @Valid
     public UserEntity getUserEntity() {
         return userEntity;
     }
@@ -40,5 +43,14 @@ public class RegisterEntity {
 
     public void setAddressEntity(AddressEntity addressEntity) {
         this.addressEntity = addressEntity;
+    }
+
+    @Valid
+    public ProfessionsEntity getProfessionEntity() {
+        return professionEntity;
+    }
+
+    public void setProfessionEntity(ProfessionsEntity professionEntity) {
+        this.professionEntity = professionEntity;
     }
 }

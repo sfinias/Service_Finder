@@ -5,13 +5,14 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-12" data-aos="fade">
-                <h1>Find Job</h1>
+                <h1>Find Service</h1>
                 <form action="#">
                     <div class="row mb-3">
+                        <form enctype="multipart/form-data">
                         <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-6 mb-3 mb-md-0">
-                                    <select class="mr-3 form-control border-0 px-4" id="pro">
+                                    <select class="mr-3 form-control border-0 px-4" id="pro" name="pro">
                                         <option selected>Choose Service...</option>
                                         <c:forEach items="${allProfessions}" var="item">
                                             <option value="${item.id}">${item.profession}</option>
@@ -20,7 +21,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3 mb-md-0">
                                     <div class="input-wrap">
-                                        <span class="icon icon-room"></span>
+                                        <a href="" class="icon icon-room" id="loc"></a>
                                         <input type="text" class="form-control form-control-block search-input  border-0 px-4" id="autocomplete" placeholder="city, province or region">
                                     </div>
                                 </div>
@@ -29,6 +30,7 @@
                         <div class="col-md-3">
                             <button class="btn btn-search btn-primary btn-block" id="search">Search</button>
                         </div>
+                        </form>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -45,127 +47,19 @@
 
 <div class="site-section bg-light">
     <div class="container">
-        <div class="row">
+        <div class="row h-75">
             <div class="col-md-5 mb-5 mb-md-0" data-aos="fade-up" data-aos-delay="100">
-                <h2 class="mb-5 h3">Recent Jobs</h2>
+                <h2 class="mb-5 h3">Available Professionals</h2>
                 <div class="rounded border jobs-wrap">
 
-                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center  border-bottom fulltime">
-                        <div class="company-logo blank-logo text-center text-md-left pl-3">
-                            <img src="${pageContext.request.contextPath}/dist/images/company_logo_blank.png" alt="Image" class="img-fluid mx-auto">
-                        </div>
-                        <div class="job-details h-100">
-                            <div class="p-3 align-self-center">
-                                <h3>Restaurant Crew</h3>
-                                <div class="d-block d-lg-flex">
-                                    <div class="mr-3"><span class="icon-suitcase mr-1"></span> Resto Bar</div>
-                                    <div class="mr-3"><span class="icon-room mr-1"></span> Florida</div>
-                                    <div><span class="icon-money mr-1"></span> $55000 &mdash; 70000</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="job-category align-self-center">
-                            <div class="p-3">
-                                <span class="text-info p-2 rounded border border-info">Full Time</span>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center freelance">
-                        <div class="company-logo blank-logo text-center text-md-left pl-3">
-                            <img src="${pageContext.request.contextPath}/dist/images/logo_1.png" alt="Image" class="img-fluid mx-auto">
-                        </div>
-                        <div class="job-details h-100">
-                            <div class="p-3 align-self-center">
-                                <h3>JavaScript Fullstack Developer</h3>
-                                <div class="d-block d-lg-flex">
-                                    <div class="mr-3"><span class="icon-suitcase mr-1"></span> Cooper</div>
-                                    <div class="mr-3"><span class="icon-room mr-1"></span> Anywhere</div>
-                                    <div><span class="icon-money mr-1"></span> $55000 &mdash; 70000</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="job-category align-self-center">
-                            <div class="p-3">
-                                <span class="text-warning p-2 rounded border border-warning">Freelance</span>
-                            </div>
-                        </div>
-                    </a>
-
-
-                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center freelance">
-                        <div class="company-logo blank-logo text-center text-md-left pl-3">
-                            <img src="${pageContext.request.contextPath}/dist/images/logo_1.png" alt="Image" class="img-fluid mx-auto">
-                        </div>
-                        <div class="job-details h-100">
-                            <div class="p-3 align-self-center">
-                                <h3>ReactJS Fullstack Developer</h3>
-                                <div class="d-block d-lg-flex">
-                                    <div class="mr-3"><span class="icon-suitcase mr-1"></span> Cooper</div>
-                                    <div class="mr-3"><span class="icon-room mr-1"></span> Anywhere</div>
-                                    <div><span class="icon-money mr-1"></span> $55000 &mdash; 70000</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="job-category align-self-center">
-                            <div class="p-3">
-                                <span class="text-warning p-2 rounded border border-warning">Freelance</span>
-                            </div>
-                        </div>
-                    </a>
-
-
-                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center fulltime">
-                        <div class="company-logo blank-logo text-center text-md-left pl-3">
-                            <img src="${pageContext.request.contextPath}/dist/images/company_logo_blank.png" alt="Image" class="img-fluid mx-auto">
-                        </div>
-                        <div class="job-details h-100">
-                            <div class="p-3 align-self-center">
-                                <h3>Assistant Brooker, Real Estate</h3>
-                                <div class="d-block d-lg-flex">
-                                    <div class="mr-3"><span class="icon-suitcase mr-1"></span> RealState</div>
-                                    <div class="mr-3"><span class="icon-room mr-1"></span> New York</div>
-                                    <div><span class="icon-money mr-1"></span> $55000 &mdash; 70000</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="job-category align-self-center">
-                            <div class="p-3">
-                                <span class="text-info p-2 rounded border border-info">Full Time</span>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center partime">
-                        <div class="company-logo blank-logo text-center text-md-left pl-3">
-                            <img src="${pageContext.request.contextPath}/dist/images/logo_2.png" alt="Image" class="img-fluid mx-auto">
-                        </div>
-                        <div class="job-details h-100">
-                            <div class="p-3 align-self-center">
-                                <h3>Telecommunication Manager</h3>
-                                <div class="d-block d-lg-flex">
-                                    <div class="mr-3"><span class="icon-suitcase mr-1"></span> Think</div>
-                                    <div class="mr-3"><span class="icon-room mr-1"></span> London</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="job-category align-self-center">
-                            <div class="p-3">
-                                <span class="text-danger p-2 rounded border border-danger">Par Time</span>
-                            </div>
-                        </div>
-                    </a>
-
-
                 </div>
-
                 <div class="col-md-12 text-center mt-5">
                     <a href="#" class="btn btn-primary rounded py-3 px-5"><span class="icon-plus-circle"></span> Show More Jobs</a>
                 </div>
             </div>
             <div class="col-md-7 block-16" data-aos="fade-up" data-aos-delay="200">
                 <div class="d-flex mb-0">
-                    <h2 class="mb-5 h3 mb-0">Featured Jobs</h2>
+                    <h2 class="mb-5 h3 mb-0">Map</h2>
                     <div class="ml-auto mt-1"><a href="#" class="owl-custom-prev">Prev</a> / <a href="#" class="owl-custom-next">Next</a></div>
                 </div>
                 <div id="googleMap"></div>
@@ -210,13 +104,52 @@
             position: p,
             map: map
         });
-        // map.panTo(latlng);
+        map.panTo(p);
     }
 
     var geocoder = new google.maps.Geocoder();
     google.maps.event.addListener(map, 'click', function(event) {
         pos = new google.maps.LatLng(parseFloat(event.latLng.lat()),parseFloat(event.latLng.lng()));
         moveMark(pos);
+        getAddress(pos);
+        // geocoder.geocode({
+        //     'latLng': pos
+        // }, function(results, status) {
+        //     if (status == google.maps.GeocoderStatus.OK) {
+        //         if (results[0]) {
+        //             document.getElementById('autocomplete').value=results[0].formatted_address;
+        //         }
+        //     }
+        // });
+    });
+
+    document.getElementById('loc').onclick = function (ev){
+        ev.preventDefault();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                moveMark(pos);
+                getAddress(pos);
+                // geocoder.geocode({
+                //     'latLng': pos
+                // }, function(results, status) {
+                //     if (status == google.maps.GeocoderStatus.OK) {
+                //         if (results[0]) {
+                //             document.getElementById('autocomplete').value=results[0].formatted_address;
+                //         }
+                //     }
+                // });
+            }, function() {handleLocationError(true);
+            });
+        } else {
+            handleLocationError(false);
+        }
+    };
+
+    function getAddress(pos) {
         geocoder.geocode({
             'latLng': pos
         }, function(results, status) {
@@ -226,11 +159,16 @@
                 }
             }
         });
-    });
+    }
+
+    function handleLocationError(browserHasGeolocation) {
+        alert(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+    }
 
     document.getElementById('search').onclick = function (ev) {
         ev.preventDefault();
-        alert()
     };
 
 </script>
