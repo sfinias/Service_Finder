@@ -145,7 +145,7 @@
                         });
 </script>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
         var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
 
@@ -232,7 +232,7 @@
             });
         }
     }
-</script>
+</script>-->
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&libraries=places&callback=initAutocomplete"
 async defer></script>

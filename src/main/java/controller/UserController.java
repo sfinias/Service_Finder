@@ -3,6 +3,10 @@ package controller;
 import dao.ProfessionsDAOInterface;
 import dao.UserDAOInterface;
 import dao.VerificationTokenDAOInterface;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import model.RegisterEntity;
@@ -21,6 +25,10 @@ import utils.MailService;
 import validation.FormValids;
 
 import javax.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author tsamo
@@ -180,4 +188,22 @@ public class UserController {
         model.addAttribute("user", user);
         return "loggedin";
     }
+    
+    @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
+    public ResponseEntity<String> fileUpload(@RequestParam("uploaded") MultipartFile file)
+            throws IOException {
+
+        // Save file on system
+        if (!file.getOriginalFilename().isEmpty()) {
+            BufferedOutputStream outputStream = new BufferedOutputStream(
+                    new FileOutputStream( new File("/Users/matina/apache-tomcat-8.0.53/webapps/images", file.getOriginalFilename())));
+            outputStream.write(file.getBytes());
+            outputStream.flush();
+            outputStream.close();
+        } else {
+            return new ResponseEntity<>("Invalid file.", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>("File Uploaded Successfully.", HttpStatus.OK);
+    }   
 }

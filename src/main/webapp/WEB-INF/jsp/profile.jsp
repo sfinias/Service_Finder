@@ -1,4 +1,4 @@
-<%@include file = "header.jsp" %>
+<%@include file = "headerForProfile.jsp" %>
 
 <div class="unit-5 overlay" style="background-image: url('${pageContext.request.contextPath}/dist/images/woodWallpaper1.jpg');">
     <div class="container text-center">
@@ -20,15 +20,7 @@
                 <spring:form action="p.htm" method="post" modelAttribute="user" class="p-5 bg-white">
                     <h4 class="h4 text-black mb-3">Edit profile</h4>
 
-                    <div class="row form-group">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <spring:label path="userEntity.firstName" class="font-weight-bold" for="firstName">First Name</spring:label>
-                            <a id="switch-disable-fn" href="">
-                                <span style="padding-left:15px" class="icon-edit">Edit</span>
-                            </a>
-                            <spring:input path="userEntity.firstName" type="text" id="firstName" class="form-control" disabled="true"/>                            
-                        </div>
-                    </div>
+                   
                     <div class="row form-group">
                         <div class="col-md-12 mb-3 mb-md-0">
                             <label class="font-weight-bold switch-disable" for="lastName">Last Name</label>
@@ -84,28 +76,37 @@
                 </spring:form>
             </div>
 
-            <div class="col-lg-4">
-                <div class="p-4 mb-3 bg-white">
-                    <form  class="p-5 bg-white">
-                        <input type="file" class="btn btn-primary pill px-4 py-2">
-                        <hr>
-                        <input type="submit" value="Upload File" id="uploadAjax" class="btn btn-primary pill px-4 py-2">
-                    </form> 
-                </div>
-
-                <div class="p-4 mb-3 bg-white">
-                    <h3 class="h5 text-black mb-3">Contact Info</h3>
-                    <p class="mb-0 font-weight-bold">Address</p>
-                    <p class="mb-4">203 Fake St. Mountain View, San Francisco, California, USA</p>
-
-                    <p class="mb-0 font-weight-bold">Phone</p>
-                    <p class="mb-4"><a href="#">+1 232 3235 324</a></p>
-
-                    <p class="mb-0 font-weight-bold">Email Address</p>
-                    <p class="mb-0"><a href="#">youremail@domain.com</a></p>
-
-                </div>               
+              <div class="col-lg-4">
+            <div class="p-4 mb-3 bg-white">
+              <h3 class="h5 text-black mb-3">Profile Image</h3>
+              <form class="form" action="" method="post" id="registrationForm" enctype="multipart/data" >
+    <div class="form-group">
+                          
+                          <div class="col-xs-12">
+							   <div class="text-center">
+    <div class="avatar-upload">
+        <div class="avatar-edit" >
+            <input type="file" id="imageUpload" name="uploaded">
+            <label for="imageUpload" ></label>
+        </div>
+        <div class="avatar-preview">
+            <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
             </div>
+        </div>
+    </div>
+</div>
+                              </div>
+</div>
+        </form>
+
+            </div>
+            
+            <div class="p-4 mb-3 bg-white">
+              <h3 class="h5 text-black mb-3">More Info</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ad iure porro mollitia architecto hic consequuntur. Distinctio nisi perferendis dolore, ipsa consectetur? Fugiat quaerat eos qui, libero neque sed nulla.</p>
+              <p><a href="#" class="btn btn-primary px-4 py-2 text-white pill">Learn More</a></p>
+            </div>
+          </div>
         </div>
     </div>
 </div>
