@@ -78,7 +78,7 @@
                                                     </ul>
                                                 </li>
                                                 <li><a href="${pageContext.request.contextPath}/user/account.htm"><span class="icon-user mr-3"></span>Profile</a></li>
-                                                <li><a href="${pageContext.request.contextPath}/user//search.htm"><span class="bg-primary text-white py-3 px-4 rounded"><span class="icon-search mr-3"></span>Search</span></a></li>
+                                                <li><a href="${pageContext.request.contextPath}/user/search.htm"><span class="bg-primary text-white py-3 px-4 rounded"><span class="icon-search mr-3"></span>Search</span></a></li>
                                             </ul>
                                         </div>
                                     </nav>

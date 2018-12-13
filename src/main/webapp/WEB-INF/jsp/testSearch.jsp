@@ -23,6 +23,8 @@
                                     <div class="input-wrap">
                                         <a href="" class="icon icon-room" id="loc"></a>
                                         <input type="text" class="form-control form-control-block search-input  border-0 px-4" id="autocomplete" placeholder="city, province or region">
+                                        <input type="text" class="d-none" name="long" id="long">
+                                        <input type="text" class="d-none" name="lat" id="lat">
                                     </div>
                                 </div>
                             </div>
@@ -98,13 +100,15 @@
         moveMark(place.geometry.location);
     });
 
-    function moveMark(p){
+    function moveMark(pos){
+        document.getElementById('long').value=pos.lng();
+        document.getElementById('lat').value=pos.lat();
         if (marker != null) marker.setMap(null);
         marker = new google.maps.Marker({
-            position: p,
+            position: pos,
             map: map
         });
-        map.panTo(p);
+        map.panTo(pos);
     }
 
     var geocoder = new google.maps.Geocoder();
@@ -127,10 +131,11 @@
         ev.preventDefault();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
-                pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
+                // pos = {
+                //     lat: position.coords.latitude,
+                //     lng: position.coords.longitude
+                // };
+                var pos = new google.maps.LatLng(parseFloat(position.coords.latitude),parseFloat(position.coords.longitude));
                 moveMark(pos);
                 getAddress(pos);
                 // geocoder.geocode({

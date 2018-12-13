@@ -48,7 +48,7 @@ public class ProfessionsDAO implements ProfessionsDAOInterface {
         for (Object[] result: objs){
             RegisterEntity prof = new RegisterEntity();
             prof.setUserEntity((UserEntity)result[0]);
-            prof.setProfessionEntity((ProfessionsEntity)result[1]);
+            prof.setProfessionsEntity((ProfessionsEntity)result[1]);
             prof.setAddressEntity((AddressEntity)result[2]);
             prof.setPhoneEntity((PhoneEntity)result[3]);
             profs.add(prof);
