@@ -187,13 +187,12 @@
                 <div class="row">
                     <div class="input-field col s6">
                         <form:input path="phoneEntity.mobile" id="phone1" name="phone1"
-                                    class="validate"/>
-                        <form:label path="phoneEntity.mobile" for="phone1">Mobile</form:label>
+                                    onkeypress="return blockSpecialCharForNumber(event)"/>                        <form:label path="phoneEntity.mobile" for="phone1">Mobile</form:label>
                         <form:errors path="phoneEntity.mobile"/>
                     </div>
                     <div class="input-field col s6">
                         <form:input path="phoneEntity.landline" id="phone2" name="phone2"
-                                    class="validate"/>
+                                    onkeypress="return blockSpecialCharForNumber(event)"/>
                         <form:label path="phoneEntity.landline" for="phone2">Landline</form:label>
                         <form:errors path="phoneEntity.landline"/>
                     </div>
@@ -323,6 +322,11 @@
         return ((k > 64 && k < 91) || ((k > 903 && k < 975) || (k > 96 && k < 123) || k === 8 || k === 902 ));
     }
 
+    function blockSpecialCharForNumber(e) {
+        var k = e.charCode || e.keyCode;
+        return ((k > 47 && k < 58) || k === 187);
+    }
+
     function checkBeforeSubmit(event){
         enabled2=((emailEnabled && passwordEnabled) && ajaxEnabled);
         if(enabled2!==true){
@@ -340,7 +344,11 @@
             document.getElementById('message4').innerHTML = 'Please allow some seconds to check the database';
             $.ajax({
                 url: '${pageContext.request.contextPath}/usersREST.htm',
+                type:"post",
+                datatype: "json",
                 contentType: 'application/json',
+                data: { email: text },
+                traditional: true,
                 success: function (result) {
                     var jsonobj = $.parseJSON(result);
                     count = 1;

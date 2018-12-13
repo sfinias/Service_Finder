@@ -14,8 +14,6 @@ import javax.persistence.Query;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 
-//import org.springframework.transaction.annotation.Transactional;
-
 /**
  * @author tsamo
  */
@@ -125,6 +123,8 @@ public class UserDAO implements UserDAOInterface {
     @Transactional
     public ArrayList<ProfessionsEntity> getAllProfessions() {
         Query query = em.createQuery("SELECT p FROM ProfessionsEntity p");
-        return (ArrayList<ProfessionsEntity>) query.getResultList();
+        ArrayList<ProfessionsEntity> list=(ArrayList<ProfessionsEntity>) query.getResultList();
+        list.remove(0);
+        return list;
     }
 }

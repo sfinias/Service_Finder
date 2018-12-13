@@ -53,6 +53,7 @@ public class UserController {
 
     @RequestMapping(value = "/testing.htm")
     public String testing(ModelMap modelMap) {
+        servletContext.setAttribute("allProfessions", u.getAllProfessions());
         modelMap.addAttribute("user", new UserEntity());
         modelMap.addAttribute("user2", new RegisterEntity());
         return "TestingForm";
@@ -85,8 +86,11 @@ public class UserController {
         formValids.validate(user2, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", new UserEntity());
+            user2.getUserEntity().setPasswordConfirm("");
+            user2.getUserEntity().setPasswordHash("");
             model.addAttribute("user2", user2);
-            return "initialForm";
+//            return "initialForm";
+            return "TestingForm";
         }
         if (u.userExists(user2.getUserEntity().getEmail())) {
             model.addAttribute("alreadyUser", user2.getUserEntity().getEmail());

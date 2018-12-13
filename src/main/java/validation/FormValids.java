@@ -52,7 +52,7 @@ public class FormValids implements Validator{
         if(!r.getUserEntity().getPasswordHash().matches(patternPass)){
             errors.rejectValue("userEntity.passwordHash", "password_salt.notvalid");
         }
-        if(!r.getPhoneEntity().getLandline().matches(patternPhone)){
+        if(!r.getPhoneEntity().getLandline().matches(patternPhone)&&!r.getPhoneEntity().getLandline().isEmpty()){
             errors.rejectValue("phoneEntity.landline", "landline.notvalid");
         }
         if(!r.getPhoneEntity().getMobile().matches(patternPhone)){
