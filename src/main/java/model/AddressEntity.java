@@ -15,6 +15,16 @@ public class AddressEntity {
     private BigDecimal longit;
     private BigDecimal latit;
 
+    public AddressEntity() {
+    }
+
+    public AddressEntity(AddressEntity a){
+        this.userId = a.getUserId();
+        this.address = a.getAddress();
+        this.longit = a.getLongit();
+        this.latit = a.getLatit();
+    }
+
     @Id
     @Column(name = "user_id", nullable = false)
     public int getUserId() {

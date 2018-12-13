@@ -23,8 +23,8 @@
                                     <div class="input-wrap">
                                         <a href="" class="icon icon-room" id="loc"></a>
                                         <input type="text" class="form-control form-control-block search-input  border-0 px-4" id="autocomplete" placeholder="city, province or region">
-                                        <input type="text" class="d-none" name="long" id="long">
-                                        <input type="text" class="d-none" name="lat" id="lat">
+                                        <input type="number" class="d-none" name="long" id="long">
+                                        <input type="number" class="d-none" name="lat" id="lat">
                                     </div>
                                 </div>
                             </div>

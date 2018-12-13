@@ -13,6 +13,15 @@ public class PhoneEntity {
     private String landline;
     private String mobile;
 
+    public PhoneEntity() {
+    }
+
+    public PhoneEntity(PhoneEntity p){
+        this.userId = p.getUserId();
+        this.landline = p.getLandline();
+        this.mobile = p.getLandline();
+    }
+
     @Id
     @Column(name = "user_id", nullable = false)
     public int getUserId() {

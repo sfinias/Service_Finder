@@ -233,6 +233,8 @@
         }
     }
 
+    var profMarkers = null;
+
     function clearMarkers() {
         if (profMarkers){
             for (let i=0; i<profMarkers.length;i++){
@@ -242,7 +244,6 @@
         }
     }
 
-    var profMarkers = null;
     $("#search").click(function (e) {
         e.preventDefault();
         clearMarkers();

@@ -12,6 +12,15 @@ public class ProfessionsEntity {
     private int id;
     private String profession;
 
+
+    public ProfessionsEntity() {
+    }
+
+    public ProfessionsEntity(ProfessionsEntity p) {
+        this.id = p.getId();
+        this.profession = p.getProfession();
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {

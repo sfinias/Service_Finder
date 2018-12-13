@@ -170,8 +170,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/account.htm")
-    public String account(ModelMap model, RegisterEntity user) {
-        model.addAttribute("user", user);        
+    public String account(ModelMap model, HttpSession session) {
+        RegisterEntity editUser = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
+        model.addAttribute("editUser", editUser);
         return "profile";
     }
 

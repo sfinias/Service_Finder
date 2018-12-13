@@ -17,7 +17,7 @@
 
             <div id="login" class="col-md-12 col-lg-8 mb-5">
 
-                <spring:form action="p.htm" method="post" modelAttribute="user" class="p-5 bg-white">
+                <spring:form action="p.htm" method="post" modelAttribute="editUser" class="p-5 bg-white">
                     <h4 class="h4 text-black mb-3">Edit profile</h4>
 
                     <div class="row form-group">
@@ -26,54 +26,54 @@
                             <a id="switch-disable-fn" href="">
                                 <span style="padding-left:15px" class="icon-edit">Edit</span>
                             </a>
-                            <spring:input path="userEntity.firstName" type="text" id="firstName" class="form-control" disabled="true"/>                            
+                            <spring:input path="userEntity.firstName" type="text" id="firstName" class="form-control" disabled="true"/>
                         </div>
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="font-weight-bold switch-disable" for="lastName">Last Name</label>
+                            <spring:label path="userEntity.lastName" class="font-weight-bold switch-disable" for="lastName">Last Name</spring:label>
                             <a id="switch-disable-ln" href="">
                                 <span style="padding-left:15px" class="icon-edit">Edit</span>
                             </a>
-                            <input type="text" id="lastName" class="form-control" placeholder="Last Name" disabled>
+                            <spring:input path="userEntity.lastName" type="text" id="lastName" class="form-control" placeholder="Last Name" disabled="true"/>
                         </div>
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label class="font-weight-bold" for="email">Email</label>
+                            <spring:label path="userEntity.email" class="font-weight-bold" for="email">Email</spring:label>
                             <a id="switch-disable-e" href="">
                                 <span style="padding-left:15px" class="icon-edit">Edit</span>
                             </a>
-                            <input type="email" id="email" class="form-control" placeholder="Email Address" disabled>
+                            <spring:input path="userEntity.email" type="email" id="email" class="form-control" placeholder="Email Address" disabled="true" />
                         </div>
-                    </div>                   
+                    </div>
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label class="font-weight-bold" for="password">Password</label>
+                            <spring:label path="userEntity.passwordHash" class="font-weight-bold" for="password">Password</spring:label>
                             <a id="switch-disable-p" href="">
                                 <span style="padding-left:15px" class="icon-edit">Edit</span>
                             </a>
-                            <input type="password" id="password" class="form-control" placeholder="Password" disabled>
-                        </div>
-                    </div>                  
-                    <div class="row form-group">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="font-weight-bold" for="phone1">Mobile</label>
-                            <a id="switch-disable-m" href="">
-                                <span style="padding-left:15px" class="icon-edit">Edit</span>
-                            </a>
-                            <input type="text" id="phone1" class="form-control" placeholder="Phone #" disabled>
+                            <spring:input path="userEntity.passwordHash" type="password" id="password" class="form-control" placeholder="Password" disabled="true" />
                         </div>
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="font-weight-bold" for="phone2">Landline</label>
+                            <spring:label path="phoneEntity.mobile" class="font-weight-bold" for="phone1">Mobile</spring:label>
+                            <a id="switch-disable-m" href="">
+                                <span style="padding-left:15px" class="icon-edit">Edit</span>
+                            </a>
+                            <spring:input path="phoneEntity.mobile" type="text" id="phone1" class="form-control" placeholder="Phone #" disabled="true"/>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <spring:label path="phoneEntity.landline" class="font-weight-bold" for="phone2">Landline</spring:label>
                             <a id="switch-disable-l" href="">
                                 <span style="padding-left:15px" class="icon-edit">Edit</span>
                             </a>
-                            <input type="text" id="phone2" class="form-control" placeholder="Phone #" disabled>
+                            <spring:input path="phoneEntity.landline" type="text" id="phone2" class="form-control" placeholder="Phone #" disabled="true"/>
                         </div>
-                    </div>                      
+                    </div>
                     <div class="row form-group">
                         <div class="col-md-12">
                             <input type="submit" value="Comfirm Changes" class="btn btn-primary pill px-4 py-2">
@@ -90,7 +90,7 @@
                         <input type="file" class="btn btn-primary pill px-4 py-2">
                         <hr>
                         <input type="submit" value="Upload File" id="uploadAjax" class="btn btn-primary pill px-4 py-2">
-                    </form> 
+                    </form>
                 </div>
 
                 <div class="p-4 mb-3 bg-white">
@@ -137,6 +137,6 @@
 </div>
 
 
-
+<script>alert("${editUser.userEntity.lastName}")</script>
 
 <%@include file = "footer.jsp" %>

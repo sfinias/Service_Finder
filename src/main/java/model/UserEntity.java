@@ -22,6 +22,21 @@ public class UserEntity {
     private String passwordConfirm;
     private int professionId;
 
+
+    public UserEntity() {
+    }
+
+    public UserEntity(UserEntity u){
+        this.id = u.getId();
+        this.firstName = u.getFirstName();
+        this.lastName = u.getLastName();
+        this.email = u.getEmail();
+        this.passwordSalt = "";
+        this.passwordHash = "";
+        this.enabled = u.isEnabled();
+        this.professionId = u.getProfessionId();
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {

@@ -18,8 +18,15 @@ public class RegisterEntity {
     @Valid
     private ProfessionsEntity professionsEntity;
 
-    @Valid
-    private ProfessionsEntity professionEntity;
+    public RegisterEntity() {
+    }
+
+    public RegisterEntity(RegisterEntity r){
+        this.userEntity = new UserEntity(r.getUserEntity());
+        this.phoneEntity = new PhoneEntity(r.getPhoneEntity());
+        this.addressEntity = new AddressEntity(r.getAddressEntity());
+        this.professionsEntity = new ProfessionsEntity(r.getProfessionsEntity());
+    }
 
     @Valid
     public UserEntity getUserEntity() {
