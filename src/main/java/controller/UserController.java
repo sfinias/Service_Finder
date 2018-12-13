@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import utils.MailService;
 import validation.FormValids;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +54,10 @@ public class UserController {
     @Autowired
     private FormValids formValids;
 
+    @Autowired
+    ServletContext servletContext;
+
+
     private MailService mailService = new MailService();
 
     @RequestMapping(value = "/initialForm.htm")
@@ -59,6 +65,14 @@ public class UserController {
         modelMap.addAttribute("user", new UserEntity());
         modelMap.addAttribute("user2", new RegisterEntity());
         return "initialForm";
+    }
+
+    @RequestMapping(value = "/testing.htm")
+    public String testing(ModelMap modelMap) {
+        servletContext.setAttribute("allProfessions", u.getAllProfessions());
+        modelMap.addAttribute("user", new UserEntity());
+        modelMap.addAttribute("user2", new RegisterEntity());
+        return "TestingForm";
     }
 
     @RequestMapping(value = "/checkLogin.htm")
@@ -97,8 +111,11 @@ public class UserController {
         formValids.validate(user2, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", new UserEntity());
+            user2.getUserEntity().setPasswordConfirm("");
+            user2.getUserEntity().setPasswordHash("");
             model.addAttribute("user2", user2);
-            return "initialForm";
+//            return "initialForm";
+            return "TestingForm";
         }
         if (u.userExists(user2.getUserEntity().getEmail())) {
             model.addAttribute("alreadyUser", user2.getUserEntity().getEmail());

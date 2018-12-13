@@ -2,6 +2,7 @@ package dao;
 
 import model.AddressEntity;
 import model.PhoneEntity;
+import model.ProfessionsEntity;
 import model.UserEntity;
 
 import java.util.ArrayList;

@@ -2,6 +2,7 @@ package dao;
 
 import model.AddressEntity;
 import model.PhoneEntity;
+import model.ProfessionsEntity;
 import model.UserEntity;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -15,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import model.ProfessionsEntity;
 import model.RegisterEntity;
-
-//import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author tsamo
@@ -142,4 +141,11 @@ public class UserDAO implements UserDAOInterface {
         return user;
     }
 
+    @Transactional
+    public ArrayList<ProfessionsEntity> getAllProfessions() {
+        Query query = em.createQuery("SELECT p FROM ProfessionsEntity p");
+        ArrayList<ProfessionsEntity> list=(ArrayList<ProfessionsEntity>) query.getResultList();
+        list.remove(0);
+        return list;
+    }
 }
