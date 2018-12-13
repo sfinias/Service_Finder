@@ -24,9 +24,23 @@ public class SpringRest {
     @Autowired
     ProfessionsDAOInterface professionsDAOInterface;
 
-    @RequestMapping(value = "/usersREST.htm", method = RequestMethod.GET, headers = "Accept=*/*", produces = "application/json")
+//    @RequestMapping(value = "/usersREST.htm", method = RequestMethod.GET, headers = "Accept=*/*", produces = "applcation/json")
+//    public @ResponseBody
+//    String getAllUsersByRest() {
+//        ArrayList<String> emails = userDAOInterface.getAllEmails();
+//        ObjectMapper mapper = new ObjectMapper();
+//        String emailsJSON = null;
+//        try {
+//            emailsJSON = mapper.writeValueAsString(emails);
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//        return emailsJSON;
+//    }
+
+    @RequestMapping(value = "/usersREST.htm", method = RequestMethod.GET, headers = "Accept=*/*", produces = "applcation/json")
     public @ResponseBody
-    String getAllUsersByRest() {
+    String getAllUsersByRest(String email) {
         ArrayList<String> emails = userDAOInterface.getAllEmails();
         ObjectMapper mapper = new ObjectMapper();
         String emailsJSON = null;

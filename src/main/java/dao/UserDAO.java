@@ -14,8 +14,6 @@ import java.util.List;
 import model.ProfessionsEntity;
 import model.RegisterEntity;
 
-//import org.springframework.transaction.annotation.Transactional;
-
 /**
  * @author tsamo
  */
@@ -36,7 +34,6 @@ public class UserDAO implements UserDAOInterface {
         String hashedPassword = DigestUtils.sha512Hex(preHashPassword);
         u.setPasswordSalt(passwordsalt);
         u.setPasswordHash(hashedPassword);
-        u.setProfessionId(1);
         em.persist(u);
     }
 
@@ -138,5 +135,13 @@ public class UserDAO implements UserDAOInterface {
         user.setAddressEntity((AddressEntity)result[2]);
         user.setPhoneEntity((PhoneEntity)result[3]);
         return user;
+    }
+
+    @Transactional
+    public ArrayList<ProfessionsEntity> getAllProfessions() {
+        Query query = em.createQuery("SELECT p FROM ProfessionsEntity p");
+        ArrayList<ProfessionsEntity> list=(ArrayList<ProfessionsEntity>) query.getResultList();
+        list.remove(0);
+        return list;
     }
 }

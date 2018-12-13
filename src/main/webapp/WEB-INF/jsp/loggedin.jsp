@@ -30,7 +30,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </nav>
                         </div>
                         <div class="col-md-3">
                             <input type="submit" class="btn btn-search btn-primary btn-block" value="Search">

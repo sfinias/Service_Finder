@@ -145,7 +145,7 @@
                         });
 </script>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
         var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
 
@@ -232,6 +232,8 @@
             });
         }
     }
+</script>-->
+
 
     var profMarkers = null;
 

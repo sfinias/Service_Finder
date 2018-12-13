@@ -8,18 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Work+Sans:300,400,700" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/fonts/icomoon/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/magnific-popup.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/jquery-ui.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/animate.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/magnific-popup.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/fonts/flaticon/flaticon.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/aos.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/fonts/flaticon/flaticon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/aos.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 
 
@@ -242,7 +242,7 @@
     <%--</div>--%>
 
     <div class="login-center site-blocks-cover overlay"
-         style="background-image: url('${pageContext.request.contextPath}/dist/images/hero_1.jpg');"
+         style="background-image: url('${pageContext.request.contextPath}/resources/images/hero_1.jpg');"
          data-aos="fade" data-stellar-background-ratio="0.5">
         <div class="container">
             <div class="row align-items-center">
@@ -496,7 +496,7 @@
                                                     <h4 class="somePadding displayNone" >I am a(n)</h4>
                                                     <form:select path="userEntity.professionId" id="professionId" class="form-control form-control-block displayNone"
                                                                  required="required">
-                                                        <option class="options" id="defaultSelection" value="1" disabled hidden></option>
+                                                        <option class="options" id="defaultSelection" value="1" hidden></option>
                                                         <c:forEach items="${allProfessions}" var="item">
                                                             <option class="options" value="${item.id}">${item.profession}</option>
                                                         </c:forEach>
@@ -598,24 +598,24 @@
         </div>
     </footer>
 </div>
-<script src="${pageContext.request.contextPath}/dist/js/jquery-3.3.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/dist/js/jquery-migrate-3.0.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/dist/js/jquery-ui.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
 <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
 <script src="https://terrylinooo.github.io/jquery.disableAutoFill/assets/js/jquery.disableAutoFill.min.js"></script>
-<script src="${pageContext.request.contextPath}/dist/js/popper.min.js"></script>
-<script src="${pageContext.request.contextPath}/dist/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/dist/js/owl.carousel.min.js"></script>
-<script src="${pageContext.request.contextPath}/dist/js/jquery.stellar.min.js"></script>
-<script src="${pageContext.request.contextPath}/dist/js/jquery.countdown.min.js"></script>
-<script src="${pageContext.request.contextPath}/dist/js/jquery.magnific-popup.min.js"></script>
-<script src="${pageContext.request.contextPath}/dist/js/bootstrap-datepicker.min.js"></script>
-<script src="${pageContext.request.contextPath}/dist/js/aos.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/popper.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.stellar.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.countdown.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.magnific-popup.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap-datepicker.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/aos.js"></script>
 
 
-<script src="${pageContext.request.contextPath}/dist/js/mediaelement-and-player.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/mediaelement-and-player.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/dist/js/main.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
 
 <script>

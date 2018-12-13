@@ -3,6 +3,10 @@ package controller;
 import dao.ProfessionsDAOInterface;
 import dao.UserDAOInterface;
 import dao.VerificationTokenDAOInterface;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import model.RegisterEntity;
@@ -21,6 +25,10 @@ import utils.MailService;
 import validation.FormValids;
 
 import javax.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author tsamo
@@ -44,13 +52,24 @@ public class UserController {
     @Autowired
     private FormValids formValids;
 
+
+
     private MailService mailService = new MailService();
 
     @RequestMapping(value = "/initialForm.htm")
     public String fillInitialForm(ModelMap modelMap) {
+        servletContext.setAttribute("allProfessions", p.getAllProfessions());
         modelMap.addAttribute("user", new UserEntity());
         modelMap.addAttribute("user2", new RegisterEntity());
         return "initialForm";
+    }
+
+    @RequestMapping(value = "/testing.htm")
+    public String testing(ModelMap modelMap) {
+        servletContext.setAttribute("allProfessions", p.getAllProfessions());
+        modelMap.addAttribute("user", new UserEntity());
+        modelMap.addAttribute("user2", new RegisterEntity());
+        return "TestingForm";
     }
 
     @RequestMapping(value = "/checkLogin.htm")
@@ -89,8 +108,11 @@ public class UserController {
         formValids.validate(user2, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", new UserEntity());
+            user2.getUserEntity().setPasswordConfirm("");
+            user2.getUserEntity().setPasswordHash("");
             model.addAttribute("user2", user2);
-            return "initialForm";
+//            return "initialForm";
+            return "TestingForm";
         }
         if (u.userExists(user2.getUserEntity().getEmail())) {
             model.addAttribute("alreadyUser", user2.getUserEntity().getEmail());
@@ -181,4 +203,22 @@ public class UserController {
         model.addAttribute("user", user);
         return "testSearch";
     }
+    
+    @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
+    public ResponseEntity<String> fileUpload(@RequestParam("uploaded") MultipartFile file)
+            throws IOException {
+
+        // Save file on system
+        if (!file.getOriginalFilename().isEmpty()) {
+            BufferedOutputStream outputStream = new BufferedOutputStream(
+                    new FileOutputStream( new File("/Users/tsamo/TomcatPictures/webapps/images", file.getOriginalFilename())));
+            outputStream.write(file.getBytes());
+            outputStream.flush();
+            outputStream.close();
+        } else {
+            return new ResponseEntity<>("Invalid file.", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>("File Uploaded Successfully.", HttpStatus.OK);
+    }   
 }
