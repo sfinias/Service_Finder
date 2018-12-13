@@ -37,7 +37,6 @@ public class UserDAO implements UserDAOInterface {
         String hashedPassword = DigestUtils.sha512Hex(preHashPassword);
         u.setPasswordSalt(passwordsalt);
         u.setPasswordHash(hashedPassword);
-        u.setProfessionId(1);
         em.persist(u);
     }
 

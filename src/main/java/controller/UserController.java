@@ -24,8 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import utils.MailService;
 import validation.FormValids;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,14 +52,13 @@ public class UserController {
     @Autowired
     private FormValids formValids;
 
-    @Autowired
-    ServletContext servletContext;
 
 
     private MailService mailService = new MailService();
 
     @RequestMapping(value = "/initialForm.htm")
     public String fillInitialForm(ModelMap modelMap) {
+        servletContext.setAttribute("allProfessions", p.getAllProfessions());
         modelMap.addAttribute("user", new UserEntity());
         modelMap.addAttribute("user2", new RegisterEntity());
         return "initialForm";
@@ -69,7 +66,7 @@ public class UserController {
 
     @RequestMapping(value = "/testing.htm")
     public String testing(ModelMap modelMap) {
-        servletContext.setAttribute("allProfessions", u.getAllProfessions());
+        servletContext.setAttribute("allProfessions", p.getAllProfessions());
         modelMap.addAttribute("user", new UserEntity());
         modelMap.addAttribute("user2", new RegisterEntity());
         return "TestingForm";
@@ -213,7 +210,7 @@ public class UserController {
         // Save file on system
         if (!file.getOriginalFilename().isEmpty()) {
             BufferedOutputStream outputStream = new BufferedOutputStream(
-                    new FileOutputStream( new File("/Users/matina/apache-tomcat-8.0.53/webapps/images", file.getOriginalFilename())));
+                    new FileOutputStream( new File("/Users/tsamo/TomcatPictures/webapps/images", file.getOriginalFilename())));
             outputStream.write(file.getBytes());
             outputStream.flush();
             outputStream.close();
