@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import model.RegisterEntity;
 import model.UserEntity;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -204,13 +205,17 @@ public class UserController {
     }
     
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
-    public ResponseEntity<String> fileUpload(@RequestParam("uploaded") MultipartFile file)
+    public ResponseEntity<String> fileUpload(@RequestParam("uploaded") MultipartFile file, HttpSession session)
             throws IOException {
 
+        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+        RegisterEntity user = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
+        int idForFilename = user.getUserEntity().getId();
+        String newFilename = String.valueOf(idForFilename);
         // Save file on system
         if (!file.getOriginalFilename().isEmpty()) {
             BufferedOutputStream outputStream = new BufferedOutputStream(
-                    new FileOutputStream( new File("D:/", file.getOriginalFilename())));
+                    new FileOutputStream( new File("E:/", newFilename.concat("."+extension))));
             outputStream.write(file.getBytes());
             outputStream.flush();
             outputStream.close();
