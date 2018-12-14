@@ -66,7 +66,7 @@
 
                                 <div class="form-group sign-btn">
                                     <input type="submit" class="btn" value="Log in">
-                                    <p><a href="#" class="forgot">Can't access your account?</a></p>
+                                    <p><a href="${pageContext.request.contextPath}/user/forgotPassword.htm" class="forgot">Can't access your account?</a></p>
                                     <p><strong>New to ServiceFinder?</strong><br><a href="#" id="flip-btn"
                                                                                     class="signup signup_link light-green"
                                                                                     style="color: lawngreen">Sign
