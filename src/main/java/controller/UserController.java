@@ -210,7 +210,7 @@ public class UserController {
         // Save file on system
         if (!file.getOriginalFilename().isEmpty()) {
             BufferedOutputStream outputStream = new BufferedOutputStream(
-                    new FileOutputStream( new File("/Users/tsamo/TomcatPictures/webapps/images", file.getOriginalFilename())));
+                    new FileOutputStream( new File("E:/", file.getOriginalFilename())));
             outputStream.write(file.getBytes());
             outputStream.flush();
             outputStream.close();
