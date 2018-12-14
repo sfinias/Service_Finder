@@ -27,7 +27,7 @@
                                         <div class="col-md-6 mb-3 mb-md-0">
                                             <div class="input-wrap">
                                                 <a href="" class="icon icon-room" id="loc"></a>
-                                                <input type="text" class="form-control form-control-block search-input  border-0 px-4" id="autocomplete" placeholder="city, province or region" required>
+                                                <input type="text" class="form-control form-control-block search-input  border-0 px-4" id="address" placeholder="city, province or region" required>
                                                 <input type="number" class="d-none" name="long" id="long" required>
                                                 <input type="number" class="d-none" name="lat" id="lat" required>
                                             </div>

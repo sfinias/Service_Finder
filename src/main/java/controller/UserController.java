@@ -219,5 +219,11 @@ public class UserController {
         }
 
         return new ResponseEntity<>("File Uploaded Successfully.", HttpStatus.OK);
-    }   
+    }
+
+    @RequestMapping("/logout.htm")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/user/initialForm.htm";
+    }
 }

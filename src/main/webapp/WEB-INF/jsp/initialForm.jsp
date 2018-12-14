@@ -249,7 +249,9 @@
                                                                 class="form-control placeHolderColor"
                                                                 placeholder="Address"/>
                                                         <%--Icons--%>
-                                                    </span>
+                                                     <spring:input path="addressEntity.longit" id="long" name="lng" class="d-none" />
+                                                     <spring:input path="addressEntity.latit" id="lat" name="lat" class="d-none" />
+                                                            </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -384,9 +386,9 @@
     <%--</footer>--%>
 </div>
 <%@include file = "footer.jsp" %>
-<%--<script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>--%>
-<%--<script src="https://terrylinooo.github.io/jquery.disableAutoFill/assets/js/jquery.disableAutoFill.min.js"></script>--%>
 <script src="${pageContext.request.contextPath}/dist/js/register.js" type="text/javascript" ></script>
+<script src="${pageContext.request.contextPath}/dist/js/autocomplete.js" type="text/javascript" ></script>
+
 <%--<script src="${pageContext.request.contextPath}/dist/js/jquery-3.3.1.min.js"></script>--%>
 <%--<script src="${pageContext.request.contextPath}/dist/js/jquery-migrate-3.0.1.min.js"></script>--%>
 <%--<script src="${pageContext.request.contextPath}/dist/js/jquery-ui.js"></script>--%>
