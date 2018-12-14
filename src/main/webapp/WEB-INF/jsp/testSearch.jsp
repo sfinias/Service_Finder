@@ -41,7 +41,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p class="small">or browse by category: <a href="#" class="category">Category #1</a> <a href="#" class="category">Category #2</a></p>
+                                    <p class="small">or browse by category: <a href="#" class="category">Doctors</a> <a href="#" class="category">PC Technicians</a> <a href="#" class="category">Electricians</a> <a href="#" class="category">Accountants</a></p>
                                 </div>
                             </div>
 
