@@ -204,13 +204,18 @@ public class UserController {
     }
     
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
-    public ResponseEntity<String> fileUpload(@RequestParam("uploaded") MultipartFile file)
+    public ResponseEntity<String> fileUpload(@RequestParam("uploaded") MultipartFile file, HttpSession session)
             throws IOException {
-
+        
+        String[] picturePartsSplitedByDots = file.getOriginalFilename().split(".");
+        String pictureFormatExtension = picturePartsSplitedByDots[picturePartsSplitedByDots.length-1];
+        RegisterEntity user = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
+        int idForFilename = user.getUserEntity().getId();
+        String newFilename = String.valueOf(idForFilename);
         // Save file on system
         if (!file.getOriginalFilename().isEmpty()) {
             BufferedOutputStream outputStream = new BufferedOutputStream(
-                    new FileOutputStream( new File("E:/", file.getOriginalFilename())));
+                    new FileOutputStream( new File("/Users/matina/apache-tomcat-8.0.53/webapps/images", newFilename.concat("."+pictureFormatExtension))));
             outputStream.write(file.getBytes());
             outputStream.flush();
             outputStream.close();
