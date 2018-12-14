@@ -141,3 +141,12 @@ h4 {
 .displayNone{
     display: none;
 }
+
+.paddingExtra{
+    /*padding-top: 70px;*/
+    /*padding-bottom: 1000px;*/
+    /*padding-top: 10%;*/
+    /*padding-bottom: 90%;*/
+    padding-top: 6em;
+    padding-bottom: 60em;
+}

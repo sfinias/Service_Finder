@@ -26,7 +26,7 @@
 <body>
 <div class="site-wrap">
     <%@include file = "navbarLogin.jsp" %>
-    <div class="login-center site-blocks-cover overlay"
+    <div class="login-center site-blocks-cover overlay paddingExtra"
          style="background-image: url('${pageContext.request.contextPath}/dist/images/hero_1.jpg');"
          data-aos="fade" data-stellar-background-ratio="0.5">
         <div class="container">
@@ -35,7 +35,7 @@
                     <div class="login" id="card" style="width: auto">
                         <div class="front signin_form">
                             <h4 class="white-text">Login to Your Account</h4>
-                            <spring:form class="login-form " method="post" autocomplete="off"
+                            <spring:form class="login-form " method="post"
                                        action="${pageContext.request.contextPath}/user/checkLogin.htm"
                                        modelAttribute="user">
 
@@ -52,6 +52,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <spring:input path="passwordConfirm" id="passwordLogin" type="password"
+                                                      autocomplete="new-password"
                                                     class="col-md-4 form-control placeHolderColor" required="required"
                                                     placeholder="Password"/>
                                         <span class="input-group-addon">
