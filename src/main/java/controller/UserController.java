@@ -94,7 +94,7 @@ public class UserController {
                     session.setAttribute("user", regEntity);
                     if (regEntity.getProfessionsEntity().getId() == 1) {
                         servletContext.setAttribute("allProfessions", p.getAllProfessions());
-                        return "index";
+                        return "redirect:/user/search.htm";
                     } else {
                         return "homeProf";
                     }
@@ -199,8 +199,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/search.htm")
-    public String Search(ModelMap model, UserEntity user) {
-        model.addAttribute("user", user);
+    public String Search() {
         return "testSearch";
     }
     

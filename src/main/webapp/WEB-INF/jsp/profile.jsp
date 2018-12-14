@@ -1,6 +1,13 @@
-<%@include file = "headerForProfile.jsp" %>
-
-<div class="unit-5 overlay" style="background-image: url('${pageContext.request.contextPath}/dist/images/woodWallpaper1.jpg');">
+<html>
+<head>
+    <title>Service Finder &mdash; DMNG team</title>
+    <%@include file = "newHeader.jsp" %>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/profile.css">
+</head>
+<body>
+<%@include file = "navbar.jsp" %>
+<div class="site-wrap">
+<div class="unit-5 overlay" style="background-image: url('${pageContext.request.contextPath}/dist/images/woodWallpaper.jpg');">
     <div class="container text-center">
         <h2 class="mb-0">Profile</h2>
         <p class="mb-0 unit-6">
@@ -145,8 +152,9 @@
         </div>
     </div>
 </div>
-
-
-<script>alert("${editUser.userEntity.lastName}")</script>
+</div>
 
 <%@include file = "footer.jsp" %>
+<script src="${pageContext.request.contextPath}/dist/js/profile.js" type="text/javascript" ></script>
+</body>
+</html>

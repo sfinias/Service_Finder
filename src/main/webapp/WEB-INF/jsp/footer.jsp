@@ -59,11 +59,13 @@
         </div>
     </div>
 </footer>
-</div>
+
 
 <script src="${pageContext.request.contextPath}/dist/js/jquery-3.3.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/dist/js/jquery-migrate-3.0.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/dist/js/jquery-ui.js"></script>
+<script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
+<script src="https://terrylinooo.github.io/jquery.disableAutoFill/assets/js/jquery.disableAutoFill.min.js"></script>
 <script src="${pageContext.request.contextPath}/dist/js/popper.min.js"></script>
 <script src="${pageContext.request.contextPath}/dist/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/dist/js/owl.carousel.min.js"></script>
@@ -78,72 +80,7 @@
 
 <script src="${pageContext.request.contextPath}/dist/js/main.js"></script>
 
-<script type="text/javascript">
-                        $(document).ready(function () {
-                            if ($("#switch-disable-fn")) {
-                                $("#switch-disable-fn").click(function (e) {
-                                    e.preventDefault();
-                                    if ($("#firstName").attr("disabled")) {
-                                        $("#firstName").prop("disabled", false);
-                                    } else {
-                                        $("#firstName").prop("disabled", true);
-                                    }
-                                });
-                            }
-                            if ($("#switch-disable-ln")) {
-                                $("#switch-disable-ln").click(function (e) {
-                                    e.preventDefault();
-                                    if ($("#lastName").attr("disabled")) {
-                                        $("#lastName").prop("disabled", false);
-                                    } else {
-                                        $("#lastName").prop("disabled", true);
-                                    }
-                                });
-                            }
-                            if ($("#switch-disable-e")) {
-                                $("#switch-disable-e").click(function (e) {
-                                    e.preventDefault();
-                                    if ($("#email").attr("disabled")) {
-                                        $("#email").prop("disabled", false);
-                                    } else {
-                                        $("#email").prop("disabled", true);
-                                    }
-                                });
-                            }
-                            if ($("#switch-disable-p")) {
-                                $("#switch-disable-p").click(function (e) {
-                                    e.preventDefault();
-                                    if ($("#password").attr("disabled")) {
-                                        $("#password").prop("disabled", false);
-                                    } else {
-                                        $("#password").prop("disabled", true);
-                                    }
-                                });
-                            }
-                            if ($("#switch-disable-m")) {
-                                $("#switch-disable-m").click(function (e) {
-                                    e.preventDefault();
-                                    if ($("#phone1").attr("disabled")) {
-                                        $("#phone1").prop("disabled", false);
-                                    } else {
-                                        $("#phone1").prop("disabled", true);
-                                    }
-                                });
-                            }
-                            if ($("#switch-disable-l")) {
-                                $("#switch-disable-l").click(function (e) {
-                                    e.preventDefault();
-                                    if ($("#phone2").attr("disabled")) {
-                                        $("#phone2").prop("disabled", false);
-                                    } else {
-                                        $("#phone2").prop("disabled", true);
-                                    }
-                                });
-                            }
 
-
-                        });
-</script>
 
 <!--<script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
@@ -233,75 +170,3 @@
         }
     }
 </script>-->
-
-
-    var profMarkers = null;
-
-    function clearMarkers() {
-        if (profMarkers){
-            for (let i=0; i<profMarkers.length;i++){
-                profMarkers[i].setMap(null);
-            }
-            profMarkers = null;
-        }
-    }
-
-    $("#search").click(function (e) {
-        e.preventDefault();
-        clearMarkers();
-        $('.jobs-wrap').html('');
-        // var id = $('#pro').val();
-        // alert(id);
-        var form = document.forms[0];
-        //FormData makes all the files from the form in a name/value object
-        var formData = new FormData(form);
-        alert('ajax');
-        $.ajax({
-            url: '${pageContext.request.contextPath}/profsREST.htm',
-            contentType: false,
-            data: formData,
-            type: 'POST',
-            processData: false,
-            success: function (result) {
-                alert('Received');
-                var jsonobj = $.parseJSON(result);
-                alert(jsonobj);
-                profMarkers = [];
-                if (!jsonobj) {
-                    alert('There are no profs of this kind');
-                } else {
-                    $.each(jsonobj, function (i, item) {
-                        $profCard = $('<a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center  border-bottom fulltime">').append(
-                            $('<div class="company-logo blank-logo text-center text-md-left pl-3">').append(
-                                $('<img src="${pageContext.request.contextPath}/dist/images/person_1.jpg" alt="Image" class="img-fluid mx-auto">')),
-                            $('<div class="job-details">').append(
-                                $('<div class="p-3 align-self-center">').append(
-                                    $('<h3>').append(item.userEntity.firstName + ' ' + item.userEntity.lastName),
-                                    $('<div class="d-block d-lg-flex">').append(
-                                        $('<div class="row">').append(
-                                            $('<div class="mr-3">')).append(
-                                            $('<span class="icon-room mr-1">'),(item.addressEntity.address))))),
-                            $('<div class="job-category align-self-center">').append(
-                                $('<div class="p-3">').append(
-                                    $('<a href="tel:' + item.phoneEntity.mobile + '" class="text-info p-2 rounded border border-info">').append(
-                                        $('<span class="icon-phone2">')))));
-                        $('.jobs-wrap').append($profCard);
-                        var m = new google.maps.Marker({
-                            position: new google.maps.LatLng(parseFloat(item.addressEntity.latit),parseFloat(item.addressEntity.longit)) ,
-                            map: map
-                        });
-                        profMarkers.push(m);
-                    });
-                }
-            }
-        });
-    });
-
-
-</script>
-<%--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpNb7KwtNgmsphG-7u8AhPPZ_h_4ZkG5Y&libraries=places&callback=initMap"></script>--%>
-<%--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&libraries=places&callback=initAutocomplete"--%>
-<%--async defer></script>--%>
-</body>
-
-</html>
