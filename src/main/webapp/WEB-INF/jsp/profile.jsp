@@ -102,11 +102,11 @@
 							   <div class="text-center">
     <div class="avatar-upload">
         <div class="avatar-edit" >
-            <input type="file" id="imageUpload" name="uploaded">
+            <input type="file" id="imageUpload" name="uploaded" accept="image/png, image/jpeg">
             <label for="imageUpload" ></label>
         </div>
         <div class="avatar-preview">
-            <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+            <div id="imagePreview" style="background-image: url('http://localhost:8080/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
             </div>
         </div>
     </div>

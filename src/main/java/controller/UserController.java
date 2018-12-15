@@ -196,6 +196,7 @@ public class UserController {
     public String account(ModelMap model, HttpSession session) {
         RegisterEntity editUser = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
         model.addAttribute("editUser", editUser);
+        model.addAttribute("userIDforImage", editUser.getUserEntity().getId());
         return "profile";
     }
 
@@ -212,10 +213,16 @@ public class UserController {
         RegisterEntity user = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
         int idForFilename = user.getUserEntity().getId();
         String newFilename = String.valueOf(idForFilename);
+        File previousFileToDeleteJPG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".jpg");    
+        File previousFileToDeletePNG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".png");
+        previousFileToDeleteJPG.delete();
+        previousFileToDeletePNG.delete();
         // Save file on system
         if (!file.getOriginalFilename().isEmpty()) {
             BufferedOutputStream outputStream = new BufferedOutputStream(
-                    new FileOutputStream( new File("/Users/matina/apache-tomcat-8.0.53/webapps/images", newFilename.concat("."+pictureFormatExtension))));
+                    new FileOutputStream( new File("/Users/matina/apache-tomcat-8.0.53/webapps/images", newFilename.concat("."+extension))));
+            user.getUserEntity().setProfilePicture(newFilename.concat("."+extension));
+            session.setAttribute("user", user);
             outputStream.write(file.getBytes());
             outputStream.flush();
             outputStream.close();
@@ -230,5 +237,13 @@ public class UserController {
     public String logout(HttpSession session){
         session.invalidate();
         return "redirect:/user/initialForm.htm";
+    }
+    
+    
+    @RequestMapping("/page.htm")
+    public String selected(ModelMap model, HttpSession session){
+        RegisterEntity selectedUser = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
+        model.addAttribute("selectedUser", selectedUser);
+        return "viewSelectedUserInfo";
     }
 }
