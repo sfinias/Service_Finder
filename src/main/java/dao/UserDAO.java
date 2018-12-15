@@ -1,5 +1,8 @@
 package dao;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import model.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -134,6 +137,7 @@ public class UserDAO implements UserDAOInterface {
         user.setProfessionsEntity((ProfessionsEntity)result[1]);
         user.setAddressEntity((AddressEntity)result[2]);
         user.setPhoneEntity((PhoneEntity)result[3]);
+        user.getUserEntity().setProfilePicture(setProfilePicture(user.getUserEntity())); //call method for setting profile Picture
         return user;
     }
 
@@ -144,4 +148,26 @@ public class UserDAO implements UserDAOInterface {
         list.remove(0);
         return list;
     }
+    
+    //set profile Picture
+    public String setProfilePicture(UserEntity userEntity){
+        int id = userEntity.getId();
+        String pathJPG = "/Users/matina/apache-tomcat-8.0.53/webapps/images/"+id+".jpg";
+        String pathPNG = "/Users/matina/apache-tomcat-8.0.53/webapps/images/"+id+".png";
+        File filenameJPG = new File(pathJPG);
+        File filenamePNG = new File(pathPNG);
+        if((filenameJPG.exists() && !filenameJPG.isDirectory())) 
+            { 
+                return id+".jpg";
+            }
+        else if((filenamePNG.exists() && !filenamePNG.isDirectory())) 
+        {
+            return id+".png";
+        }
+        else{
+            return "dmng.png";
+        }
+        
+    }
+    
 }
