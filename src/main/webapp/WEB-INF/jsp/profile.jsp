@@ -102,6 +102,8 @@
 
                         </div>
 
+
+
                         <div class="col-lg-4">
                             <div class="p-4 mb-3 bg-white">
                                 <h3 class="h5 text-black mb-3">Profile Image</h3>
@@ -112,11 +114,11 @@
                                             <div class="text-center">
                                                 <div class="avatar-upload">
                                                     <div class="avatar-edit" >
-                                                        <input type="file" id="imageUpload" name="uploaded">
+                                                        <input type="file" id="imageUpload" name="uploaded" accept="image/png, image/jpeg">
                                                         <label for="imageUpload" ></label>
                                                     </div>
                                                     <div class="avatar-preview">
-                                                        <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+                                                        <div id="imagePreview" style="background-image: url('http://localhost:8080/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -125,88 +127,65 @@
                                     </div>
                                 </form>
 
-              <div class="col-lg-4">
-            <div class="p-4 mb-3 bg-white">
-              <h3 class="h5 text-black mb-3">Profile Image</h3>
-              <form class="form" action="" method="post" id="registrationForm" enctype="multipart/data" >
-    <div class="form-group">
-                          
-                          <div class="col-xs-12">
-							   <div class="text-center">
-    <div class="avatar-upload">
-        <div class="avatar-edit" >
-            <input type="file" id="imageUpload" name="uploaded" accept="image/png, image/jpeg">
-            <label for="imageUpload" ></label>
-        </div>
-        <div class="avatar-preview">
-            <div id="imagePreview" style="background-image: url('http://localhost:8080/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
+                                <spring:form action="${pageContext.request.contextPath}/user/pass.htm" method="post" modelAttribute="userInFormPassword" class="p-5 bg-white">
+                                    <h4 class="h4 text-black mb-3">Change Password</h4>
+                                    <div class="row form-group">
+                                        <div class="col-md-12 mb-3 mb-md-0">
+                                            <spring:label path="passwordHash" class="font-weight-bold" for="passwordHash">Password</spring:label>
+                                                <a id="switch-readonly-p" href="">
+                                                    <span style="padding-left:15px" class="icon-edit">Edit</span>
+                                                </a>
+                                            <spring:input path="passwordHash" title="8 to 50 characters" pattern=".{8,50}" type="password" id="password" class="form-control" readonly="true"
+                                                          onkeyup='CheckPassword(); EnablePassword();' placeholder="Password"/>
+                                        </div>
+                                        <spring:errors path="passwordHash"/>
+                                    </div>                                   
+                                    <div class="row form-group">
+                                        <div class="col-md-12">
+                                            <input type="submit" value="Confirm Changes" class="btn btn-primary pill px-4 py-2">
+                                        </spring:form>
+                                    </div>  
+                                </div> 
+
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-                              </div>
-</div>
-        </form>
 
-                                        <spring:form action="${pageContext.request.contextPath}/user/pass.htm" method="post" modelAttribute="userInFormPassword" class="p-5 bg-white">
-                                            <h4 class="h4 text-black mb-3">Change Password</h4>
-                                            <div class="row form-group">
-                                                <div class="col-md-12 mb-3 mb-md-0">
-                                                    <spring:label path="passwordHash" class="font-weight-bold" for="passwordHash">Password</spring:label>
-                                                        <a id="switch-readonly-p" href="">
-                                                            <span style="padding-left:15px" class="icon-edit">Edit</span>
-                                                        </a>
-                                                    <spring:input path="passwordHash" title="8 to 50 characters" pattern=".{8,50}" type="password" id="password" class="form-control" readonly="true"
-                                                                  onkeyup='CheckPassword(); EnablePassword();' placeholder="Password"/>
-                                                </div>
-                                                <spring:errors path="passwordHash"/>
-                                            </div>                                   
-                                            <div class="row form-group">
-                                                <div class="col-md-12">
-                                                    <input type="submit" value="Confirm Changes" class="btn btn-primary pill px-4 py-2">
-                                                </spring:form>
-                                            </div>  
-                                        </div> 
-
-
-                                    </div>
-
-
-
-                                </div>
-
+            <div class="py-5 quick-contact-info">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div>
+                                <h2><span class="icon-room"></span> Location</h2>
+                                <p class="mb-0">New York - 2398 <br>  10 Hadson Carl Street</p>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="py-5 quick-contact-info">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div>
-                                        <h2><span class="icon-room"></span> Location</h2>
-                                        <p class="mb-0">New York - 2398 <br>  10 Hadson Carl Street</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div>
-                                        <h2><span class="icon-clock-o"></span> Service Times</h2>
-                                        <p class="mb-0">Wednesdays at 6:30PM - 7:30PM <br>
-                                            Fridays at Sunset - 7:30PM <br>
-                                            Saturdays at 8:00AM - Sunset</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <h2><span class="icon-comments"></span> Get In Touch</h2>
-                                    <p class="mb-0">Email: info@yoursite.com <br>
-                                        Phone: (123) 3240-345-9348 </p>
-                                </div>
+                        <div class="col-md-4">
+                            <div>
+                                <h2><span class="icon-clock-o"></span> Service Times</h2>
+                                <p class="mb-0">Wednesdays at 6:30PM - 7:30PM <br>
+                                    Fridays at Sunset - 7:30PM <br>
+                                    Saturdays at 8:00AM - Sunset</p>
                             </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h2><span class="icon-comments"></span> Get In Touch</h2>
+                            <p class="mb-0">Email: info@yoursite.com <br>
+                                Phone: (123) 3240-345-9348 </p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <%@include file = "footer.jsp" %>
-                <script src="${pageContext.request.contextPath}/dist/js/profile.js" type="text/javascript" ></script>
-                </body>
-                </html>
+        <%@include file = "footer.jsp" %>
+        <script src="${pageContext.request.contextPath}/dist/js/profile.js" type="text/javascript" ></script>
+    </body>
+</html>
