@@ -53,8 +53,6 @@ public class UserController {
     @Autowired
     private FormValids formValids;
 
-
-
     private MailService mailService = new MailService();
 
     @RequestMapping(value = "/initialForm.htm")
