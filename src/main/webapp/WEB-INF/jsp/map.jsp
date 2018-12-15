@@ -8,7 +8,7 @@
     };
     var map = new google.maps.Map(document.getElementById("googleMap"), defaultProp);
 
-    var autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
+    var autocomplete = new google.maps.places.Autocomplete(document.getElementById('address'));
     autocomplete.bindTo('bounds', map);
     autocomplete.setTypes(['address']);
     autocomplete.addListener('place_changed', function() {
@@ -59,7 +59,7 @@
         }, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results[0]) {
-                    document.getElementById('autocomplete').value=results[0].formatted_address;
+                    document.getElementById('address').value=results[0].formatted_address;
                 }
             }
         });

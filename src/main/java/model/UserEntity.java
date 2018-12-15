@@ -20,6 +20,8 @@ public class UserEntity {
     private String emailConfirm;
     @Transient
     private String passwordConfirm;
+    @Transient
+    private String profilePicture;
     private int professionId;
 
 
@@ -114,6 +116,15 @@ public class UserEntity {
 
     public void setEmailConfirm(String emailConfirm) {
         this.emailConfirm = emailConfirm;
+    }
+    
+    @Transient
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     @Transient

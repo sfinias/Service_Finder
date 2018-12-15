@@ -125,10 +125,28 @@
                                     </div>
                                 </form>
 
-                            </div>
-                            <div>        
-                                <div class="row form-group">
-                                    <div class="col-md-12 mb-3 mb-md-0">
+              <div class="col-lg-4">
+            <div class="p-4 mb-3 bg-white">
+              <h3 class="h5 text-black mb-3">Profile Image</h3>
+              <form class="form" action="" method="post" id="registrationForm" enctype="multipart/data" >
+    <div class="form-group">
+                          
+                          <div class="col-xs-12">
+							   <div class="text-center">
+    <div class="avatar-upload">
+        <div class="avatar-edit" >
+            <input type="file" id="imageUpload" name="uploaded" accept="image/png, image/jpeg">
+            <label for="imageUpload" ></label>
+        </div>
+        <div class="avatar-preview">
+            <div id="imagePreview" style="background-image: url('http://localhost:8080/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
+            </div>
+        </div>
+    </div>
+</div>
+                              </div>
+</div>
+        </form>
 
                                         <spring:form action="${pageContext.request.contextPath}/user/pass.htm" method="post" modelAttribute="userInFormPassword" class="p-5 bg-white">
                                             <h4 class="h4 text-black mb-3">Change Password</h4>

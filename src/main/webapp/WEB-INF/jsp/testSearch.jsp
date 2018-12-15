@@ -27,7 +27,7 @@
                                         <div class="col-md-6 mb-3 mb-md-0">
                                             <div class="input-wrap">
                                                 <a href="" class="icon icon-room" id="loc"></a>
-                                                <input type="text" class="form-control form-control-block search-input  border-0 px-4" id="autocomplete" placeholder="city, province or region" required>
+                                                <input type="text" class="form-control form-control-block search-input  border-0 px-4" id="address" placeholder="city, province or region" required>
                                                 <input type="number" class="d-none" name="long" id="long" required>
                                                 <input type="number" class="d-none" name="lat" id="lat" required>
                                             </div>
@@ -41,7 +41,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p class="small">or browse by category: <a href="#" class="category">Category #1</a> <a href="#" class="category">Category #2</a></p>
+                                    <p class="small">or browse by category: <a href="#" class="category">Doctors</a> <a href="#" class="category">PC Technicians</a> <a href="#" class="category">Electricians</a> <a href="#" class="category">Accountants</a></p>
                                 </div>
                             </div>
 

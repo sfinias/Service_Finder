@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import model.RegisterEntity;
 import model.UserEntity;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -245,13 +246,23 @@ public class UserController {
     }
 
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
-    public ResponseEntity<String> fileUpload(@RequestParam("uploaded") MultipartFile file)
+    public ResponseEntity<String> fileUpload(@RequestParam("uploaded") MultipartFile file, HttpSession session)
             throws IOException {
 
+        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+        RegisterEntity user = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
+        int idForFilename = user.getUserEntity().getId();
+        String newFilename = String.valueOf(idForFilename);
+        File previousFileToDeleteJPG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".jpg");    
+        File previousFileToDeletePNG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".png");
+        previousFileToDeleteJPG.delete();
+        previousFileToDeletePNG.delete();
         // Save file on system
         if (!file.getOriginalFilename().isEmpty()) {
             BufferedOutputStream outputStream = new BufferedOutputStream(
-                    new FileOutputStream(new File("/Users/Nah/TomcatPictures/webapps/images", file.getOriginalFilename())));
+                    new FileOutputStream( new File("/Users/matina/apache-tomcat-8.0.53/webapps/images", newFilename.concat("."+extension))));
+            user.getUserEntity().setProfilePicture(newFilename.concat("."+extension));
+            session.setAttribute("user", user);
             outputStream.write(file.getBytes());
             outputStream.flush();
             outputStream.close();
@@ -260,5 +271,19 @@ public class UserController {
         }
 
         return new ResponseEntity<>("File Uploaded Successfully.", HttpStatus.OK);
+    }
+
+    @RequestMapping("/logout.htm")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/user/initialForm.htm";
+    }
+    
+    
+    @RequestMapping("/page.htm")
+    public String selected(ModelMap model, HttpSession session){
+        RegisterEntity selectedUser = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
+        model.addAttribute("selectedUser", selectedUser);
+        return "viewSelectedUserInfo";
     }
 }
