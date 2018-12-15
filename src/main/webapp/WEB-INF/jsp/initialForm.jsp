@@ -36,7 +36,7 @@
                         <div class="front signin_form">
                             <h4 class="white-text">Login to Your Account</h4>
                             <spring:form class="login-form " method="post"
-                                       action="${pageContext.request.contextPath}/user/checkLogin.htm"
+                                       action="${pageContext.request.contextPath}/home/checkLogin.htm"
                                        modelAttribute="user">
 
                                 <div class="form-group">
@@ -66,7 +66,7 @@
 
                                 <div class="form-group sign-btn">
                                     <input type="submit" class="btn" value="Log in">
-                                    <p><a href="${pageContext.request.contextPath}/user/forgotPassword.htm" class="forgot">Can't access your account?</a></p>
+                                    <p><a href="${pageContext.request.contextPath}/home/forgotPassword.htm" class="forgot">Can't access your account?</a></p>
                                     <p><strong>New to ServiceFinder?</strong><br><a href="#" id="flip-btn"
                                                                                     class="signup signup_link light-green"
                                                                                     style="color: lawngreen">Sign
@@ -79,7 +79,7 @@
                             <h4 class="white-text">Sign Up for Your New Account</h4>
                             <spring:form class="login-form col s12" method="post" autocomplete="off"
                                        id="register-form"
-                                       action="${pageContext.request.contextPath}/user/checkRegister.htm"
+                                       action="${pageContext.request.contextPath}/home/checkRegister.htm"
                                        modelAttribute="user2"
                                        accept-charset="UTF-8">
                                 <div class="container">

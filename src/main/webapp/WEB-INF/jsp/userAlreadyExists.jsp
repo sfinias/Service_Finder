@@ -50,7 +50,7 @@
     </div>
 </div>
 <div id="homebutton">
-    <form action="${pageContext.request.contextPath}/user/initialForm.htm">
+    <form action="${pageContext.request.contextPath}/home/initialForm.htm">
         <button class="home">Home</button>
     </form>
 </div>

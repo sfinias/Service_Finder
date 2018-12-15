@@ -14,12 +14,23 @@ public class PageFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) servletResponse;
 
         RegisterEntity user = (RegisterEntity)req.getSession().getAttribute("user");
-        System.out.println(req.getRequestURI());
+//        System.out.println(req.getRequestURI());
+//        System.out.println("Query String: " + req.getQueryString() );
+        System.out.println("servletPath: " + req.getServletPath() );
+//        System.out.println("Context PATH: " + req.getContextPath() );
+//        System.out.println("GET METHOD: " + req.getMethod());
+//        System.out.println("Get request URL: " + req.getRequestURL() );
+//        System.out.println("Get path translated: " + req.getPathTranslated() );
 
-        if(user==null && !req.getRequestURI().endsWith("checkLogin.htm") && !req.getRequestURI().endsWith("checkLogin.htm") && !req.getRequestURI().endsWith("initialForm.htm")){
-            res.sendRedirect(req.getContextPath().concat("/user/initialForm.htm"));
-        } else if(req.getRequestURI().endsWith("initialForm.htm") && user!=null){
-            res.sendRedirect(req.getContextPath().concat("/user/search.htm"));
+
+        if(user == null && !(req.getServletPath().startsWith("/home") || req.getServletPath().startsWith("/verification") || req.getServletPath().equals("/index.jsp"))) {
+            res.sendRedirect(req.getContextPath().concat("/home/initialForm.htm"));
+        }
+
+        if(user!=null){
+            if(user.getUserEntity().getProfessionId()==1 && !req.getServletPath().startsWith("/user") ){
+                res.sendRedirect(req.getContextPath().concat("/user/search.htm"));
+            }
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
