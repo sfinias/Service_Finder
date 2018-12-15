@@ -19,7 +19,7 @@ public class PhoneEntity {
     public PhoneEntity(PhoneEntity p){
         this.userId = p.getUserId();
         this.landline = p.getLandline();
-        this.mobile = p.getLandline();
+        this.mobile = p.getMobile();
     }
 
     @Id

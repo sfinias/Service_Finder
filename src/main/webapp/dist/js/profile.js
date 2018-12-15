@@ -1,61 +1,61 @@
 $(document).ready(function () {
-    if ($("#switch-disable-fn")) {
-        $("#switch-disable-fn").click(function (e) {
+    if ($("#switch-readonly-fn")) {
+        $("#switch-readonly-fn").click(function (e) {
             e.preventDefault();
-            if ($("#firstName").attr("disabled")) {
-                $("#firstName").prop("disabled", false);
+            if ($("#firstName").attr("readonly")) {
+                $("#firstName").prop("readonly", false);
             } else {
-                $("#firstName").prop("disabled", true);
+                $("#firstName").prop("readonly", true);
             }
         });
     }
-    if ($("#switch-disable-ln")) {
-        $("#switch-disable-ln").click(function (e) {
+    if ($("#switch-readonly-ln")) {
+        $("#switch-readonly-ln").click(function (e) {
             e.preventDefault();
-            if ($("#lastName").attr("disabled")) {
-                $("#lastName").prop("disabled", false);
+            if ($("#lastName").attr("readonly")) {
+                $("#lastName").prop("readonly", false);
             } else {
-                $("#lastName").prop("disabled", true);
+                $("#lastName").prop("readonly", true);
             }
         });
     }
-    if ($("#switch-disable-e")) {
-        $("#switch-disable-e").click(function (e) {
+    if ($("#switch-readonly-e")) {
+        $("#switch-readonly-e").click(function (e) {
             e.preventDefault();
-            if ($("#email").attr("disabled")) {
-                $("#email").prop("disabled", false);
+            if ($("#email").attr("readonly")) {
+                $("#email").prop("readonly", false);
             } else {
-                $("#email").prop("disabled", true);
+                $("#email").prop("readonly", true);
             }
         });
     }
-    if ($("#switch-disable-p")) {
-        $("#switch-disable-p").click(function (e) {
+    if ($("#switch-readonly-p")) {
+        $("#switch-readonly-p").click(function (e) {
             e.preventDefault();
-            if ($("#password").attr("disabled")) {
-                $("#password").prop("disabled", false);
+            if ($("#password").attr("readonly")) {
+                $("#password").prop("readonly", false);
             } else {
-                $("#password").prop("disabled", true);
+                $("#password").prop("readonly", true);
             }
         });
     }
-    if ($("#switch-disable-m")) {
-        $("#switch-disable-m").click(function (e) {
+    if ($("#switch-readonly-m")) {
+        $("#switch-readonly-m").click(function (e) {
             e.preventDefault();
-            if ($("#phone1").attr("disabled")) {
-                $("#phone1").prop("disabled", false);
+            if ($("#phone1").attr("readonly")) {
+                $("#phone1").prop("readonly", false);
             } else {
-                $("#phone1").prop("disabled", true);
+                $("#phone1").prop("readonly", true);
             }
         });
     }
-    if ($("#switch-disable-l")) {
-        $("#switch-disable-l").click(function (e) {
+    if ($("#switch-readonly-l")) {
+        $("#switch-readonly-l").click(function (e) {
             e.preventDefault();
-            if ($("#phone2").attr("disabled")) {
-                $("#phone2").prop("disabled", false);
+            if ($("#phone2").attr("readonly")) {
+                $("#phone2").prop("readonly", false);
             } else {
-                $("#phone2").prop("disabled", true);
+                $("#phone2").prop("readonly", true);
             }
         });
     }
