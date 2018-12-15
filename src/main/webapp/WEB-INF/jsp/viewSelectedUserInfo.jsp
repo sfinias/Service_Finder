@@ -15,7 +15,7 @@
         <p class="mb-0 unit-6">
             <a href="${pageContext.request.contextPath}/user/initialForm.htm">Home</a> 
             <span class="sep">></span> 
-            <span>Profile</span></p>
+            <span>${selectedUser.getProfessionsEntity().getProfession()}s</span></p>
     </div>
 </div>
 
@@ -24,56 +24,51 @@
     <div class="container">
         <div class="row">
 
-            <div id="login" class="col-md-12 col-lg-8 mb-5">
+            <div class="col-md-12 col-lg-8 mb-5">
+                <div class="p-5 bg-white">
+<h4 class="h4 text-black mb-3">Profile Info</h4>
+                <dl class="row p-5">
+              <dt class="col-sm-3">Fullname</dt>
+              <dd class="col-sm-9 lettering"> ${selectedUser.getUserEntity().getLastName()} ${selectedUser.getUserEntity().getFirstName()} </dd>
 
-                <dl class="row p-5 bg-white">
-              <dt class="col-sm-3">${selectedUser.getUserEntity().getFirstName()}</dt>
-              <dd class="col-sm-9">${selectedUser.getUserEntity().getEmail()}</dd>
-
-              <dt class="col-sm-3">Euismod</dt>
-              <dd class="col-sm-9">
-                <p>${selectedUser.getUserEntity().getFirstName()}</p>
-                <p>${selectedUser.getUserEntity().getEmail()}</p>
+              <dt class="col-sm-3">Job Title</dt>
+              <dd class="col-sm-9 lettering">
+                <p>${selectedUser.getProfessionsEntity().getProfession()}</p>
               </dd>
 
-              <dt class="col-sm-3">Malesuada porta</dt>
-              <dd class="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
-
-              <dt class="col-sm-3 text-truncate">Truncated term is truncated</dt>
-              <dd class="col-sm-9">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
-
-              <dt class="col-sm-3">Nesting</dt>
+              <dt class="col-sm-3">Email</dt>
               <dd class="col-sm-9">
-                <dl class="row">
-                  <dt class="col-sm-4">Nested definition list</dt>
-                  <dd class="col-sm-8">Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc.</dd>
-                </dl>
+                  <p>${selectedUser.getUserEntity().getEmail()}</p>
+                  
               </dd>
+              
+              <dt class="col-sm-3">Mobile</dt>
+              <dd class="col-sm-9"><p><a href="tel: ${selectedUser.getPhoneEntity().getMobile()}" class="text-info p-2 rounded border border-info">${selectedUser.getPhoneEntity().getMobile()}</a></p></dd>
+                  
+                <dt class="col-sm-3">Landline</dt>
+                <dd class="col-sm-9"><p><a href="tel:${selectedUser.getPhoneEntity().getLandline()}" class="text-info p-2 rounded border border-info">${selectedUser.getPhoneEntity().getLandline()}</a></p></dd>
             </dl>
             </div>
-
+            </div>
               <div class="col-lg-4">
             <div class="p-4 mb-3 bg-white">
-              <h3 class="h5 text-black mb-3">Profile Image</h3>
-              <form class="form" action="" method="post" id="registrationForm" enctype="multipart/data" >
+              
+              
     <div class="form-group">
                           
                           <div class="col-xs-12">
 							   <div class="text-center">
     <div class="avatar-upload">
-        <div class="avatar-edit" >
-            <input type="file" id="imageUpload" name="uploaded">
-            <label for="imageUpload" ></label>
-        </div>
+        
         <div class="avatar-preview">
-            <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+            <div id="imagePreview" style="background-image: url('http://localhost:8080/images/${selectedUser.getUserEntity().getProfilePicture()}');">
             </div>
         </div>
     </div>
 </div>
                               </div>
 </div>
-        </form>
+       
 
             </div>
             

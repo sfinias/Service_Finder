@@ -210,7 +210,7 @@ public class UserController {
             throws IOException {
 
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-        RegisterEntity user = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
+        RegisterEntity user = (RegisterEntity)session.getAttribute("user");
         int idForFilename = user.getUserEntity().getId();
         String newFilename = String.valueOf(idForFilename);
         File previousFileToDeleteJPG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".jpg");    
@@ -240,10 +240,15 @@ public class UserController {
     }
     
     
-    @RequestMapping("/page.htm")
-    public String selected(ModelMap model, HttpSession session){
-        RegisterEntity selectedUser = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
-        model.addAttribute("selectedUser", selectedUser);
-        return "viewSelectedUserInfo";
+    @RequestMapping(value="/viewselectedprof.htm",method=RequestMethod.GET)
+    public String selected(ModelMap model, HttpSession session, @RequestParam(value = "email") String email){
+        RegisterEntity user = u.getUserByEmail(email);
+        if(user.getUserEntity().getProfessionId()==1)
+            return "testSearch";
+        else{
+            model.addAttribute("selectedUser", user);
+            return "viewSelectedUserInfo";
+        }
+        
     }
 }
