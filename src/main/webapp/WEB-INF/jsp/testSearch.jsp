@@ -61,7 +61,7 @@
 
                         </div>
                         <div class="col-md-12 text-center mt-5">
-                            <a href="#" class="btn btn-primary rounded py-3 px-5"><span class="icon-plus-circle"></span> Show More Jobs</a>
+                            <a href="${pageContext.request.contextPath}/user/test.htm" class="btn btn-primary rounded py-3 px-5"><span class="icon-plus-circle"></span> Show More Services</a>
                         </div>
                     </div>
                     <div class="col-md-7 block-16" data-aos="fade-up" data-aos-delay="200">

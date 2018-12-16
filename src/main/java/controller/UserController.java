@@ -228,14 +228,14 @@ public class UserController {
     @RequestMapping(value = "/pass.htm", method = RequestMethod.POST, consumes = {MediaType.ALL_VALUE})
     public String passwordUpdate(ModelMap model, @ModelAttribute("userInForm") @Valid UserEntity userInFormPassword, BindingResult bindingResult,
             HttpSession session) {
-        
+
         passwordFormValids.validate(userInFormPassword, bindingResult);
-        RegisterEntity userInSession =(RegisterEntity) session.getAttribute("user");
+        RegisterEntity userInSession = (RegisterEntity) session.getAttribute("user");
         if (bindingResult.hasErrors()) {
             model.addAttribute("userInSession", userInFormPassword);
             return "profile";
-        } else {                   
-            u.changePasswordOfUser(userInSession.getUserEntity().getEmail() , userInFormPassword.getPasswordHash());
+        } else {
+            u.changePasswordOfUser(userInSession.getUserEntity().getEmail(), userInFormPassword.getPasswordHash());
             return "registrationSuccess";
         }
     }
@@ -250,18 +250,18 @@ public class UserController {
             throws IOException {
 
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-        RegisterEntity user = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
+        RegisterEntity user = new RegisterEntity((RegisterEntity) session.getAttribute("user"));
         int idForFilename = user.getUserEntity().getId();
         String newFilename = String.valueOf(idForFilename);
-        File previousFileToDeleteJPG = new File("/Users/Nah/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".jpg");    
-        File previousFileToDeletePNG = new File("/Users/Nah/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".png");
+        File previousFileToDeleteJPG = new File("/Users/Nah/OneDrive/testWork/git/tower/dmng/src//main/webapp/dist/images/" + user.getUserEntity().getId() + ".jpg");
+        File previousFileToDeletePNG = new File("/Users/Nah/OneDrive/testWork/git/tower/dmng/src//main/webapp/dist/images/" + user.getUserEntity().getId() + ".png");
         previousFileToDeleteJPG.delete();
         previousFileToDeletePNG.delete();
         // Save file on system
         if (!file.getOriginalFilename().isEmpty()) {
             BufferedOutputStream outputStream = new BufferedOutputStream(
-                    new FileOutputStream( new File("/Users/Nah/apache-tomcat-8.0.53/webapps/images", newFilename.concat("."+extension))));
-            user.getUserEntity().setProfilePicture(newFilename.concat("."+extension));
+                    new FileOutputStream(new File("/Users/Nah/OneDrive/testWork/git/tower/dmng/src//main/webapp/dist/images/", newFilename.concat("." + extension))));
+            user.getUserEntity().setProfilePicture(newFilename.concat("." + extension));
             session.setAttribute("user", user);
             outputStream.write(file.getBytes());
             outputStream.flush();
@@ -274,16 +274,21 @@ public class UserController {
     }
 
     @RequestMapping("/logout.htm")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/user/initialForm.htm";
     }
-    
-    
+
     @RequestMapping("/page.htm")
-    public String selected(ModelMap model, HttpSession session){
-        RegisterEntity selectedUser = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
+    public String selected(ModelMap model, HttpSession session) {
+        RegisterEntity selectedUser = new RegisterEntity((RegisterEntity) session.getAttribute("user"));
         model.addAttribute("selectedUser", selectedUser);
         return "viewSelectedUserInfo";
+    }
+
+    @RequestMapping("/test.htm")
+    public String test(ModelMap model, HttpSession session) {
+
+        return "testShowProfessions";
     }
 }
