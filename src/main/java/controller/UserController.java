@@ -7,6 +7,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import model.RegisterEntity;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import utils.MailService;
 import validation.FormValids;
 import javax.validation.Valid;
+import model.ProfessionsEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -253,8 +255,8 @@ public class UserController {
         RegisterEntity user = (RegisterEntity)session.getAttribute("user");
         int idForFilename = user.getUserEntity().getId();
         String newFilename = String.valueOf(idForFilename);
-        File previousFileToDeleteJPG = new File("/Users/Nah/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".jpg");    
-        File previousFileToDeletePNG = new File("/Users/Nah/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".png");
+        File previousFileToDeleteJPG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".jpg");    
+        File previousFileToDeletePNG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".png");
         previousFileToDeleteJPG.delete();
         previousFileToDeletePNG.delete();
         // Save file on system
@@ -291,4 +293,14 @@ public class UserController {
         }
         
     }
+    
+    @RequestMapping(value="/viewselectedcategoryofprof.htm",method=RequestMethod.GET)
+    public String viewselectedcategoryofprof(ModelMap model, @RequestParam(value = "categoryidofprof") int categoryidofprof){
+        List<RegisterEntity> profs = p.getProfs(categoryidofprof);
+        ProfessionsEntity thiscategory = p.getProfession(categoryidofprof);
+        model.addAttribute("allprofswithsamecategoryid", profs);
+        model.addAttribute("thiscategory", thiscategory);
+        return "selectedcategoryofprof";
+    }
+    
 }

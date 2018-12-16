@@ -15,7 +15,17 @@
         <p class="mb-0 unit-6">
             <a href="${pageContext.request.contextPath}/user/initialForm.htm">Home</a> 
             <span class="sep">></span> 
-            <span>${selectedUser.getProfessionsEntity().getProfession()}s</span></p>
+            <c:forEach items="${allProfessions}" var="item"> 
+                <c:choose>
+    <c:when test="${item.id==selectedUser.getUserEntity().getProfessionId()}">
+           <a href="${pageContext.request.contextPath}/user/viewselectedcategoryofprof.htm?categoryidofprof=${selectedUser.getUserEntity().getProfessionId()}" name="categoryidofprof">${selectedUser.getProfessionsEntity().getProfession()}s</a>
+        <br />
+    </c:when>    
+    
+</c:choose>
+                   </c:forEach></p>
+                                               
+           
     </div>
 </div>
 
