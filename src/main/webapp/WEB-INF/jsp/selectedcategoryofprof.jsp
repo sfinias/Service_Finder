@@ -13,7 +13,7 @@
     <div class="container text-center">
         <h2 class="mb-0 lettering">${thiscategory.getProfession()}s</h2>
         <p class="mb-0 unit-6">
-            <a href="${pageContext.request.contextPath}/user/initialForm.htm">Home</a> 
+            <a href="${pageContext.request.contextPath}/user/search.htm">Home</a> 
             
         <br /></p>
                                                
