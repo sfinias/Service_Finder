@@ -16,5 +16,6 @@ public interface ProfessionsDAOInterface {
     List<ProfessionsEntity> getAllProfessions();
     List<UserEntity> getProfessionals(int id);
     List<RegisterEntity> getProfs(int id);
+    ProfessionsEntity getProfession(int id);
 
 }
