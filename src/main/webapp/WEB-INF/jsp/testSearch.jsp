@@ -14,37 +14,42 @@
                         <form action="#">
                             <div class="row mb-3">
                                 <form enctype="multipart/form-data">
-                                <div class="col-md-9">
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3 mb-md-0">
-                                            <select class="mr-3 form-control border-0 px-4" id="pro" name="pro">
-                                                <option selected>Choose Service...</option>
-                                                <c:forEach items="${allProfessions}" var="item">
-                                                    <option value="${item.id}">${item.profession}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 mb-3 mb-md-0">
-                                            <div class="input-wrap">
-                                                <a href="" class="icon icon-room" id="loc"></a>
-                                                <input type="text" class="form-control form-control-block search-input  border-0 px-4" id="address" placeholder="city, province or region" required>
-                                                <input type="number" class="d-none" name="long" id="long" required>
-                                                <input type="number" class="d-none" name="lat" id="lat" required>
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3 mb-md-0">
+                                                <select class="mr-3 form-control border-0 px-4" id="pro" name="pro">
+                                                    <option selected>Choose Service...</option>
+                                                    <c:forEach items="${allProfessions}" var="item">
+                                                        <option value="${item.id}">${item.profession}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 mb-3 mb-md-0">
+                                                <div class="input-wrap">
+                                                    <a href="" class="icon icon-room" id="loc"></a>
+                                                    <input type="text" class="form-control form-control-block search-input  border-0 px-4" id="address" placeholder="city, province or region" required>
+                                                    <input type="number" class="d-none" name="long" id="long" required>
+                                                    <input type="number" class="d-none" name="lat" id="lat" required>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <button class="btn btn-search btn-primary btn-block" id="search">Search</button>
-                                </div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-search btn-primary btn-block" id="search">Search</button>
+                                    </div>
+                                    <div>
+                                        <input id="ex6" type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="3"/>
+                                        <span id="ex6CurrentSliderValLabel">Current Slider Value: <span id="ex6SliderVal">3</span></span>
+                                    </div>
+
                                 </form>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <p class="small">or browse by category: 
                                         <c:forEach items="${allProfessions}" var="item"> 
-                 <a href="${pageContext.request.contextPath}/user/viewselectedcategoryofprof.htm?categoryidofprof=${item.id}" name="categoryidofprof" class="category">${item.profession}</a> 
-                   </c:forEach>
+                                            <a href="${pageContext.request.contextPath}/user/viewselectedcategoryofprof.htm?categoryidofprof=${item.id}" name="categoryidofprof" class="category">${item.profession}</a>
+                                        </c:forEach>
                                     </p>
                                 </div>
                             </div>

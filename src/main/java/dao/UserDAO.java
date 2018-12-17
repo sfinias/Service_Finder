@@ -198,5 +198,13 @@ public class UserDAO implements UserDAOInterface {
         }
         
     }
+
+    @Transactional
+    public boolean emailExists(String email){
+        Query query = em.createQuery("SELECT u.email FROM UserEntity u WHERE email = :email");
+        query.setParameter("email", email);
+        List<String> list = (List<String>) query.getResultList();
+        return !list.isEmpty();
+    }
     
 }

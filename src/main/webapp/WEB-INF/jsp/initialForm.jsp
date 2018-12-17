@@ -387,7 +387,9 @@
     <%--</footer>--%>
 </div>
 <%@include file = "footer.jsp" %>
-<script src="${pageContext.request.contextPath}/dist/js/register.js" type="text/javascript" ></script>
+<%@include file = "register.jsp" %>
+
+<%--<script src="${pageContext.request.contextPath}/dist/js/register.js" type="text/javascript" ></script>--%>
 <script src="${pageContext.request.contextPath}/dist/js/autocomplete.js" type="text/javascript" ></script>
 
 <%--<script src="${pageContext.request.contextPath}/dist/js/jquery-3.3.1.min.js"></script>--%>

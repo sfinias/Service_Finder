@@ -1,5 +1,11 @@
 <script>
 
+    $("#ex6").slider();
+    $("#ex6").on("slide", function(slideEvt) {
+        $("#ex6SliderVal").text(slideEvt.value);
+    });
+
+
     var marker = null;
     var defaultProp = {
         center: new google.maps.LatLng(37.98, 23.72),

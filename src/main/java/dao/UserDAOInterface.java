@@ -13,6 +13,7 @@ import model.RegisterEntity;
  */
 public interface UserDAOInterface {
     ArrayList<String> getAllEmails();
+    boolean emailExists(String email);
     void insertUser(UserEntity u);
     void insertAddress(AddressEntity a, int userid);
     void insertPhone(PhoneEntity p, int userid);
@@ -24,6 +25,6 @@ public interface UserDAOInterface {
     String getSalt(String email);
     boolean isUserActivated(String email);
     void changePasswordOfUser(String email, String newPassword);
-    public RegisterEntity getUserByEmail(String email);
-    public RegisterEntity editUser(RegisterEntity editUser , RegisterEntity user);
+    RegisterEntity getUserByEmail(String email);
+    RegisterEntity editUser(RegisterEntity editUser , RegisterEntity user);
 }

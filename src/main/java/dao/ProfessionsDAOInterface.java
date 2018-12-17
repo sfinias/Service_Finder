@@ -1,6 +1,7 @@
 package dao;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 import model.ProfessionsEntity;
 import model.RegisterEntity;
@@ -16,6 +17,7 @@ public interface ProfessionsDAOInterface {
     List<ProfessionsEntity> getAllProfessions();
     List<UserEntity> getProfessionals(int id);
     List<RegisterEntity> getProfs(int id);
+    List<RegisterEntity> getProfsByLocation(int id, BigDecimal lng, BigDecimal lat);
     ProfessionsEntity getProfession(int id);
 
 }

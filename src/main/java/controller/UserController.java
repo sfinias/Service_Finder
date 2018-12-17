@@ -283,14 +283,15 @@ public class UserController {
     
     
     @RequestMapping(value="/viewselectedprof.htm",method=RequestMethod.GET)
-    public String selected(ModelMap model, HttpSession session, @RequestParam(value = "email") String email){
+    public String selected(ModelMap model, HttpSession session, @RequestParam(value = "email") String email) {
         RegisterEntity user = u.getUserByEmail(email);
-        if(user.getUserEntity().getProfessionId()==1)
+        if (user.getUserEntity().getProfessionId() == 1)
             return "testSearch";
-        else{
+        else {
             model.addAttribute("selectedUser", user);
             return "viewSelectedUserInfo";
         }
+    }
         
 
     @RequestMapping("/page.htm")
