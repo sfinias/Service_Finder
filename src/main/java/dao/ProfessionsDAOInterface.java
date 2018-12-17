@@ -17,7 +17,7 @@ public interface ProfessionsDAOInterface {
     List<ProfessionsEntity> getAllProfessions();
     List<UserEntity> getProfessionals(int id);
     List<RegisterEntity> getProfs(int id);
-    List<RegisterEntity> getProfsByLocation(int id, BigDecimal lng, BigDecimal lat);
+    List<RegisterEntity> getProfsByLocation(int id, BigDecimal lng, BigDecimal lat, double distance);
     ProfessionsEntity getProfession(int id);
 
 }

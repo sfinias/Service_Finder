@@ -2,6 +2,20 @@
 <head>
     <title>Service Finder &mdash; DMNG team</title>
     <%@include file = "newHeader.jsp" %>
+    <style>
+        #distance{
+            background-color:rgba(0,0,0,0) !important;
+            border:none !important;
+        }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    </style>
 </head>
 <body>
     <div class="site-wrap">
@@ -12,37 +26,40 @@
                     <div class="col-12" data-aos="fade">
                         <h1>Find Service</h1>
                         <form action="#">
+                            <form enctype="multipart/form-data">
                             <div class="row mb-3">
-                                <form enctype="multipart/form-data">
-                                    <div class="col-md-9">
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3 mb-md-0">
-                                                <select class="mr-3 form-control border-0 px-4" id="pro" name="pro">
-                                                    <option selected>Choose Service...</option>
-                                                    <c:forEach items="${allProfessions}" var="item">
-                                                        <option value="${item.id}">${item.profession}</option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 mb-3 mb-md-0">
-                                                <div class="input-wrap">
-                                                    <a href="" class="icon icon-room" id="loc"></a>
-                                                    <input type="text" class="form-control form-control-block search-input  border-0 px-4" id="address" placeholder="city, province or region" required>
-                                                    <input type="number" class="d-none" name="long" id="long" required>
-                                                    <input type="number" class="d-none" name="lat" id="lat" required>
-                                                </div>
+                                <div class="col-md-9">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3 mb-md-0">
+                                            <select class="mr-3 form-control border-0 px-4" id="pro" name="pro">
+                                                <option selected>Choose Service...</option>
+                                                <c:forEach items="${allProfessions}" var="item">
+                                                    <option value="${item.id}">${item.profession}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3 mb-md-0">
+                                            <div class="input-wrap">
+                                                <a href="" class="icon icon-room" id="loc"></a>
+                                                <input type="text" class="form-control form-control-block search-input  border-0 px-4" id="address" placeholder="city, province or region" required>
+                                                <input type="number" class="d-none" name="long" id="long" required>
+                                                <input type="number" class="d-none" name="lat" id="lat" required>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <button class="btn btn-search btn-primary btn-block" id="search">Search</button>
-                                    </div>
-                                    <div>
-                                        <input id="ex6" type="text" data-slider-min="-5" data-slider-max="20" data-slider-step="1" data-slider-value="3"/>
-                                        <span id="ex6CurrentSliderValLabel">Current Slider Value: <span id="ex6SliderVal">3</span></span>
-                                    </div>
-
-                                </form>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-search btn-primary btn-block" id="search">Search</button>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label class="text-white" for="distance">Searched distance in kilometers:</label>
+                                    <input type="number" id="distance" name="distance" class="text-white" readonly>
+                                </div>
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <div id="slider"></div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -53,6 +70,7 @@
                                     </p>
                                 </div>
                             </div>
+                            </form>
 
                         </form>
                     </div>
@@ -61,16 +79,12 @@
         </div>
 
 
-        <div class="site-section bg-light">
+        <div class="site-section bg-light d-none" id="searchResults">
             <div class="container">
                 <div class="row h-75">
                     <div class="col-md-5 mb-5 mb-md-0" data-aos="fade-up" data-aos-delay="100">
                         <h2 class="mb-5 h3">Available Professionals</h2>
                         <div class="rounded border jobs-wrap">
-
-                        </div>
-                        <div class="col-md-12 text-center mt-5">
-                            <a href="#" class="btn btn-primary rounded py-3 px-5"><span class="icon-plus-circle"></span> Show More Jobs</a>
                         </div>
                     </div>
                     <div class="col-md-7 block-16" data-aos="fade-up" data-aos-delay="200">

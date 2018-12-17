@@ -2,6 +2,7 @@ package model;
 
 import javax.validation.Valid;
 
+
 /**
  * @author tsamo
  */
@@ -17,6 +18,8 @@ public class RegisterEntity {
     
     @Valid
     private ProfessionsEntity professionsEntity;
+
+    public static final String IMAGE_PATH = "E:/images/";
 
     public RegisterEntity() {
     }

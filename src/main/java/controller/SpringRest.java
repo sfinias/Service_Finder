@@ -34,8 +34,9 @@ public class SpringRest {
     }
 
     @RequestMapping(value = "/profsREST.htm", method = RequestMethod.POST, headers = "Accept=*/*", produces = "application/json")
-    public @ResponseBody String getProfsByRest(@RequestParam("pro") int id, @RequestParam("long") BigDecimal lng, @RequestParam("lat") BigDecimal lat) {
-        List<RegisterEntity> profs = professionsDAOInterface.getProfsByLocation(id, lng, lat);
+    public @ResponseBody String getProfsByRest(@RequestParam("pro") int id, @RequestParam("long") BigDecimal lng, @RequestParam("lat") BigDecimal lat,
+                                               @RequestParam("distance") double distance) {
+        List<RegisterEntity> profs = professionsDAOInterface.getProfsByLocation(id, lng, lat, distance);
         ObjectMapper mapper = new ObjectMapper();
         String profsJSON = null;
         try {

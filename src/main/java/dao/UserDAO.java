@@ -1,13 +1,14 @@
 package dao;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
+
 import model.*;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Repository;
 
+import javax.mail.Multipart;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.ProfessionsEntity;
 import model.RegisterEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author tsamo
@@ -181,8 +183,8 @@ public class UserDAO implements UserDAOInterface {
     //set profile Picture
     public String setProfilePicture(UserEntity userEntity){
         int id = userEntity.getId();
-        String pathJPG = "/Users/matina/apache-tomcat-8.0.53/webapps/images/"+id+".jpg";
-        String pathPNG = "/Users/matina/apache-tomcat-8.0.53/webapps/images/"+id+".png";
+        String pathJPG = RegisterEntity.IMAGE_PATH+id+".jpg";
+        String pathPNG = RegisterEntity.IMAGE_PATH+id+".png";
         File filenameJPG = new File(pathJPG);
         File filenamePNG = new File(pathPNG);
         if((filenameJPG.exists() && !filenameJPG.isDirectory())) 
@@ -196,7 +198,6 @@ public class UserDAO implements UserDAOInterface {
         else{
             return "dmng.png";
         }
-        
     }
 
     @Transactional
@@ -206,5 +207,27 @@ public class UserDAO implements UserDAOInterface {
         List<String> list = (List<String>) query.getResultList();
         return !list.isEmpty();
     }
-    
+
+    @Override
+    public boolean uploadPhoto(MultipartFile file, RegisterEntity user) throws IOException {
+        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+//        RegisterEntity user = (RegisterEntity)session.getAttribute("user");
+        int idForFilename = user.getUserEntity().getId();
+        String newFilename = String.valueOf(idForFilename);
+        File previousFileToDeleteJPG = new File(RegisterEntity.IMAGE_PATH+user.getUserEntity().getId()+".jpg");
+        File previousFileToDeletePNG = new File(RegisterEntity.IMAGE_PATH+user.getUserEntity().getId()+".png");
+
+        // Save file on system
+        if (!file.getOriginalFilename().isEmpty()) {
+            BufferedOutputStream outputStream = new BufferedOutputStream(
+                    new FileOutputStream(new File(RegisterEntity.IMAGE_PATH, newFilename.concat("." + extension))));
+            user.getUserEntity().setProfilePicture(newFilename.concat("." + extension));
+            outputStream.write(file.getBytes());
+            outputStream.flush();
+            outputStream.close();
+            previousFileToDeleteJPG.delete();
+            previousFileToDeletePNG.delete();
+            return true;
+        }else return false;
+    }
 }

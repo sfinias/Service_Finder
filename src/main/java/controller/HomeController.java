@@ -64,32 +64,25 @@ public class HomeController {
     public String checksBeforeLoign(ModelMap model, UserEntity user, HttpSession session) {
         String emailSubmitted = user.getEmail();
         String password = user.getPasswordConfirm();
-        if (!u.userExists(emailSubmitted)) {
-            model.addAttribute("userEmail", emailSubmitted);
-            return "userDoesNotExist";
+        if (!u.userExists(emailSubmitted) || !u.findUserByEmail(emailSubmitted).getPasswordHash().equals(DigestUtils.sha512Hex(password + u.getSalt(emailSubmitted)))) {
+            model.addAttribute("message", "Incorrect Credentials");
+            return "response_page";
+        } else if (!u.isUserActivated(emailSubmitted)) {
+            model.addAttribute("message", "Account is not activated");
+            return "response_page";
         } else {
-            if (!u.findUserByEmail(emailSubmitted).getPasswordHash().equals(DigestUtils.sha512Hex(password + u.getSalt(emailSubmitted)))) {
-                model.addAttribute("userEmail", emailSubmitted);
-                return "wrongPassword";
+            RegisterEntity regEntity = u.getUserByEmail(emailSubmitted);
+            session.setAttribute("user", regEntity);
+            if (regEntity.getProfessionsEntity().getId() == 1) {
+                servletContext.setAttribute("allProfessions", p.getAllProfessions());
+                return "redirect:/user/search.htm";
             } else {
-                if (!u.isUserActivated(emailSubmitted)) {
-                    model.addAttribute("userEmail", emailSubmitted);
-                    return "notActivated";
-                } else {
-//            boolean test= u.isUserActivated(emailSubmitted);
-//            model.addAttribute("userEmail", emailSubmitted);
-                    RegisterEntity regEntity = u.getUserByEmail(emailSubmitted);
-                    session.setAttribute("user", regEntity);
-                    if (regEntity.getProfessionsEntity().getId() == 1) {
-                        servletContext.setAttribute("allProfessions", p.getAllProfessions());
-                        return "redirect:/user/search.htm";
-                    } else {
-                        return "homeProf";
-                    }
-                }
+                return "homeProf";
             }
         }
     }
+
+
 
     @RequestMapping(value = "/checkRegister.htm", method = RequestMethod.POST, consumes = {MediaType.ALL_VALUE})
     public String checksBeforeResgistration(ModelMap model, @ModelAttribute("user2") @Valid RegisterEntity user2, BindingResult bindingResult) {
@@ -99,12 +92,12 @@ public class HomeController {
             user2.getUserEntity().setPasswordConfirm("");
             user2.getUserEntity().setPasswordHash("");
             model.addAttribute("user2", user2);
-//            return "initialForm";
-            return "TestingForm";
+            return "initialForm";
+//            return "TestingForm";
         }
         if (u.userExists(user2.getUserEntity().getEmail())) {
-            model.addAttribute("alreadyUser", user2.getUserEntity().getEmail());
-            return "userAlreadyExists";
+            model.addAttribute("message", "User with e-mail " + user2.getUserEntity().getEmail() + " already exists.");
+            return "response_page";
         } else {
             u.insertUser(user2.getUserEntity());
             int uid = u.getUserid(user2.getUserEntity());
@@ -112,9 +105,9 @@ public class HomeController {
             u.insertPhone(user2.getPhoneEntity(), uid);
             v.createTokenForUser(uid);
             String token = v.getTokenOfUser(uid);
-            model.addAttribute("registeredEmail", user2.getUserEntity().getEmail());
+            model.addAttribute("message", "Registered account with e-mail: " + user2.getUserEntity().getEmail());
             mailService.sendMail(user2.getUserEntity().getEmail(), "Activation", "http://localhost:8080/verification/token/" + token + ".htm");
-            return "registrationSuccess";
+            return "response_page";
         }
     }
 
@@ -129,8 +122,8 @@ public class HomeController {
     public String handleForm10(ModelMap modelMap, UserEntity user) {
         String emailSubmitted = user.getEmail();
         if (!u.userExists(emailSubmitted)) {
-            modelMap.addAttribute("userEmail", emailSubmitted);
-            return "userDoesNotExist";
+            modelMap.addAttribute("message", "There is no account with e-mail: " + emailSubmitted);
+            return "response_page";
         } else {
             int uid = u.findUserByEmail(emailSubmitted).getId();
             v.createTokenForUser(uid);
@@ -143,8 +136,9 @@ public class HomeController {
                     + "With regards, \n"
                     + "The Awesome Inc. Team";
             mailService.sendMail(emailSubmitted, subject, text);
-            modelMap.addAttribute("userEmail", emailSubmitted);
-            return "resetEmailSent";
+            modelMap.addAttribute("message", "An e-mail has been sent to " + emailSubmitted +
+                    " with further instructions on how to reset your password.");
+            return "response_page";
         }
     }
 
@@ -158,7 +152,8 @@ public class HomeController {
         } else if (v.checkIfTokenExists(token) && !v.checkIfTimeLessThan24Hours(v.getTimestampOfTokenCreation(token))) {
             return "tokenExpired";
         } else {
-            return "tokenDoesNotExist";
+            modelMap.addAttribute("message", "Token does not exist");
+            return "response_page";
         }
     }
 
@@ -167,15 +162,16 @@ public class HomeController {
         String emailSubmitted = user.getEmail();
         String newPassword = user.getPasswordConfirm();
         if (!u.userExists(emailSubmitted)) {
-            model.addAttribute("userEmail", emailSubmitted);
-            return "userDoesNotExist";
+            model.addAttribute("message", "There is no account with e-mail: " + emailSubmitted);
+            return "response_page";
         } else if (u.userExists(emailSubmitted) && !u.isUserActivated(emailSubmitted)) {
             model.addAttribute("userEmail", emailSubmitted);
             return "notActivated";
         } else {
             u.changePasswordOfUser(emailSubmitted, newPassword);
-            model.addAttribute("userEmail", emailSubmitted);
-            return "resetSuccess";
+            model.addAttribute("message", "Changed password for account with e-mail: " +
+                    emailSubmitted + " successfully.");
+            return "response_page";
         }
 
     }

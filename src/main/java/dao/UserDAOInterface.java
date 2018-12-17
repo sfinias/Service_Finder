@@ -5,8 +5,13 @@ import model.PhoneEntity;
 import model.RegisterEntity;
 import model.UserEntity;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import model.RegisterEntity;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.mail.Multipart;
 
 /**
  * @author tsamo
@@ -27,4 +32,5 @@ public interface UserDAOInterface {
     void changePasswordOfUser(String email, String newPassword);
     RegisterEntity getUserByEmail(String email);
     RegisterEntity editUser(RegisterEntity editUser , RegisterEntity user);
+    boolean uploadPhoto(MultipartFile file, RegisterEntity user) throws IOException;
 }

@@ -55,16 +55,17 @@ public class ProfessionsDAO implements ProfessionsDAOInterface {
     }
 
     @Transactional
-    public List<RegisterEntity> getProfsByLocation(int id, BigDecimal lng, BigDecimal lat) {
+    public List<RegisterEntity> getProfsByLocation(int id, BigDecimal lng, BigDecimal lat, double distance) {
         List<RegisterEntity> profs = new ArrayList<>();
         Query query = em.createQuery("SELECT u, p, a, ph FROM UserEntity u " +
                 "LEFT JOIN ProfessionsEntity p ON u.professionId = p.id " +
                 "LEFT JOIN AddressEntity a ON u.id = a.userId " +
                 "LEFT JOIN PhoneEntity ph ON u.id = ph.userId " +
-                "WHERE p.id = :id AND ABS(a.longit - :longit)<0.05 AND ABS(a.latit - :latit )<0.05");
+                "WHERE p.id = :id AND ABS(a.longit - :longit)<(0.01*:dist) AND ABS(a.latit - :latit )<(0.01*:dist)");
         query.setParameter("id", id);
         query.setParameter("longit", lng);
         query.setParameter("latit", lat);
+        query.setParameter("dist", distance);
         return getRegisterEntities(profs, query);
     }
 
