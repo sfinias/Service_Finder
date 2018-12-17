@@ -1,5 +1,8 @@
 package dao;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import model.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -147,6 +150,7 @@ public class UserDAO implements UserDAOInterface {
         user.setProfessionsEntity((ProfessionsEntity)result[1]);
         user.setAddressEntity((AddressEntity)result[2]);
         user.setPhoneEntity((PhoneEntity)result[3]);
+        user.getUserEntity().setProfilePicture(setProfilePicture(user.getUserEntity())); //call method for setting profile Picture
         return user;
     }
 
@@ -157,4 +161,55 @@ public class UserDAO implements UserDAOInterface {
         list.remove(0);
         return list;
     }
+     @Transactional
+    public RegisterEntity editUser(RegisterEntity originalEntity , RegisterEntity updatedUser) {
+       if (!(originalEntity.getUserEntity().getFirstName().equals(updatedUser.getUserEntity().getFirstName()))) {
+                originalEntity.getUserEntity().setFirstName(updatedUser.getUserEntity().getFirstName());
+            }
+            if (!(originalEntity.getUserEntity().getLastName().equals(updatedUser.getUserEntity().getLastName()))) {
+                originalEntity.getUserEntity().setLastName(updatedUser.getUserEntity().getLastName());
+            }
+            if (!(originalEntity.getUserEntity().getEmail().equals(updatedUser.getUserEntity().getEmail()))) {
+                originalEntity.getUserEntity().setEmail(updatedUser.getUserEntity().getEmail());
+            }
+            if (!(originalEntity.getPhoneEntity().getMobile().equals(updatedUser.getPhoneEntity().getMobile()))) {
+                originalEntity.getPhoneEntity().setMobile(updatedUser.getPhoneEntity().getMobile());
+            }
+            if (!(originalEntity.getPhoneEntity().getLandline().equals(updatedUser.getPhoneEntity().getLandline()))) {
+                originalEntity.getPhoneEntity().setLandline(updatedUser.getPhoneEntity().getLandline());
+            }
+            em.merge(originalEntity.getUserEntity());
+            em.merge(originalEntity.getAddressEntity());
+            em.merge(originalEntity.getPhoneEntity());
+            
+            return originalEntity;
+    }
+//     @Transactional
+//    public void changePassword(RegisterEntity originalEntity) {      
+//            em.merge(originalEntity.getUserEntity().setPasswordHash());            
+//            
+//           
+//    }
+    
+    //set profile Picture
+    public String setProfilePicture(UserEntity userEntity){
+        int id = userEntity.getId();
+        String pathJPG = "/Users/matina/apache-tomcat-8.0.53/webapps/images/"+id+".jpg";
+        String pathPNG = "/Users/matina/apache-tomcat-8.0.53/webapps/images/"+id+".png";
+        File filenameJPG = new File(pathJPG);
+        File filenamePNG = new File(pathPNG);
+        if((filenameJPG.exists() && !filenameJPG.isDirectory())) 
+            { 
+                return id+".jpg";
+            }
+        else if((filenamePNG.exists() && !filenamePNG.isDirectory())) 
+        {
+            return id+".png";
+        }
+        else{
+            return "dmng.png";
+        }
+        
+    }
+    
 }

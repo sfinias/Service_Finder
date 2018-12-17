@@ -28,6 +28,12 @@ public class ProfessionsDAO implements ProfessionsDAOInterface {
         Query query = em.createQuery("SELECT p FROM ProfessionsEntity p WHERE p.id<>1");
         return (List<ProfessionsEntity>) query.getResultList();
     }
+    
+    @Transactional
+    public ProfessionsEntity getProfession(int id) {
+        Query query = em.createQuery("SELECT p FROM ProfessionsEntity p WHERE p.id= "+ id);
+        return (ProfessionsEntity) query.getSingleResult();
+    }
 
     @Transactional
     public List<UserEntity> getProfessionals(int id){

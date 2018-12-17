@@ -26,4 +26,5 @@ public interface UserDAOInterface {
     boolean isUserActivated(String email);
     void changePasswordOfUser(String email, String newPassword);
     public RegisterEntity getUserByEmail(String email);
+    public RegisterEntity editUser(RegisterEntity editUser , RegisterEntity user);
 }

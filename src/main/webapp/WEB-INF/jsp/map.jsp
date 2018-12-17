@@ -114,7 +114,7 @@
                     alert('There are no profs of this kind');
                 } else {
                     $.each(jsonobj, function (i, item) {
-                        $profCard = $('<a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center  border-bottom fulltime">').append(
+                        $profCard = $('<a href="${pageContext.request.contextPath}/user/viewselectedprof.htm?email='+item.userEntity.email+'" name="email" class="job-item d-block d-md-flex align-items-center  border-bottom fulltime">').append(
                             $('<div class="company-logo blank-logo text-center text-md-left pl-3">').append(
                                 $('<img src="${pageContext.request.contextPath}/dist/images/person_1.jpg" alt="Image" class="img-fluid mx-auto">')),
                             $('<div class="job-details">').append(
