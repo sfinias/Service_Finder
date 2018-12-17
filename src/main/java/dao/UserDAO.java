@@ -75,6 +75,19 @@ public class UserDAO implements UserDAOInterface {
     }
 
     @Transactional
+    public boolean userExistsId(int userID) {
+        boolean flag;
+        Query query = em.createQuery("SELECT u FROM UserEntity u WHERE u.id=" + userID);
+        ArrayList<UserEntity> users = (ArrayList<UserEntity>) query.getResultList();
+        if (users.size() == 0) {
+            flag = false;
+        } else {
+            flag = true;
+        }
+        return flag;
+    }
+
+    @Transactional
     public void enableUser(UserEntity u) {
         u.setEnabled(true);
         em.merge(u);

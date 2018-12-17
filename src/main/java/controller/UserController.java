@@ -1,18 +1,25 @@
 package controller;
 
 import dao.ProfessionsDAOInterface;
+import dao.ServiceDAOInterface;
 import dao.UserDAOInterface;
 import dao.VerificationTokenDAOInterface;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+
 import model.RegisterEntity;
+import model.ServiceEntity;
 import model.UserEntity;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -26,6 +33,7 @@ import utils.MailService;
 import validation.FormValids;
 
 import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,9 +59,10 @@ public class UserController {
     private VerificationTokenDAOInterface v;
 
     @Autowired
+    private ServiceDAOInterface s;
+
+    @Autowired
     private FormValids formValids;
-
-
 
     private MailService mailService = new MailService();
 
@@ -65,6 +74,35 @@ public class UserController {
         return "initialForm";
     }
 
+    @RequestMapping(value = "/chat/{userIDString}")
+    public String handleForm(@PathVariable String userIDString, HttpSession session) {
+        RegisterEntity sessionUser = new RegisterEntity((RegisterEntity) session.getAttribute("user"));
+        int user1ID = Integer.parseInt(userIDString);
+        if (u.userExistsId(user1ID)) {
+            session.setAttribute("user1ID", user1ID);
+            session.setAttribute("user2ID", sessionUser.getUserEntity().getId());
+            int id = s.returnIfServiceExists(user1ID, sessionUser.getUserEntity().getId());
+            if (id == 0) {
+                ServiceEntity se=new ServiceEntity();
+                se.setProfessionalId(user1ID);
+                se.setCustomerId(sessionUser.getUserEntity().getId());
+                se.setStartDate(Timestamp.from(Instant.now()));
+                id=s.insertService(se).getId();
+            }
+            session.setAttribute("serviceID", id);
+            return "chatPage";
+        } else {
+            return "404";
+        }
+    }
+
+    //TODO delete before final update
+    @RequestMapping(value = "/404.htm")
+    public String handleForm2() {
+        return "404";
+    }
+
+    //TODO delete before final update
     @RequestMapping(value = "/testing.htm")
     public String testing(ModelMap modelMap) {
         servletContext.setAttribute("allProfessions", p.getAllProfessions());
@@ -105,7 +143,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/checkRegister.htm", method = RequestMethod.POST, consumes = {MediaType.ALL_VALUE})
-    public String checksBeforeResgistration(ModelMap model, @ModelAttribute("user2") @Valid RegisterEntity user2, BindingResult bindingResult) {
+    public String checksBeforeResgistration(ModelMap model, @ModelAttribute("user2") @Valid RegisterEntity user2, BindingResult bindingResult) throws EmailException {
         formValids.validate(user2, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", new UserEntity());
@@ -139,7 +177,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/resetPassword.htm")
-    public String handleForm10(ModelMap modelMap, UserEntity user) {
+    public String handleForm10(ModelMap modelMap, UserEntity user) throws EmailException {
         String emailSubmitted = user.getEmail();
         if (!u.userExists(emailSubmitted)) {
             modelMap.addAttribute("userEmail", emailSubmitted);
@@ -194,7 +232,7 @@ public class UserController {
 
     @RequestMapping(value = "/account.htm")
     public String account(ModelMap model, HttpSession session) {
-        RegisterEntity editUser = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
+        RegisterEntity editUser = new RegisterEntity((RegisterEntity) session.getAttribute("user"));
         model.addAttribute("editUser", editUser);
         return "profile";
     }
@@ -203,19 +241,19 @@ public class UserController {
     public String Search() {
         return "testSearch";
     }
-    
+
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
     public ResponseEntity<String> fileUpload(@RequestParam("uploaded") MultipartFile file, HttpSession session)
             throws IOException {
 
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-        RegisterEntity user = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
+        RegisterEntity user = new RegisterEntity((RegisterEntity) session.getAttribute("user"));
         int idForFilename = user.getUserEntity().getId();
         String newFilename = String.valueOf(idForFilename);
         // Save file on system
         if (!file.getOriginalFilename().isEmpty()) {
             BufferedOutputStream outputStream = new BufferedOutputStream(
-                    new FileOutputStream( new File("E:/", newFilename.concat("."+extension))));
+                    new FileOutputStream(new File("D:/", newFilename.concat("." + extension))));
             outputStream.write(file.getBytes());
             outputStream.flush();
             outputStream.close();
@@ -227,7 +265,7 @@ public class UserController {
     }
 
     @RequestMapping("/logout.htm")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/user/initialForm.htm";
     }

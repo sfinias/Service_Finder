@@ -1,7 +1,9 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Service Finder &mdash; DMNG team</title>
     <%@include file = "newHeader.jsp" %>
+    <meta charset="utf-8">
 </head>
 <body>
     <div class="site-wrap">
@@ -19,6 +21,7 @@
                                         <div class="col-md-6 mb-3 mb-md-0">
                                             <select class="mr-3 form-control border-0 px-4" id="pro" name="pro">
                                                 <option selected>Choose Service...</option>
+                                                <option>Ελληνικά</option>
                                                 <c:forEach items="${allProfessions}" var="item">
                                                     <option value="${item.id}">${item.profession}</option>
                                                 </c:forEach>
@@ -75,8 +78,7 @@
             </div>
         </div>
     </div>
-
     <%@include file = "footer.jsp" %>
-    <%@include file = "map.jsp" %>
+    <%@include file="map.jsp" %>
 </body>
 </html>

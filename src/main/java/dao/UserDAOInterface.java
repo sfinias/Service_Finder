@@ -19,6 +19,7 @@ public interface UserDAOInterface {
     ArrayList<UserEntity> getAllUsers();
     UserEntity findUserByEmail(String email);
     boolean userExists(String email);
+    boolean userExistsId(int userID);
     void enableUser(UserEntity u);
     int getUserid(UserEntity u);
     String getSalt(String email);

@@ -80,7 +80,7 @@
 
     function clearMarkers() {
         if (profMarkers){
-            for (let i=0; i<profMarkers.length;i++){
+            for (var i=0; i<profMarkers.length;i++){
                 profMarkers[i].setMap(null);
             }
             profMarkers = null;
@@ -99,6 +99,8 @@
         alert('ajax');
         $.ajax({
             url: '${pageContext.request.contextPath}/profsREST.htm',
+            encoding:"UTF-8",
+            // contentType: "application/json; charset=utf-8",
             contentType: false,
             data: formData,
             type: 'POST',
@@ -125,7 +127,11 @@
                             $('<div class="job-category align-self-center">').append(
                                 $('<div class="p-3">').append(
                                     $('<a href="tel:' + item.phoneEntity.mobile + '" class="text-info p-2 rounded border border-info">').append(
-                                        $('<span class="icon-phone2">')))));
+                                        $('<span class="icon-phone2">'))),
+                        $('<div class="p-3">').append(
+                            $('<a href="${pageContext.request.contextPath}/user/chat/'+item.userEntity.id+'.htm " class="text-info p-2 rounded border border-info">').append(
+                                $('<span class="icon-message">')))
+                            ));
                         $('.jobs-wrap').append($profCard);
                         var m = new google.maps.Marker({
                             position: new google.maps.LatLng(parseFloat(item.addressEntity.latit),parseFloat(item.addressEntity.longit)) ,

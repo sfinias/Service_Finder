@@ -19,6 +19,7 @@ import java.util.List;
 
 @Repository
 public class ProfessionsDAO implements ProfessionsDAOInterface {
+
     @PersistenceContext
     private EntityManager em;
 
