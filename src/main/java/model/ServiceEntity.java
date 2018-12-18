@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author tsamo
  */
 @Entity
-@Table(name = "service", schema = "dnmgdb")
+@Table(name = "service", schema = "dnmgdb", catalog = "")
 public class ServiceEntity {
     private int id;
     private Timestamp startDate;
@@ -16,6 +16,7 @@ public class ServiceEntity {
     private int customerId;
     private int cost;
     private boolean fulfilled;
+    private int rating;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -93,5 +94,15 @@ public class ServiceEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, startDate, professionalId, customerId, cost, fulfilled);
+    }
+
+    @Basic
+    @Column(name = "rating", nullable = true)
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 }

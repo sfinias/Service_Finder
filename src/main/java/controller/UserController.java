@@ -294,14 +294,14 @@ public class UserController {
         RegisterEntity user = (RegisterEntity)session.getAttribute("user");
         int idForFilename = user.getUserEntity().getId();
         String newFilename = String.valueOf(idForFilename);
-        File previousFileToDeleteJPG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".jpg");    
-        File previousFileToDeletePNG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".png");
-        previousFileToDeleteJPG.delete();
-        previousFileToDeletePNG.delete();
         // Save file on system
         if (!file.getOriginalFilename().isEmpty()) {
+            File previousFileToDeleteJPG = new File("C:\\Tomcat\\webapps\\images\\"+user.getUserEntity().getId()+".jpg");
+            File previousFileToDeletePNG = new File("C:\\Tomcat\\webapps\\images\\"+user.getUserEntity().getId()+".png");
+            previousFileToDeleteJPG.delete();
+            previousFileToDeletePNG.delete();
             BufferedOutputStream outputStream = new BufferedOutputStream(
-                    new FileOutputStream( new File("/Users/Nah/apache-tomcat-8.0.53/webapps/images", newFilename.concat("."+extension))));
+                    new FileOutputStream( new File("C:\\Tomcat\\webapps\\images", newFilename.concat("."+extension))));
             user.getUserEntity().setProfilePicture(newFilename.concat("."+extension));
             session.setAttribute("user", user);
             outputStream.write(file.getBytes());

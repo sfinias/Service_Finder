@@ -28,7 +28,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/bootstrap-datepicker.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/animate.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/fonts/flaticon/flaticon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/fonts/flaticon/font/flaticon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/aos.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/style.css">
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">

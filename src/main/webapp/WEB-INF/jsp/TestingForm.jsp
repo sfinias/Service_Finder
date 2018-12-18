@@ -714,10 +714,10 @@
             $("#address").removeAttr("required");
             $(".displayNone").hide();
             SelectElement("professionId",1);
-            // alert($("#professionId").val());
+            alert($("#professionId").val());
         }
         else if(a==="Professional"){
-            // alert($("#professionId").val());
+            alert($("#professionId").val());
             $("#address").attr("required","required");
             $(".displayNone").show();
         }
