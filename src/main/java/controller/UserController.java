@@ -1,6 +1,7 @@
 package controller;
 
 import dao.ProfessionsDAOInterface;
+import dao.ServiceDAOInterface;
 import dao.UserDAOInterface;
 import dao.VerificationTokenDAOInterface;
 import java.io.BufferedOutputStream;
@@ -61,6 +62,9 @@ public class UserController {
 
     @Autowired
     private PasswordFormValids passwordFormValids;
+    
+    @Autowired
+    ServiceDAOInterface serviceDAOInterface;
 
     private MailService mailService = new MailService();
 
@@ -274,6 +278,17 @@ public class UserController {
 
         return new ResponseEntity<>("File Uploaded Successfully.", HttpStatus.OK);
     }
+    
+    
+    @RequestMapping(value = "/rate", method = RequestMethod.GET)
+    public ResponseEntity<String> rating(@RequestParam("selected_rating") String rateNumber,@RequestParam("selectedUser") String selectedUserID, HttpSession session,ModelMap model)
+            throws IOException {
+        
+        RegisterEntity user = (RegisterEntity)session.getAttribute("user");
+        serviceDAOInterface.setRating(user, selectedUserID, rateNumber);
+        return new ResponseEntity<>("Rate submitted successfully.", HttpStatus.OK);
+    }
+    
 
     @RequestMapping("/logout.htm")
     public String logout(HttpSession session){
@@ -288,7 +303,9 @@ public class UserController {
         if(user.getUserEntity().getProfessionId()==1)
             return "testSearch";
         else{
+            long rating = serviceDAOInterface.getRating(user);
             model.addAttribute("selectedUser", user);
+            model.addAttribute("rating", rating);
             return "viewSelectedUserInfo";
         }
         
