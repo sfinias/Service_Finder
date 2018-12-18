@@ -37,7 +37,7 @@
             <div class="col-md-12 col-lg-8 mb-5">
                 <div class="p-5 bg-white">
 <h4 class="h4 text-black mb-3">Profile Info</h4>
-                <dl class="row p-5">
+                <dl class="row p-3">
               <dt class="col-sm-3">Fullname</dt>
               <dd class="col-sm-9 lettering"> ${selectedUser.getUserEntity().getLastName()} ${selectedUser.getUserEntity().getFirstName()} </dd>
 
@@ -65,9 +65,8 @@
               
               
     <div class="form-group">
-                          
                           <div class="col-xs-12">
-							   <div class="text-center">
+    <div class="text-center">
     <div class="avatar-upload">
         
         <div class="avatar-preview">
@@ -78,14 +77,33 @@
 </div>
                               </div>
 </div>
-       
-
+ 
             </div>
             
             <div class="p-4 mb-3 bg-white">
-              <h3 class="h5 text-black mb-3">More Info</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ad iure porro mollitia architecto hic consequuntur. Distinctio nisi perferendis dolore, ipsa consectetur? Fugiat quaerat eos qui, libero neque sed nulla.</p>
-              <p><a href="#" class="btn btn-primary px-4 py-2 text-white pill">Learn More</a></p>
+              <h3 class="h5 text-black mb-3"></h3>
+              <div class="form-group" id="rating-ability-wrapper">
+	     <label class="control-label" for="selected_rating">
+	  
+	    <input type="hidden" id="selected_rating" name="selected_rating" value="${rating}" >
+	    </label>
+	 
+	    <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" data-attr="1" id="rating-star-1">
+	        <i class="icon-star" aria-hidden="true"></i>
+	    </button>
+	    <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" data-attr="2" id="rating-star-2">
+	        <i class="icon-star" aria-hidden="true"></i>
+	    </button>
+	    <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" data-attr="3" id="rating-star-3">
+	        <i class="icon-star" aria-hidden="true"></i>
+	    </button>
+	    <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" data-attr="4" id="rating-star-4">
+	        <i class="icon-star" aria-hidden="true"></i>
+	    </button>
+	    <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" data-attr="5" id="rating-star-5">
+	        <i class="icon-star" aria-hidden="true"></i>
+	    </button>
+	</div>
             </div>
           </div>
         </div>
@@ -120,6 +138,16 @@
 </div>
 
 <%@include file = "footer.jsp" %>
-<script src="${pageContext.request.contextPath}/dist/js/profile.js" type="text/javascript" ></script>
+<script>jQuery(document).ready(function($){
+	    
+            
+            for (ix = 1; ix <= $("#selected_rating").val(); ++ix) {
+                    $("#rating-star-"+ix).toggleClass('btn-success');
+                    $("#rating-star-"+ix).toggleClass('btn-default');
+                    }
+
+    });
+</script>
+
 </body>
 </html>
