@@ -56,3 +56,22 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
+@media screen and (max-width: 1200px) and (min-width:1000px) {
+  .rating-dmng {
+    padding: 0.35rem 0.65rem;
+    font-size: 1.3rem; 
+  }
+}  
+
+@media screen and (max-width: 380px) {
+  .rating-dmng {
+    padding: 0.35rem 0.65rem;
+font-size: 1.1rem; 
+  }
+}  
+
+div#rating-ability-wrapper.form-group{ 
+  text-align: center ;
+}
+

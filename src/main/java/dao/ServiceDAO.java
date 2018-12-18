@@ -52,3 +52,26 @@ public class ServiceDAO implements ServiceDAOInterface{
         return serviceEntity;
     }
 }
+
+import model.RegisterEntity;
+    @Override
+    @Transactional
+    public long getRating(RegisterEntity user) {
+        int id = user.getUserEntity().getId();
+        Query query = em.createQuery("SELECT SUM(s.rating)/count(s.customerId) FROM ServiceEntity s WHERE s.professionalId = " + id + " AND rating is not null" );
+        List<Long> list = (List<Long>)query.getResultList();
+        if(list.isEmpty()) return 0;
+        return list.get(0);
+    }
+
+    @Override
+    @Transactional
+    public void setRating(RegisterEntity user, String profID, String rate) {
+        int idProf = Integer.parseInt(profID);
+        int rating = Integer.parseInt(rate);
+        Query query = em.createQuery("");
+    }
+    
+}
+
+import java.util.List;
