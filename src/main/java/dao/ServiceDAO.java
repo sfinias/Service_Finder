@@ -27,10 +27,15 @@ public class ServiceDAO implements ServiceDAOInterface{
     @Transactional
     public long getRating(RegisterEntity user) {
         int id = user.getUserEntity().getId();
+        try{
         Query query = em.createQuery("SELECT SUM(s.rating)/count(s.customerId) FROM ServiceEntity s WHERE s.professionalId = " + id + " AND rating is not null" );
         List<Long> list = (List<Long>)query.getResultList();
         if(list.isEmpty()) return 0;
         return list.get(0);
+        }catch(Exception e){
+             e.printStackTrace();
+             return 0;
+        }
     }
 
     @Override
