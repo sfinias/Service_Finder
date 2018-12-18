@@ -1,6 +1,8 @@
 package model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -16,6 +18,8 @@ public class ServiceEntity {
     private int customerId;
     private int cost;
     private boolean fulfilled;
+    @Min(1)
+    @Max(5)
     private int rating;
 
     @Id

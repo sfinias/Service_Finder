@@ -1,14 +1,12 @@
 package controller;
 
-import dao.ProfessionsDAOInterface;
-import dao.ServiceDAOInterface;
-import dao.UserDAOInterface;
-import dao.VerificationTokenDAOInterface;
+import dao.*;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -64,6 +62,9 @@ public class UserController {
     private ServiceDAOInterface s;
 
     @Autowired
+    private MessageDAOInterface m;
+
+    @Autowired
     private FormValids formValids;
 
     @Autowired
@@ -86,12 +87,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/chat/{userIDString}")
-    public String handleForm(@PathVariable String userIDString, HttpSession session) {
+    public String handleForm(@PathVariable String userIDString, HttpSession session,ModelMap modelMap) {
         RegisterEntity sessionUser = new RegisterEntity((RegisterEntity) session.getAttribute("user"));
         int user1ID = Integer.parseInt(userIDString);
         if (u.userExistsId(user1ID)) {
             session.setAttribute("user1ID", user1ID);
             session.setAttribute("user2ID", sessionUser.getUserEntity().getId());
+            session.setAttribute("user1Name", u.getUserByID(user1ID).getUserEntity().getFirstName());
+            session.setAttribute("user2Name", sessionUser.getUserEntity().getFirstName());
             int id = s.returnIfServiceExists(user1ID, sessionUser.getUserEntity().getId());
             if (id == 0) {
                 ServiceEntity se=new ServiceEntity();
@@ -100,8 +103,19 @@ public class UserController {
                 se.setStartDate(Timestamp.from(Instant.now()));
                 id=s.insertService(se).getId();
             }
+            ArrayList<ServiceEntity> servicesOfcurrentUser=s.getAllServiceOfUser(sessionUser.getUserEntity().getId());
+            ArrayList<UserEntity> currentConnectedProfs=new ArrayList<>();
+            for (ServiceEntity sa :servicesOfcurrentUser) {
+                currentConnectedProfs.add(u.getUserByID(sa.getProfessionalId()).getUserEntity());
+            }
+            modelMap.addAttribute("sessionUser",sessionUser);
+            modelMap.addAttribute("usersSessionChats",servicesOfcurrentUser);
+            modelMap.addAttribute("profs",currentConnectedProfs);
+            modelMap.addAttribute("currentSessionsMessages",m.getServicesMessages(id));
+            modelMap.addAttribute("currentSession",s.getServiceByID(id));
+            modelMap.addAttribute("currentSessionRecipient",u.getUserByID(user1ID));
             session.setAttribute("serviceID", id);
-            return "chatPage";
+            return "chatPageTest";
         } else {
             return "404";
         }
@@ -326,14 +340,12 @@ public class UserController {
         serviceDAOInterface.setRating(user, selectedUserID, rateNumber);
         return new ResponseEntity<>("Rate submitted successfully.", HttpStatus.OK);
     }
-    
 
     @RequestMapping("/logout.htm")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/user/initialForm.htm";
     }
-    
     
     @RequestMapping(value="/viewselectedprof.htm",method=RequestMethod.GET)
     public String selected(ModelMap model, HttpSession session, @RequestParam(value = "email") String email){

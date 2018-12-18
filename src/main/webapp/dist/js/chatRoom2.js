@@ -1,9 +1,9 @@
-var CreateProxy = function (wsUri) {
+var CreateProxy = function(wsUri) {
     var websocket = null;
     var audio = null;
     var elements = null;
 
-    var playSound = function () {
+    var playSound = function() {
         if (audio == null) {
             audio = new Audio('/dist/sounds/sound_chat.wav');
         }
@@ -11,19 +11,19 @@ var CreateProxy = function (wsUri) {
         audio.play();
     };
 
-    var showMsgPanel = function () {
-        elements.loginPanel.style.display = "none";
-        elements.msgPanel.style.display = "block";
-        elements.txtMsg.focus();
-    };
+    // var showMsgPanel = function() {
+    //     elements.loginPanel.style.display = "none";
+    //     elements.msgPanel.style.display = "block";
+    //     elements.txtMsg.focus();
+    // };
 
-    var hideMsgPanel = function () {
-        elements.loginPanel.style.display = "block";
-        elements.msgPanel.style.display = "none";
-        elements.txtLogin.focus();
-    };
+    // var hideMsgPanel = function() {
+    //     elements.loginPanel.style.display = "block";
+    //     elements.msgPanel.style.display = "none";
+    //     elements.txtLogin.focus();
+    // };
 
-    var displayMessage = function (msg) {
+    var displayMessage = function(msg) {
         if (elements.msgContainer.childNodes.length == 100) {
             elements.msgContainer.removeChild(elements.msgContainer.childNodes[0]);
         }
@@ -37,19 +37,16 @@ var CreateProxy = function (wsUri) {
         elements.msgContainer.scrollTop = elements.msgContainer.scrollHeight;
     };
 
-    var clearMessage = function () {
+    var clearMessage = function() {
         elements.msgContainer.innerHTML = '';
     };
 
     return {
-        login: function () {
+        login: function() {
             elements.txtLogin.focus();
 
-            // var name = elements.txtLogin.value.trim();
-            var name=
-            if (name == '') {
-                return;
-            }
+            var name = elements.txtLogin.value.trim();
+            if (name == '') { return; }
 
             elements.txtLogin.value = '';
 
@@ -57,57 +54,44 @@ var CreateProxy = function (wsUri) {
             if (websocket == null) {
                 websocket = new WebSocket(wsUri);
 
-                websocket.onopen = function () {
-                    var message = {messageType: 'LOGIN', data: name};
+                websocket.onopen = function() {
+                    var message = { messageType: 'LOGIN', data: name };
                     websocket.send(JSON.stringify(message));
                 };
-                websocket.onmessage = function (e) {
+                websocket.onmessage = function(e) {
                     displayMessage(e.data);
                     showMsgPanel();
                     // playSound();
                 };
-                websocket.onerror = function (e) {
-                };
-                websocket.onclose = function (e) {
+                websocket.onerror = function(e) {};
+                websocket.onclose = function(e) {
                     websocket = null;
                     clearMessage();
                     hideMsgPanel();
                 };
             }
         },
-        sendMessage: function () {
+        sendMessage: function() {
             elements.txtMsg.focus();
 
             if (websocket != null && websocket.readyState == 1) {
                 var input = elements.txtMsg.value.trim();
-                if (input == '') {
-                    return;
-                }
+                if (input == '') { return; }
 
                 elements.txtMsg.value = '';
 
-                var message = {messageType: 'MESSAGE', data: input};
+                var message = { messageType: 'MESSAGE', data: input };
 
                 // Send a message through the web-socket
                 websocket.send(JSON.stringify(message));
             }
         },
-        // login_keyup: function(e) { if (e.keyCode == 13) { this.login(); } },
-        login_keyup:
-            $(document).ready(function (e) {
-                e.login();
-            }),
-        sendMessage_keyup: function (e) {
-            if (e.keyCode == 13) {
-                this.sendMessage();
-            }
+        login_keyup: function(e) { if (e.keyCode == 13) { this.login(); } },
+        sendMessage_keyup: function(e) { if (e.keyCode == 13) { this.sendMessage(); } },
+        logout: function() {
+            if (websocket != null && websocket.readyState == 1) { websocket.close();}
         },
-        logout: function () {
-            if (websocket != null && websocket.readyState == 1) {
-                websocket.close();
-            }
-        },
-        initiate: function (e) {
+        initiate: function(e) {
             elements = e;
             elements.txtLogin.focus();
         }

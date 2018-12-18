@@ -155,6 +155,25 @@ public class UserDAO implements UserDAOInterface {
     }
 
     @Transactional
+    public RegisterEntity getUserByID(int userID) {
+        Query query = em.createQuery("SELECT u, p, a, ph FROM UserEntity u " +
+                "LEFT JOIN ProfessionsEntity p ON u.professionId = p.id " +
+                "LEFT JOIN AddressEntity a ON u.id = a.userId " +
+                "LEFT JOIN PhoneEntity ph ON u.id = ph.userId " +
+                "WHERE u.id=" + userID);
+        List<Object[]> objs = query.getResultList();
+        if (objs.size()==0) return null;
+        Object[] result = objs.get(0);
+        RegisterEntity user = new RegisterEntity();
+        user.setUserEntity((UserEntity)result[0]);
+        user.setProfessionsEntity((ProfessionsEntity)result[1]);
+        user.setAddressEntity((AddressEntity)result[2]);
+        user.setPhoneEntity((PhoneEntity)result[3]);
+        user.getUserEntity().setProfilePicture(setProfilePicture(user.getUserEntity())); //call method for setting profile Picture
+        return user;
+    }
+
+    @Transactional
     public ArrayList<ProfessionsEntity> getAllProfessions() {
         Query query = em.createQuery("SELECT p FROM ProfessionsEntity p");
         ArrayList<ProfessionsEntity> list=(ArrayList<ProfessionsEntity>) query.getResultList();
@@ -194,8 +213,8 @@ public class UserDAO implements UserDAOInterface {
     //set profile Picture
     public String setProfilePicture(UserEntity userEntity){
         int id = userEntity.getId();
-        String pathJPG = "/Users/matina/apache-tomcat-8.0.53/webapps/images/"+id+".jpg";
-        String pathPNG = "/Users/matina/apache-tomcat-8.0.53/webapps/images/"+id+".png";
+        String pathJPG = "C:\\Tomcat\\webapps\\images\\"+id+".jpg";
+        String pathPNG = "C:\\Tomcat\\webapps\\images\\"+id+".png";
         File filenameJPG = new File(pathJPG);
         File filenamePNG = new File(pathPNG);
         if((filenameJPG.exists() && !filenameJPG.isDirectory())) 

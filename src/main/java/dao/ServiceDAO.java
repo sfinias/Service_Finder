@@ -1,5 +1,6 @@
 package dao;
 
+import model.RegisterEntity;
 import model.ServiceEntity;
 import model.UserEntity;
 import org.springframework.stereotype.Repository;
@@ -9,13 +10,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author tsamo
  */
 
 @Repository
-public class ServiceDAO implements ServiceDAOInterface{
+public class ServiceDAO implements ServiceDAOInterface {
 
     @PersistenceContext
     private EntityManager em;
@@ -23,7 +25,7 @@ public class ServiceDAO implements ServiceDAOInterface{
     @Override
     public boolean checkIfServiceExists(int customerID, int professionalID) {
         boolean flag;
-        Query query = em.createQuery("SELECT s FROM ServiceEntity s WHERE s.customerId=" + customerID + " AND s.professionalId="+professionalID+"");
+        Query query = em.createQuery("SELECT s FROM ServiceEntity s WHERE s.customerId=" + customerID + " AND s.professionalId=" + professionalID + "");
         ArrayList<UserEntity> users = (ArrayList<UserEntity>) query.getResultList();
         if (users.size() == 0) {
             flag = false;
@@ -36,12 +38,12 @@ public class ServiceDAO implements ServiceDAOInterface{
     @Override
     public int returnIfServiceExists(int customerID, int professionalID) {
         int flag;
-        Query query = em.createQuery("SELECT s FROM ServiceEntity s WHERE (s.customerId=" + customerID + " AND s.professionalId="+professionalID+" AND s.fulfilled=false) OR (s.customerId=" + professionalID + " AND s.professionalId="+customerID+" AND s.fulfilled=false) ");
+        Query query = em.createQuery("SELECT s FROM ServiceEntity s WHERE (s.customerId=" + customerID + " AND s.professionalId=" + professionalID + " AND s.fulfilled=false) OR (s.customerId=" + professionalID + " AND s.professionalId=" + customerID + " AND s.fulfilled=false) ");
         ArrayList<ServiceEntity> services = (ArrayList<ServiceEntity>) query.getResultList();
         if (services.size() == 0) {
             flag = 0;
         } else {
-            flag=services.get(0).getId();
+            flag = services.get(0).getId();
         }
         return flag;
     }
@@ -51,16 +53,25 @@ public class ServiceDAO implements ServiceDAOInterface{
         em.persist(serviceEntity);
         return serviceEntity;
     }
-}
 
-import model.RegisterEntity;
+    @Override
+    public ServiceEntity getServiceByID(int serviceID) {
+        return em.getReference(ServiceEntity.class, serviceID);
+    }
+
+    @Override
+    public ArrayList<ServiceEntity> getAllServiceOfUser(int userID) {
+        Query query = em.createQuery("SELECT s FROM ServiceEntity s WHERE s.customerId="+userID);
+        return (ArrayList<ServiceEntity>) query.getResultList();
+    }
+
     @Override
     @Transactional
     public long getRating(RegisterEntity user) {
         int id = user.getUserEntity().getId();
-        Query query = em.createQuery("SELECT SUM(s.rating)/count(s.customerId) FROM ServiceEntity s WHERE s.professionalId = " + id + " AND rating is not null" );
-        List<Long> list = (List<Long>)query.getResultList();
-        if(list.isEmpty()) return 0;
+        Query query = em.createQuery("SELECT SUM(s.rating)/count(s.customerId) FROM ServiceEntity s WHERE s.professionalId = " + id + " AND rating is not null");
+        List<Long> list = (List<Long>) query.getResultList();
+        if (list.isEmpty()) return 0;
         return list.get(0);
     }
 
@@ -71,7 +82,4 @@ import model.RegisterEntity;
         int rating = Integer.parseInt(rate);
         Query query = em.createQuery("");
     }
-    
 }
-
-import java.util.List;
