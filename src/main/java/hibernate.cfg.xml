@@ -12,7 +12,7 @@
     <mapping class="model.PhoneEntity"/>
     <mapping class="model.UserDetailsEntity"/>
     <mapping class="model.ProfessionsEntity"/>
-      <mapping class="model.ServiceEntity"/>
+    <mapping class="model.ServiceEntity"/>
 
       <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->

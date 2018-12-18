@@ -3,6 +3,8 @@ package model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Max;
 
 @Entity
 @Table(name = "service", schema = "dnmgdb")
@@ -13,6 +15,8 @@ public class ServiceEntity {
     private int customerId;
     private int cost;
     private boolean fulfilled;
+    @Min(1)
+    @Max(5)
     private int rating;
 
     @Id
