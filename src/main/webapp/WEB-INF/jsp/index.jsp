@@ -120,7 +120,7 @@
                 <h2 class="mb-5 h3">Recent Jobs</h2>
                 <div class="rounded border jobs-wrap">
 
-                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center  border-bottom fulltime">
+                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/response_page.jsp" class="job-item d-block d-md-flex align-items-center  border-bottom fulltime">
                         <div class="company-logo blank-logo text-center text-md-left pl-3">
                             <img src="${pageContext.request.contextPath}/dist/images/company_logo_blank.png" alt="Image" class="img-fluid mx-auto">
                         </div>
@@ -141,7 +141,7 @@
                         </div>  
                     </a>
 
-                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center freelance">
+                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/response_page.jsp" class="job-item d-block d-md-flex align-items-center freelance">
                         <div class="company-logo blank-logo text-center text-md-left pl-3">
                             <img src="${pageContext.request.contextPath}/dist/images/logo_1.png" alt="Image" class="img-fluid mx-auto">
                         </div>
@@ -163,7 +163,7 @@
                     </a>
 
 
-                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center freelance">
+                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/response_page.jsp" class="job-item d-block d-md-flex align-items-center freelance">
                         <div class="company-logo blank-logo text-center text-md-left pl-3">
                             <img src="${pageContext.request.contextPath}/dist/images/logo_1.png" alt="Image" class="img-fluid mx-auto">
                         </div>
@@ -185,7 +185,7 @@
                     </a>
 
 
-                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center fulltime">
+                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/response_page.jsp" class="job-item d-block d-md-flex align-items-center fulltime">
                         <div class="company-logo blank-logo text-center text-md-left pl-3">
                             <img src="${pageContext.request.contextPath}/dist/images/company_logo_blank.png" alt="Image" class="img-fluid mx-auto">
                         </div>
@@ -206,7 +206,7 @@
                         </div>  
                     </a>
 
-                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/job-single.jsp" class="job-item d-block d-md-flex align-items-center partime">
+                    <a href="${pageContext.request.contextPath}/WEB-INF/jsp/response_page.jsp" class="job-item d-block d-md-flex align-items-center partime">
                         <div class="company-logo blank-logo text-center text-md-left pl-3">
                             <img src="${pageContext.request.contextPath}/dist/images/logo_2.png" alt="Image" class="img-fluid mx-auto">
                         </div>

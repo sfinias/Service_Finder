@@ -89,7 +89,7 @@
         <li class="tab col s3"><a class="white-text" href="#register">register</a></li>
     </ul>
     <div id="login" class="col s12">
-        <form:form class="col s12" method="post" action="${pageContext.request.contextPath}/user/checkLogin.htm"
+        <form:form class="col s12" method="post" action="${pageContext.request.contextPath}/home/checkLogin.htm"
                    modelAttribute="user">
             <div class="form-container">
                 <h3 class="red-text">Hello</h3>
@@ -117,13 +117,13 @@
                     </button>
                     <br>
                     <br>
-                    <a href="${pageContext.request.contextPath}/user/forgotPassword.htm">Forgotten password?</a>
+                    <a href="${pageContext.request.contextPath}/home/forgotPassword.htm">Forgotten password?</a>
                 </center>
             </div>
         </form:form>
     </div>
     <div id="register" class="col s12">
-        <form:form class="col s12" method="post" action="${pageContext.request.contextPath}/user/checkRegister.htm"
+        <form:form class="col s12" method="post" action="${pageContext.request.contextPath}/home/checkRegister.htm"
                    modelAttribute="user2"
                    accept-charset="UTF-8">
             <div class="form-container">
@@ -215,7 +215,7 @@
     </div>
 </div>
 <div id="homebutton">
-    <form action="${pageContext.request.contextPath}/user/initialForm.htm">
+    <form action="${pageContext.request.contextPath}/home/initialForm.htm">
         <button class="home">Home</button>
     </form>
 </div>

@@ -1,5 +1,18 @@
 <script>
 
+
+    $( "#slider" ).slider({
+        value:1,
+        min: 0.5,
+        max: 5,
+        step: 0.5,
+        slide: function( event, ui ) {
+            $( "#distance" ).val( ui.value  );
+        }
+    });
+    $( "#distance" ).val(  $( "#slider" ).slider( "value" )  );
+
+    var pos;
     var marker = null;
     var defaultProp = {
         center: new google.maps.LatLng(37.98, 23.72),
@@ -17,7 +30,8 @@
             window.alert("No details available for input: '" + place.name + "'");
             return;
         }
-        moveMark(place.geometry.location);
+        pos = place.geometry.location
+        moveMark(pos);
     });
 
     function moveMark(pos){
@@ -33,17 +47,18 @@
     }
 
     var geocoder = new google.maps.Geocoder();
-    google.maps.event.addListener(map, 'click', function(event) {
-        pos = new google.maps.LatLng(parseFloat(event.latLng.lat()),parseFloat(event.latLng.lng()));
-        moveMark(pos);
-        getAddress(pos);
-    });
+
+    // google.maps.event.addListener(map, 'click', function(event) {
+    //     pos = new google.maps.LatLng(parseFloat(event.latLng.lat()),parseFloat(event.latLng.lng()));
+    //     moveMark(pos);
+    //     getAddress(pos);
+    // });
 
     document.getElementById('loc').onclick = function (ev){
         ev.preventDefault();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = new google.maps.LatLng(parseFloat(position.coords.latitude),parseFloat(position.coords.longitude));
+                pos = new google.maps.LatLng(parseFloat(position.coords.latitude),parseFloat(position.coords.longitude));
                 moveMark(pos);
                 getAddress(pos);
             }, function() {handleLocationError(true);
@@ -87,7 +102,29 @@
         }
     }
 
+    var circle = null;
+
+    function createCircle(){
+        if (circle !== null){
+            circle.setMap(null);
+        }
+        let dist = $('#distance').val();
+        if (dist>1.5) map.setZoom(10);
+        circle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: map,
+            center: pos,
+            radius: 1000 * dist
+        });
+
+    }
+
     $("#search").click(function (e) {
+        $('#searchResults').removeClass('d-none');
         e.preventDefault();
         clearMarkers();
         $('.jobs-wrap').html('');
@@ -96,8 +133,11 @@
         var form = document.forms[0];
         //FormData makes all the files from the form in a name/value object
         var formData = new FormData(form);
-        alert('ajax');
-        $.ajax({
+        createCircle();
+        $('html, body').animate({
+            scrollTop: $('#searchResults').offset().top
+        }, 1000);
+            $.ajax({
             url: '${pageContext.request.contextPath}/profsREST.htm',
             encoding:"UTF-8",
             // contentType: "application/json; charset=utf-8",
@@ -106,15 +146,14 @@
             type: 'POST',
             processData: false,
             success: function (result) {
-                alert('Received');
                 var jsonobj = $.parseJSON(result);
-                alert(jsonobj);
                 profMarkers = [];
                 if (!jsonobj) {
-                    alert('There are no profs of this kind');
+                    // alert('There are no profs of this kind');
+                    $('.jobs-wrap').append($('<div class="job-item d-block d-md-flex align-items-center border-bottom fulltime">').append('No Professionals found for these criteria'));
                 } else {
                     $.each(jsonobj, function (i, item) {
-                        $profCard = $('<a href="${pageContext.request.contextPath}/user/viewselectedprof.htm?email='+item.userEntity.email+'" name="email" class="job-item d-block d-md-flex align-items-center  border-bottom fulltime">').append(
+                        $profCard = $('<a href="${pageContext.request.contextPath}/user/viewselectedprof.htm?email='+item.userEntity.email+'" name="email" class="job-item d-block d-md-flex align-items-center border-bottom fulltime">').append(
                             $('<div class="company-logo blank-logo text-center text-md-left pl-3">').append(
                                 $('<img src="${pageContext.request.contextPath}/dist/images/person_1.jpg" alt="Image" class="img-fluid mx-auto">')),
                             $('<div class="job-details">').append(

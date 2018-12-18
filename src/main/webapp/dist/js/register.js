@@ -130,26 +130,35 @@ $(document).ready(function () {
             contentType: 'application/json',
             success: function (result) {
                 var jsonobj = $.parseJSON(result);
-                count = 1;
-                if (jsonobj.length === 0) {
+                alert(jsonobj);
+                alert(jsonobj.Boolean);
+                if (jsonobj.Boolean){
                     document.getElementById('message4').style.color = 'green';
                     document.getElementById('message4').innerHTML = 'This e-mail is acceptable!!';
-                    ajaxEnabled = true;
-                } else {
-                    $.each(jsonobj, function (i, item) {
-                        if (item === text) {
-                            document.getElementById('message4').style.color = 'red';
-                            document.getElementById('message4').innerHTML = 'E-mail already exists!!';
-                            ajaxEnabled = false;
-                        } else if (item !== text && count === jsonobj.length) {
-                            document.getElementById('message4').style.color = 'green';
-                            document.getElementById('message4').innerHTML = 'This e-mail is acceptable!!';
-                            ajaxEnabled = true;
-                        } else if (item !== text && count < jsonobj.length) {
-                            count = count + 1;
-                        }
-                    });
+                }else {
+                    document.getElementById('message4').style.color = 'red';
+                    document.getElementById('message4').innerHTML = 'E-mail already exists!!';
                 }
+                // count = 1;
+                // if (jsonobj.length === 0) {
+                //     document.getElementById('message4').style.color = 'green';
+                //     document.getElementById('message4').innerHTML = 'This e-mail is acceptable!!';
+                //     ajaxEnabled = true;
+                // } else {
+                //     $.each(jsonobj, function (i, item) {
+                //         if (item === text) {
+                //             document.getElementById('message4').style.color = 'red';
+                //             document.getElementById('message4').innerHTML = 'E-mail already exists!!';
+                //             ajaxEnabled = false;
+                //         } else if (item !== text && count === jsonobj.length) {
+                //             document.getElementById('message4').style.color = 'green';
+                //             document.getElementById('message4').innerHTML = 'This e-mail is acceptable!!';
+                //             ajaxEnabled = true;
+                //         } else if (item !== text && count < jsonobj.length) {
+                //             count = count + 1;
+                //         }
+                //     });
+                // }
             }
         });
     });

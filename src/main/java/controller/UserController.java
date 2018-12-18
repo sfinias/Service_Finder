@@ -78,183 +78,6 @@ public class UserController {
 
     private MailService mailService = new MailService();
 
-    @RequestMapping(value = "/initialForm.htm")
-    public String fillInitialForm(ModelMap modelMap) {
-        servletContext.setAttribute("allProfessions", p.getAllProfessions());
-        modelMap.addAttribute("user", new UserEntity());
-        modelMap.addAttribute("user2", new RegisterEntity());
-        return "initialForm";
-    }
-
-    @RequestMapping(value = "/chat/{userIDString}")
-    public String handleForm(@PathVariable String userIDString, HttpSession session,ModelMap modelMap) {
-        RegisterEntity sessionUser = new RegisterEntity((RegisterEntity) session.getAttribute("user"));
-        int user1ID = Integer.parseInt(userIDString);
-        if (u.userExistsId(user1ID)) {
-            session.setAttribute("user1ID", user1ID);
-            session.setAttribute("user2ID", sessionUser.getUserEntity().getId());
-            session.setAttribute("user1Name", u.getUserByID(user1ID).getUserEntity().getFirstName());
-            session.setAttribute("user2Name", sessionUser.getUserEntity().getFirstName());
-            int id = s.returnIfServiceExists(user1ID, sessionUser.getUserEntity().getId());
-            if (id == 0) {
-                ServiceEntity se=new ServiceEntity();
-                se.setProfessionalId(user1ID);
-                se.setCustomerId(sessionUser.getUserEntity().getId());
-                se.setStartDate(Timestamp.from(Instant.now()));
-                id=s.insertService(se).getId();
-            }
-            ArrayList<ServiceEntity> servicesOfcurrentUser=s.getAllServiceOfUser(sessionUser.getUserEntity().getId());
-            ArrayList<UserEntity> currentConnectedProfs=new ArrayList<>();
-            for (ServiceEntity sa :servicesOfcurrentUser) {
-                currentConnectedProfs.add(u.getUserByID(sa.getProfessionalId()).getUserEntity());
-            }
-            modelMap.addAttribute("sessionUser",sessionUser);
-            modelMap.addAttribute("usersSessionChats",servicesOfcurrentUser);
-            modelMap.addAttribute("profs",currentConnectedProfs);
-            modelMap.addAttribute("currentSessionsMessages",m.getServicesMessages(id));
-            modelMap.addAttribute("currentSession",s.getServiceByID(id));
-            modelMap.addAttribute("currentSessionRecipient",u.getUserByID(user1ID));
-            session.setAttribute("serviceID", id);
-            return "chatPageTest";
-        } else {
-            return "404";
-        }
-    }
-
-    //TODO delete before final update
-    @RequestMapping(value = "/404.htm")
-    public String handleForm2() {
-        return "404";
-    }
-
-    //TODO delete before final update
-    @RequestMapping(value = "/testing.htm")
-    public String testing(ModelMap modelMap) {
-        servletContext.setAttribute("allProfessions", p.getAllProfessions());
-        modelMap.addAttribute("user", new UserEntity());
-        modelMap.addAttribute("user2", new RegisterEntity());
-        return "TestingForm";
-    }
-
-    @RequestMapping(value = "/checkLogin.htm")
-    public String checksBeforeLoign(ModelMap model, UserEntity user, HttpSession session) {
-        String emailSubmitted = user.getEmail();
-        String password = user.getPasswordConfirm();
-        if (!u.userExists(emailSubmitted)) {
-            model.addAttribute("userEmail", emailSubmitted);
-            return "userDoesNotExist";
-        } else {
-            if (!u.findUserByEmail(emailSubmitted).getPasswordHash().equals(DigestUtils.sha512Hex(password + u.getSalt(emailSubmitted)))) {
-                model.addAttribute("userEmail", emailSubmitted);
-                return "wrongPassword";
-            } else {
-                if (!u.isUserActivated(emailSubmitted)) {
-                    model.addAttribute("userEmail", emailSubmitted);
-                    return "notActivated";
-                } else {
-//            boolean test= u.isUserActivated(emailSubmitted);
-//            model.addAttribute("userEmail", emailSubmitted);
-                    RegisterEntity userInSession = u.getUserByEmail(emailSubmitted);
-                    session.setAttribute("user", userInSession);
-                    if (userInSession.getProfessionsEntity().getId() == 1) {
-                        servletContext.setAttribute("allProfessions", p.getAllProfessions());
-                        return "redirect:/user/search.htm";
-                    } else {
-                        return "homeProf";
-                    }
-                }
-            }
-        }
-    }
-
-    @RequestMapping(value = "/checkRegister.htm", method = RequestMethod.POST, consumes = {MediaType.ALL_VALUE})
-    public String checksBeforeResgistration(ModelMap model, @ModelAttribute("user2") @Valid RegisterEntity user2, BindingResult bindingResult) throws EmailException {
-        formValids.validate(user2, bindingResult);
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("user", new UserEntity());
-            user2.getUserEntity().setPasswordConfirm("");
-            user2.getUserEntity().setPasswordHash("");
-            model.addAttribute("user2", user2);
-//            return "initialForm";
-            return "TestingForm";
-        }
-        if (u.userExists(user2.getUserEntity().getEmail())) {
-            model.addAttribute("alreadyUser", user2.getUserEntity().getEmail());
-            return "userAlreadyExists";
-        } else {
-            u.insertUser(user2.getUserEntity());
-            int uid = u.getUserid(user2.getUserEntity());
-            u.insertAddress(user2.getAddressEntity(), uid);
-            u.insertPhone(user2.getPhoneEntity(), uid);
-            v.createTokenForUser(uid);
-            String token = v.getTokenOfUser(uid);
-            model.addAttribute("registeredEmail", user2.getUserEntity().getEmail());
-            mailService.sendMail(user2.getUserEntity().getEmail(), "Activation", "http://localhost:8080/verification/token/" + token + ".htm");
-            return "registrationSuccess";
-        }
-    }
-
-    @RequestMapping(value = "/forgotPassword.htm", method = RequestMethod.GET)
-    public String forgotPassword(ModelMap modelMap) {
-        UserEntity user = new UserEntity();
-        modelMap.addAttribute("user", user);
-        return "forgotPassword";
-    }
-
-    @RequestMapping(value = "/resetPassword.htm")
-    public String handleForm10(ModelMap modelMap, UserEntity user) throws EmailException {
-        String emailSubmitted = user.getEmail();
-        if (!u.userExists(emailSubmitted)) {
-            modelMap.addAttribute("userEmail", emailSubmitted);
-            return "userDoesNotExist";
-        } else {
-            int uid = u.findUserByEmail(emailSubmitted).getId();
-            v.createTokenForUser(uid);
-            String token = v.getTokenOfUser(uid);
-            String subject = "Reset Password";
-            //Το όνομα του site πρέπει να μπει χειροκίνητα. Δεν υπάρχεις τρόπος να το βάλουμε να το παίρνει δυναμικά.
-            String text = "You have have asked for a password reset for the e-mail:" + emailSubmitted + ". \n"
-                    + "To reset your password, please follow the following link. http://localhost:8080/user/resetPasssword/" + token + ".htm \n\n"
-                    + "With regards, \n"
-                    + "The Awesome Inc. Team";
-            mailService.sendMail(emailSubmitted, subject, text);
-            modelMap.addAttribute("userEmail", emailSubmitted);
-            return "resetEmailSent";
-        }
-    }
-
-    @RequestMapping(value = "/resetPasssword/{token}")
-    public String handleForm(@PathVariable String token, ModelMap modelMap) {
-        if (v.checkIfTokenExists(token) && v.checkIfTimeLessThan24Hours(v.getTimestampOfTokenCreation(token))) {
-            UserEntity user = v.getUserFromToken(v.getTokenEntityFromToken(token));
-            modelMap.addAttribute("user", user);
-            v.removeTokenByUserId(user.getId());
-            return "resetPasswordForm";
-        } else if (v.checkIfTokenExists(token) && !v.checkIfTimeLessThan24Hours(v.getTimestampOfTokenCreation(token))) {
-            return "tokenExpired";
-        } else {
-            return "tokenDoesNotExist";
-        }
-    }
-
-    @RequestMapping(value = "/changePassword.htm")
-    public String handleForm2(ModelMap model, UserEntity user) {
-        String emailSubmitted = user.getEmail();
-        String newPassword = user.getPasswordConfirm();
-        if (!u.userExists(emailSubmitted)) {
-            model.addAttribute("userEmail", emailSubmitted);
-            return "userDoesNotExist";
-        } else if (u.userExists(emailSubmitted) && !u.isUserActivated(emailSubmitted)) {
-            model.addAttribute("userEmail", emailSubmitted);
-            return "notActivated";
-        } else {
-            u.changePasswordOfUser(emailSubmitted, newPassword);
-            model.addAttribute("userEmail", emailSubmitted);
-            return "resetSuccess";
-        }
-
-    }
-
     @RequestMapping(value = "/account.htm")
     public String account(ModelMap model, HttpSession session) {
         RegisterEntity userInSession = new RegisterEntity((RegisterEntity) session.getAttribute("user"));
@@ -266,36 +89,36 @@ public class UserController {
     @RequestMapping(value = "/edited.htm", method = RequestMethod.POST, consumes = {MediaType.ALL_VALUE})
     public String profileUpdate(ModelMap model, @ModelAttribute("userInSession") @Valid RegisterEntity updatedUser, BindingResult bindingResult,
             HttpSession session) {
-//        RegisterEntity userInSession = (RegisterEntity) session.getAttribute("user");
         editFormValids.validate(updatedUser, bindingResult);
         if (bindingResult.hasErrors()) {
-//            model.addAttribute("userInSession", new RegisterEntity());
-//            userInSession.getUserEntity().setPasswordHash("");
             model.addAttribute("userInSession", updatedUser);
-//            return "initialForm";
-            return "profile";
+            model.addAttribute("message", "Update was not successful");
         } else {
             RegisterEntity sessionEntity = (RegisterEntity) session.getAttribute("user");
             RegisterEntity originalEntity = u.getUserByEmail(sessionEntity.getUserEntity().getEmail());
             RegisterEntity updatedEntity = u.editUser(originalEntity, updatedUser);
             session.setAttribute("user", updatedEntity);
-            return "registrationSuccess";
+            model.addAttribute("userInSession", updatedEntity);
+            model.addAttribute("message", "Profile updated successfully");
         }
+        return "profile";
     }
 
     @RequestMapping(value = "/pass.htm", method = RequestMethod.POST, consumes = {MediaType.ALL_VALUE})
     public String passwordUpdate(ModelMap model, @ModelAttribute("userInForm") @Valid UserEntity userInFormPassword, BindingResult bindingResult,
             HttpSession session) {
-        
         passwordFormValids.validate(userInFormPassword, bindingResult);
         RegisterEntity userInSession =(RegisterEntity) session.getAttribute("user");
         if (bindingResult.hasErrors()) {
             model.addAttribute("userInSession", userInFormPassword);
+            model.addAttribute("message", "Could not update password");
             return "profile";
         } else {                   
             u.changePasswordOfUser(userInSession.getUserEntity().getEmail() , userInFormPassword.getPasswordHash());
-            return "registrationSuccess";
+            model.addAttribute("userInSession", userInSession);
+            model.addAttribute("message", "Password updated successfully");
         }
+        return "profile";
     }
 
     @RequestMapping(value = "/search.htm")
@@ -306,29 +129,32 @@ public class UserController {
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
     public ResponseEntity<String> fileUpload(@RequestParam("uploaded") MultipartFile file, HttpSession session)
             throws IOException {
-
-        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
         RegisterEntity user = (RegisterEntity)session.getAttribute("user");
-        int idForFilename = user.getUserEntity().getId();
-        String newFilename = String.valueOf(idForFilename);
-        // Save file on system
-        if (!file.getOriginalFilename().isEmpty()) {
-            File previousFileToDeleteJPG = new File("C:\\Tomcat\\webapps\\images\\"+user.getUserEntity().getId()+".jpg");
-            File previousFileToDeletePNG = new File("C:\\Tomcat\\webapps\\images\\"+user.getUserEntity().getId()+".png");
-            previousFileToDeleteJPG.delete();
-            previousFileToDeletePNG.delete();
-            BufferedOutputStream outputStream = new BufferedOutputStream(
-                    new FileOutputStream( new File("C:\\Tomcat\\webapps\\images", newFilename.concat("."+extension))));
-            user.getUserEntity().setProfilePicture(newFilename.concat("."+extension));
+        if (u.uploadPhoto(file, user)){
             session.setAttribute("user", user);
-            outputStream.write(file.getBytes());
-            outputStream.flush();
-            outputStream.close();
-        } else {
-            return new ResponseEntity<>("Invalid file.", HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>("File Uploaded Successfully.", HttpStatus.OK);
+            return new ResponseEntity<>("File Uploaded Successfully.", HttpStatus.OK);
+        }else return new ResponseEntity<>("Invalid file.", HttpStatus.BAD_REQUEST);
+//        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+//        int idForFilename = user.getUserEntity().getId();
+//        String newFilename = String.valueOf(idForFilename);
+//        File previousFileToDeleteJPG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".jpg");
+//        File previousFileToDeletePNG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".png");
+//
+//        // Save file on system
+//        if (!file.getOriginalFilename().isEmpty()) {
+//            BufferedOutputStream outputStream = new BufferedOutputStream(
+//                    new FileOutputStream( new File("/Users/Nah/apache-tomcat-8.0.53/webapps/images", newFilename.concat("."+extension))));
+//            user.getUserEntity().setProfilePicture(newFilename.concat("."+extension));
+//            session.setAttribute("user", user);
+//            outputStream.write(file.getBytes());
+//            outputStream.flush();
+//            outputStream.close();
+//            previousFileToDeleteJPG.delete();
+//            previousFileToDeletePNG.delete();
+//            return new ResponseEntity<>("File Uploaded Successfully.", HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>("Invalid file.", HttpStatus.BAD_REQUEST);
+//        }
     }
     
     
@@ -344,13 +170,13 @@ public class UserController {
     @RequestMapping("/logout.htm")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/user/initialForm.htm";
+        return "redirect:/home/initialForm.htm";
     }
-    
+
     @RequestMapping(value="/viewselectedprof.htm",method=RequestMethod.GET)
-    public String selected(ModelMap model, HttpSession session, @RequestParam(value = "email") String email){
+    public String selected(ModelMap model, HttpSession session, @RequestParam(value = "email") String email) {
         RegisterEntity user = u.getUserByEmail(email);
-        if(user.getUserEntity().getProfessionId()==1)
+        if (user.getUserEntity().getProfessionId() == 1)
             return "testSearch";
         else{
             long rating = serviceDAOInterface.getRating(user);
@@ -358,7 +184,13 @@ public class UserController {
             model.addAttribute("rating", rating);
             return "viewSelectedUserInfo";
         }
-        
+    }
+
+    @RequestMapping("/page.htm")
+    public String selected(ModelMap model, HttpSession session){
+        RegisterEntity selectedUser = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
+        model.addAttribute("selectedUser", selectedUser);
+        return "viewSelectedUserInfo";
     }
     
     @RequestMapping(value="/viewselectedcategoryofprof.htm",method=RequestMethod.GET)
