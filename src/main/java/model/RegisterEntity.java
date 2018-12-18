@@ -66,6 +66,5 @@ public class RegisterEntity {
     public void setProfessionsEntity(ProfessionsEntity professionsEntity) {
         this.professionsEntity = professionsEntity;
     }
-    
-    
+
 }
