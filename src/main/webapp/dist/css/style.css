@@ -958,17 +958,3 @@ a {
     background: #28a745;
     color: #fff;
     border: 1px solid transparent; }
-
-
-
-@media screen and (min-width:1200px) {
-  #margin-dmng {
-   margin-top: 10em;
-  }
-}  
-
-@media screen and (max-width: 1200px) {
-  #margin-dmng {
-  margin-top: 20em;
-  }
-}  

@@ -83,6 +83,12 @@ public class UserController {
         modelMap.addAttribute("user2", new RegisterEntity());
         return "TestingForm";
     }
+    
+    @RequestMapping(value = "/test.htm")
+    public String profHome(ModelMap modelMap) {
+        return "profHome";
+    }
+
 
     @RequestMapping(value = "/checkLogin.htm")
     public String checksBeforeLoign(ModelMap model, UserEntity user, HttpSession session) {
