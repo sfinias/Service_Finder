@@ -77,7 +77,7 @@ public class HomeController {
                 servletContext.setAttribute("allProfessions", p.getAllProfessions());
                 return "redirect:/user/search.htm";
             } else {
-                return "profHome";
+                return "redirect:/prof/services.htm";
             }
         }
     }

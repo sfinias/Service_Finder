@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/profile.css">
 </head>
 <body>
-<%@include file = "navbar.jsp" %>
+<%@include file = "navbarProf.jsp" %>
 <div class="site-wrap">
     <div class="unit-5 overlay" style="background-image: url('${pageContext.request.contextPath}/dist/images/woodWallpaper.jpg');">
         <div class="container text-center">

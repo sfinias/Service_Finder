@@ -46,7 +46,7 @@ public class ServiceDAO implements ServiceDAOInterface{
         int rating = Integer.parseInt(rate);
         Query query = em.createQuery("");
     }
-    
+
     @Override
     @Transactional
     public List<ServiceEntity> getServicesForProf(RegisterEntity user) {
@@ -54,5 +54,13 @@ public class ServiceDAO implements ServiceDAOInterface{
         query.setParameter("id", user.getUserEntity().getId());
         return (List<ServiceEntity>)query.getResultList();
     }
-    
+
+    @Override
+    public List<ServiceEntity> getSubServicesForProf(RegisterEntity user, boolean fulfilled) {
+        Query query = em.createQuery("SELECT s FROM ServiceEntity s WHERE s.professionalId = :id " +
+                "AND s.fulfilled = :active");
+        query.setParameter("id", user.getUserEntity().getId());
+        query.setParameter("active", fulfilled);
+        return (List<ServiceEntity>)query.getResultList();
+    }
 }

@@ -3,6 +3,7 @@ package model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Max;
 
@@ -18,6 +19,9 @@ public class ServiceEntity {
     @Min(1)
     @Max(5)
     private int rating;
+
+    @Transient
+    private RegisterEntity otherUser;
 
     @Id
     @Column(name = "id")
@@ -87,6 +91,15 @@ public class ServiceEntity {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    @Transient
+    public RegisterEntity getOtherUser() {
+        return otherUser;
+    }
+
+    public void setOtherUser(RegisterEntity otherUser) {
+        this.otherUser = otherUser;
     }
 
     @Override

@@ -33,4 +33,5 @@ public interface UserDAOInterface {
     RegisterEntity getUserByEmail(String email);
     RegisterEntity editUser(RegisterEntity editUser , RegisterEntity user);
     boolean uploadPhoto(MultipartFile file, RegisterEntity user) throws IOException;
+    RegisterEntity getUserById(int id);
 }
