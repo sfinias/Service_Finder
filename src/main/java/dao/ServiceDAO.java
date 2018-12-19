@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import model.RegisterEntity;
+import model.ServiceEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +45,14 @@ public class ServiceDAO implements ServiceDAOInterface{
         int idProf = Integer.parseInt(profID);
         int rating = Integer.parseInt(rate);
         Query query = em.createQuery("");
+    }
+    
+    @Override
+    @Transactional
+    public List<ServiceEntity> getServicesForProf(RegisterEntity user) {
+        Query query = em.createQuery("SELECT s FROM ServiceEntity s WHERE s.professionalId = :id");
+        query.setParameter("id", user.getUserEntity().getId());
+        return (List<ServiceEntity>)query.getResultList();
     }
     
 }
