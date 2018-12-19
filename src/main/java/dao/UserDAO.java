@@ -211,6 +211,7 @@ public class UserDAO implements UserDAOInterface {
             outputStream.write(file.getBytes());
             outputStream.flush();
             outputStream.close();
+            
             return true;
         } else return false;
     }

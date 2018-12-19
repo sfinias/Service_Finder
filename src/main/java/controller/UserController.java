@@ -98,7 +98,7 @@ public class UserController {
     public String passwordUpdate(ModelMap model, @ModelAttribute("userInForm") @Valid UserEntity userInFormPassword, BindingResult bindingResult,
             HttpSession session) {
         passwordFormValids.validate(userInFormPassword, bindingResult);
-        RegisterEntity userInSession =(RegisterEntity) session.getAttribute("user");
+        RegisterEntity userInSession = (RegisterEntity) session.getAttribute("user");
         if (bindingResult.hasErrors()) {
             model.addAttribute("userInSession", userInFormPassword);
             model.addAttribute("message", "Could not update password");
@@ -159,7 +159,7 @@ public class UserController {
     
 
     @RequestMapping("/logout.htm")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/home/initialForm.htm";
     }
