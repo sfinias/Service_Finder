@@ -19,7 +19,7 @@ public class RegisterEntity {
     @Valid
     private ProfessionsEntity professionsEntity;
 
-    public static final String IMAGE_PATH = "E:/images/";
+    public static final String IMAGE_PATH = "http://localhost:8080/images/";
 
     public RegisterEntity() {
     }

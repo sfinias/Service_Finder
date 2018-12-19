@@ -30,7 +30,7 @@ public class MailService {
 //        email.setHostName("smtp-mail.outlook.com");
 //        email.setSmtpPort(587);
 //        email.setAuthenticator(new DefaultAuthenticator("throwawayTsamo@hotmail.com", "1234567890!@#$%^&*()"));
-////        email.setSSLOnConnect(true);
+//        email.setSSLOnConnect(true);
 //        email.setFrom("throwawayTsamo@hotmail.com");
 //        email.setSubject(subject);
 //        email.setMsg("text");

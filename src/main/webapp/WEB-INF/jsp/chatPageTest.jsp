@@ -146,14 +146,22 @@
         }
 
         .right-header-contentChat .rightside-left-chat p, .right-header-contentChat .rightside-right-chat p {
-            background-color: #86BB71;
+            background-color: #7e7e7e;
             padding: 15px;
             border-radius: 8px;
             color: #fff;
         }
 
         .right-header-contentChat .rightside-right-chat p {
-            background-color: #94C2ED;
+            background-color: #86BB71;
+        }
+
+        .rightside-left-chat .fa {
+            color: #7e7e7e;
+        }
+
+        .rightside-right-chat .fa {
+            color: #86BB71;
         }
 
         .right-chat-textbox {
@@ -206,7 +214,7 @@
             left: 15px;
             bottom: 150px;
             border: 15px solid transparent;
-            border-bottom-color: #86BB71;
+            border-bottom-color: #7d7d7d;
             z-index: 1;
         }
 
@@ -217,7 +225,7 @@
             right: 15px;
             bottom: 150px;
             border: 15px solid transparent;
-            border-bottom-color: #94C2ED;
+            border-bottom-color: #86BB71;
         }
 
         @media only screen and (max-width: 320px) {
@@ -243,7 +251,7 @@
                     <c:forEach items="${profs}" var="item">
                         <li>
                             <div class="chat-left-img">
-                                <img src="http://localhost:8080/images/${item.profilePicture}">
+                                <img src="${item.profilePicture}">
                             </div>
                             <div class="chat-left-detail">
                                 <p>${item.firstName} ${item.lastName}</p>
@@ -257,7 +265,7 @@
             <div class="row">
                 <div class="col-md-12 right-header">
                     <div class="right-header-img">
-                        <img class="rounded-circle" src="http://localhost:8080/images/${sessionScope.user.getUserEntity().getProfilePicture()}">
+                        <img class="rounded-circle" src="${sessionScope.user.getUserEntity().getProfilePicture()}">
                     </div>
                     <div class="right-header-detail">
                         <p>${sessionUser.userEntity.firstName} ${sessionUser.userEntity.lastName}</p>
@@ -265,36 +273,69 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 right-header-contentChat">
-                    <ul>
+                <div class="col-md-12 right-header-contentChat" id="test2">
+                    <ul id="msgContainer">
+
+                        <%--<c:forEach items="${currentSessionsMessages}" var="item">--%>
+                        <%--<c:choose>--%>
+                        <%--<c:when test="${item.senderId==sessionUser.userEntity.id}">--%>
+                        <%--<li>--%>
+                        <%--<div class="rightside-right-chat test">--%>
+                        <%--<span><i class="fa fa-circle"--%>
+                        <%--aria-hidden="true"></i> ${sessionUser.userEntity.firstName} ${sessionUser.userEntity.lastName} <small>${item.timeSent.toLocaleString()}</small> </span><br><br>--%>
+                        <%--<p>${item.data}</p>--%>
+                        <%--</div>--%>
+                        <%--</li>--%>
+                        <%--</c:when>--%>
+                        <%--<c:otherwise>--%>
+                        <%--<li>--%>
+                        <%--<div class="rightside-left-chat test">--%>
+                        <%--<span> <small>${item.timeSent.toLocaleString()}<br>--%>
+                        <%--</small>  ${currentSessionRecipient.userEntity.firstName} ${currentSessionRecipient.userEntity.lastName} <i--%>
+                        <%--class="fa fa-circle"--%>
+                        <%--aria-hidden="true"></i></span><br><br>--%>
+                        <%--<p>${item.data}</p>--%>
+                        <%--</div>--%>
+                        <%--</li>--%>
+                        <%--</c:otherwise>--%>
+                        <%--</c:choose>--%>
+                        <%--</c:forEach>--%>
+
                         <c:forEach items="${currentSessionsMessages}" var="item">
                             <c:choose>
                                 <c:when test="${item.senderId==sessionUser.userEntity.id}">
                                     <li>
-                                        <div class="rightside-right-chat">
-                                    <span><i class="fa fa-circle"
-                                             aria-hidden="true"></i> ${sessionUser.userEntity.firstName} ${sessionUser.userEntity.lastName} <small>${item.timeSent}</small> </span><br><br>
+                                        <div class="rightside-right-chat test">
+                                    <span>
+                                        <small>${item.timeSent.toLocaleString()}</small>
+                                        ${sessionUser.userEntity.firstName} ${sessionUser.userEntity.lastName}
+                                        <i class="fa fa-circle" aria-hidden="true"></i>
+                                              </span><br><br>
                                             <p>${item.data}</p>
                                         </div>
                                     </li>
                                 </c:when>
                                 <c:otherwise>
                                     <li>
-                                        <div class="rightside-left-chat">
-                                <span> <small>${item.timeSent}</small>  ${currentSessionRecipient.userEntity.firstName} ${currentSessionRecipient.userEntity.lastName} <i
-                                        class="fa fa-circle"
-                                        aria-hidden="true"></i></span><br><br>
+                                        <div class="rightside-left-chat test">
+                                <span>
+                                    <i class="fa fa-circle" aria-hidden="true"></i>
+                                    ${currentSessionRecipient.userEntity.firstName} ${currentSessionRecipient.userEntity.lastName}
+                                    <small>${item.timeSent.toLocaleString()}</small>
+                                </span><br><br>
                                             <p>${item.data}</p>
                                         </div>
                                     </li>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
+
                     </ul>
                 </div>
             </div>
+            <a href="#" onclick="proxy.login_keyup(event)" id="myA">Start chat</a>
             <div class="row" id="msgPanel">
-                <div id="msgContainer">
+                <div id="msgContainer2">
                     <div class="col-md-12 right-chat-textbox">
                         <input type="text" id="txtMsg" onkeyup="proxy.sendMessage_keyup(event)"><a href="#"
                                                                                                    onclick="proxy.sendMessage_keyup(event)"><i
@@ -306,128 +347,234 @@
     </div>
 </div>
 </div>
-<script>$(document).ready(function () {
-    var height = $(window).height();
-    $('.left-chat').css('height', (height - 92) + 'px');
-    $('.right-header-contentChat').css('height', (height - 163) + 'px');
-});
+<script>
+    $(document).ready(function () {
+        var height = $(window).height();
+        $('.left-chat').css('height', (height - 92) + 'px');
+        $('.right-header-contentChat').css('height', (height - 163) + 'px');
 
-var CreateProxy = function (wsUri) {
-    alert("proxycreation");
-    var websocket = null;
-    var audio = null;
-    var elements = null;
+        // alert("test");
+        // $( 'body' ).animate( {
+        //     scrollTop: $( '#test2' + currentElementId ).offset().top
+        //         + $( '#test2' + currentElementId ).height()
+        //         - $( window ).height()
+        // }, 1000 );
 
-    var playSound = function () {
-        if (audio == null) {
-            audio = new Audio('/dist/sounds/sound_chat.wav');
-        }
+        // This works
+        goToBottomOfChat();
 
-        audio.play();
-    };
+        //Animation kinda works
+        // $('#test2').animate({scrollTop:$(document).height()}, 'slow');
 
-    var displayMessage = function (msg) {
-        alert("displaymessage");
-        if (elements.msgContainer.childNodes.length == 100) {
-            elements.msgContainer.removeChild(elements.msgContainer.childNodes[0]);
-        }
+        // $('#test2').animate({scrollTop:$('#test2').scrollHeight}, 'slow');
 
-        var div = document.createElement('div');
-        div.className = 'msgrow';
-        var textnode = document.createTextNode(msg);
-        div.appendChild(textnode);
-        elements.msgContainer.appendChild(div);
 
-        elements.msgContainer.scrollTop = elements.msgContainer.scrollHeight;
-    };
 
-    var clearMessage = function () {
-        alert("clear message");
-        elements.msgContainer.innerHTML = '';
-    };
+        // $("#msgContainer").scrollTop($("#msgContainer")[0].scrollHeight);
+        // window.scrollTo(0,document.querySelector(".right-header-contentChat").scrollHeight);
 
-    return {
-        login: function () {
-            alert("login");
-            if (websocket == null) {
-                websocket = new WebSocket(wsUri);
+        // $(".right-header-contentChat").scrollBottom
+        // $(".right-header-contentChat").animate({ scrollTop: $("#myID").scrollTop() }, 1000);
 
-                websocket.onopen = function () {
-                    displayMessage(e.data);
-                    alert("loginonope");
-                };
-                websocket.onmessage = function (e) {
-                    alert("loginonmessage");
-                    displayMessage(e.data);
-                    // playSound();
-                };
-                websocket.onerror = function (e) {
-                    alert("loginonerror");
-                };
-                websocket.onclose = function (e) {
-                    alert("loginonclose");
-                    websocket = null;
-                    clearMessage();
-                };
-            }
-        },
-        sendMessage: function () {
-            elements.txtMsg.focus();
-            alert("sendmessage");
-            if (websocket != null && websocket.readyState == 1) {
-                alert("if 1");
-                var input = elements.txtMsg.value.trim();
-                if (input == '') {
-                    alert("if 2");
-                    return;
-                }
-                alert("if 3");
-                elements.txtMsg.value = '';
+        // $("#msgContainer").scrollTop($("#test2").position().top);​
+    });
 
-                var message = {messageType: 'MESSAGE', data: input};
-
-                // Send a message through the web-socket
-                websocket.send(JSON.stringify(message));
-                alert("if 4");
-            } else {
-                alert("websocket null?");
-            }
-        },
-        // login_keyup: function(e) { if (e.keyCode == 13) { this.login(); } },
-        login_keyup: function (e) {
-            alert("loginkeyup");
-            if (e.keyCode == 13) {
-                this.login();
-            }
-        },
-        sendMessage_keyup: function (e) {
-            alert("sendmessagekeyup");
-            if (e.keyCode == 13) {
-                this.sendMessage();
-            }
-        },
-        logout: function () {
-            alert("logoutkeyup");
-            if (websocket != null && websocket.readyState == 1) {
-                websocket.close();
-            }
-        },
-        initiate: function (e) {
-            alert("initiatekeyup");
-            elements = e;
-        }
+    var goToBottomOfChat=function(){
+        var objDiv = document.getElementById("test2");
+        objDiv.scrollTop = objDiv.scrollHeight;
     }
-};
-</script>
 
+    var CreateProxy = function (wsUri) {
+        var websocket = null;
+        var audio = null;
+        var elements = null;
+
+        var playSound = function () {
+            if (audio == null) {
+                audio = new Audio('/dist/sounds/sound_chat.wav');
+            }
+
+            audio.play();
+        };
+
+        // var showMsgPanel = function () {
+        //     elements.loginPanel.style.display = "none";
+        //     elements.msgPanel.style.display = "block";
+        //     elements.txtMsg.focus();
+        // };
+        //
+        // var hideMsgPanel = function () {
+        //     elements.loginPanel.style.display = "block";
+        //     elements.msgPanel.style.display = "none";
+        //     // elements.txtLogin.focus();
+        // };
+
+        // var displayMessage = function (msg) {
+        //     if (elements.msgContainer.childNodes.length == 100) {
+        //         elements.msgContainer.removeChild(elements.msgContainer.childNodes[0]);
+        //     }
+        //
+        //     var div = document.createElement('div');
+        //     div.className = 'msgrow';
+        //     var textnode = document.createTextNode(msg);
+        //     div.appendChild(textnode);
+        //     elements.msgContainer.appendChild(div);
+        //
+        //     elements.msgContainer.scrollTop = elements.msgContainer.scrollHeight;
+        // };
+
+        var displayMessage = function (msg) {
+            alert(1);
+            var txt;
+            if (msg.senderId ===${sessionUser.userEntity.id}) {
+                txt = "<li>\n" +
+                    "                                        <div class=\"rightside-right-chat test\">\n" +
+                    "                                    <span>\n" +
+                    "                                        <small>" + moment().format('ll') + " " + moment().format('LTS') + "</small>\n" +
+                    "                                        ${sessionUser.userEntity.firstName} ${sessionUser.userEntity.lastName}\n" +
+                    "                                        <i class=\"fa fa-circle\" aria-hidden=\"true\"></i>\n" +
+                    "                                              </span><br><br>\n" +
+                    "                                            <p>" + msg.data + "</p>\n" +
+                    "                                        </div>\n" +
+                    "                                    </li>";
+            } else {
+                txt = "<li>\n" +
+                    "                                        <div class=\"rightside-left-chat test\">\n" +
+                    "                                <span>\n" +
+                    "                                    <i class=\"fa fa-circle\" aria-hidden=\"true\"></i>\n" +
+                    "                                    ${currentSessionRecipient.userEntity.firstName} ${currentSessionRecipient.userEntity.lastName}\n" +
+                    "                                    <small>" + moment().format('ll') + " " + moment().format('LTS') + "</small>\n" +
+                    "                                </span><br><br>\n" +
+                    "                                            <p>" + msg.data + "</p>\n" +
+                    "                                        </div>\n" +
+                    "                                    </li>";
+            }
+
+            <%--if (msg.senderId ===${sessionUser.userEntity.id}) {--%>
+            <%--txt = " <li>\n" +--%>
+            <%--"                                        <div class=\"rightside-right-chat\">\n" +--%>
+            <%--"                                    <span><i class=\"fa fa-circle\"\n" +--%>
+            <%--"                                             aria-hidden=\"true\"></i> ${sessionUser.userEntity.firstName} ${sessionUser.userEntity.lastName} <small>" + msg.timeSent.format('ll') + " " + msg.timeSent.format('LTS') + "</small> </span><br><br>\n" +--%>
+            <%--"                                            <p>" + msg.data + "</p>\n" +--%>
+            <%--"                                        </div>\n" +--%>
+            <%--"                                    </li>";--%>
+            <%--} else {--%>
+            <%--txt = "<li>\n" +--%>
+            <%--"                                        <div class=\"rightside-left-chat\">\n" +--%>
+            <%--"                                <span> <small>" + msg.timeSent + "<br>\n" +--%>
+            <%--"                                </small>  ${currentSessionRecipient.userEntity.firstName} ${currentSessionRecipient.userEntity.lastName} <i\n" +--%>
+            <%--"                                        class=\"fa fa-circle\"\n" +--%>
+            <%--"                                        aria-hidden=\"true\"></i></span><br><br>\n" +--%>
+            <%--"                                            <p>" + msg.data + "</p>\n" +--%>
+            <%--"                                        </div>\n" +--%>
+            <%--"                                    </li>";--%>
+            <%--}--%>
+
+            alert(3);
+            $('#msgContainer').append(txt);
+            goToBottomOfChat();
+            // elements.msgContainer.appendChild(txt);
+            // elements.msgContainer.scrollTop = elements.msgContainer.scrollHeight;
+        };
+
+        var clearMessage = function () {
+            elements.msgContainer.innerHTML = '';
+        };
+
+        return {
+            login: function () {
+                // elements.txtLogin.focus();
+
+                // var name = elements.txtLogin.value.trim();
+                <%--<% String username=(String)session.getAttribute("user2Name");%>--%>
+                <%--var name = '<%=username%>';--%>
+                // if (name == '') {
+                //     return;
+                // }
+
+                // elements.txtLogin.value = '';
+
+                // Initiate the socket and set up the events
+                if (websocket == null) {
+                    websocket = new WebSocket(wsUri);
+
+                    websocket.onopen = function () {
+                        // var message = {messageType: 'LOGIN', data: name};
+                        // websocket.send(JSON.stringify(message));
+                    };
+                    websocket.onmessage = function (e) {
+                        alert(0)
+                        displayMessage(e.data);
+                        // showMsgPanel();
+                        // playSound();
+                    };
+                    websocket.onerror = function (e) {
+                    };
+                    websocket.onclose = function (e) {
+                        websocket = null;
+                        clearMessage();
+                        // hideMsgPanel();
+                    };
+                }
+            },
+            sendMessage: function () {
+                // elements.txtMsg.focus();
+
+                if (websocket != null && websocket.readyState == 1) {
+                    var input = elements.txtMsg.value.trim();
+                    if (input == '') {
+                        return;
+                    }
+
+                    elements.txtMsg.value = '';
+
+                    var message = {
+                        messageType: 'MESSAGE',
+                        data: input,
+                        senderId: ${sessionUser.userEntity.id},
+                        timeSent: moment()
+                    };
+                    alert("data: " + input + ", sender: " + message.senderId + ", time sent: " + message.timeSent);
+                    displayMessage(message);
+                    // Send a message through the web-socket
+                    alert("before web socket");
+                    websocket.send(JSON.stringify(message));
+                    alert("after web socket");
+                }
+            },
+            // login_keyup: function(e) { if (e.keyCode == 13) { this.login(); } },
+            login_keyup: function (e) {
+                this.login();
+            },
+            sendMessage_keyup: function (e) {
+                if (e.keyCode == 13) {
+                    this.sendMessage();
+                }
+            },
+            logout: function () {
+                if (websocket != null && websocket.readyState == 1) {
+                    websocket.close();
+                }
+            },
+            initiate: function (e) {
+                elements = e;
+                // elements.txtLogin.focus();
+            }
+        }
+    };
+</script>
+<script src="${pageContext.request.contextPath}/dist/js/moment-with-locales.js" type="text/javascript"></script>
 <script>
 
     var proxy = CreateProxy("ws://localhost:8080/dmngMaven2_war_exploded/chat");
 
     document.addEventListener("DOMContentLoaded", function (event) {
+        // console.log(document.getElementById('loginPanel'));
         proxy.initiate({
+            // loginPanel: document.getElementById('loginPanel'),
             msgPanel: document.getElementById('msgPanel'),
             txtMsg: document.getElementById('txtMsg'),
+            // txtLogin: document.getElementById('txtLogin'),
             msgContainer: document.getElementById('msgContainer')
         });
     });

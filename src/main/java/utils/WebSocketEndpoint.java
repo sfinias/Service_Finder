@@ -61,7 +61,8 @@ public class WebSocketEndpoint {
         else {
             String name = (String)properties.get("name");
             chatMessage.getData();
-            room.sendMessage(name + " - " + chatMessage.getData());
+            room.join(session);
+            room.sendMessage(chatMessage.getData());
             chatMessage.setServiceId(serviceID);
             chatMessage.setTimeSent(Timestamp.from(Instant.now()));
             RegisterEntity r=(RegisterEntity)httpSession.getAttribute("user");

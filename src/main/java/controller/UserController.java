@@ -201,5 +201,39 @@ public class UserController {
         model.addAttribute("thiscategory", thiscategory);
         return "selectedcategoryofprof";
     }
-    
+
+    @RequestMapping(value = "/chat/{userIDString}")
+    public String handleForm(@PathVariable String userIDString, HttpSession session,ModelMap modelMap) {
+        RegisterEntity sessionUser = new RegisterEntity((RegisterEntity) session.getAttribute("user"));
+        int user1ID = Integer.parseInt(userIDString);
+        if (u.userExistsId(user1ID)) {
+            session.setAttribute("user1ID", user1ID);
+            session.setAttribute("user2ID", sessionUser.getUserEntity().getId());
+            session.setAttribute("user1Name", u.getUserByID(user1ID).getUserEntity().getFirstName());
+            session.setAttribute("user2Name", sessionUser.getUserEntity().getFirstName());
+            int id = s.returnIfServiceExists(user1ID, sessionUser.getUserEntity().getId());
+            if (id == 0) {
+                ServiceEntity se=new ServiceEntity();
+                se.setProfessionalId(user1ID);
+                se.setCustomerId(sessionUser.getUserEntity().getId());
+                se.setStartDate(Timestamp.from(Instant.now()));
+                id=s.insertService(se).getId();
+            }
+            ArrayList<ServiceEntity> servicesOfcurrentUser=s.getAllServiceOfUser(sessionUser.getUserEntity().getId());
+            ArrayList<UserEntity> currentConnectedProfs=new ArrayList<>();
+            for (ServiceEntity sa :servicesOfcurrentUser) {
+                currentConnectedProfs.add(u.getUserByID(sa.getProfessionalId()).getUserEntity());
+            }
+            modelMap.addAttribute("sessionUser",sessionUser);
+            modelMap.addAttribute("usersSessionChats",servicesOfcurrentUser);
+            modelMap.addAttribute("profs",currentConnectedProfs);
+            modelMap.addAttribute("currentSessionsMessages",m.getServicesMessages(id));
+            modelMap.addAttribute("currentSession",s.getServiceByID(id));
+            modelMap.addAttribute("currentSessionRecipient",u.getUserByID(user1ID));
+            session.setAttribute("serviceID", id);
+            return "chatPageTest";
+        } else {
+            return "404";
+        }
+    }
 }

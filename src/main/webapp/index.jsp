@@ -53,7 +53,7 @@
       <a href="${pageContext.request.contextPath}/user/testing.htm">Testing Form</a>
       <a href="${pageContext.request.contextPath}/user/chat/item.userEntity.id .htm">Testing Form</a>
       <a href="${pageContext.request.contextPath}/user/404.htm">404 Page</a>
-      <form action="${pageContext.request.contextPath}/user/initialForm.htm">
+      <form action="${pageContext.request.contextPath}/home/initialForm.htm">
         <button id="homebutton" class="home">Start</button>
       </form>
     </div>
