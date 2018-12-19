@@ -40,7 +40,7 @@ public class ProfessionalController {
         for (ServiceEntity service: services) service.setOtherUser(userDAO.getUserById(service.getCustomerId()));
         map.addAttribute("services", services);
         map.addAttribute("message", "My Services");
-        return "profHome";
+        return "sessions";
     }
 
     @RequestMapping("/closedServices.htm")
@@ -50,7 +50,7 @@ public class ProfessionalController {
         for (ServiceEntity service: services) service.setOtherUser(userDAO.getUserById(service.getCustomerId()));
         map.addAttribute("services", services);
         map.addAttribute("message", "Active Services");
-        return "profHome";
+        return "sessions";
     }
 
     @RequestMapping("/activeServices.htm")
@@ -60,7 +60,7 @@ public class ProfessionalController {
         for (ServiceEntity service: services) service.setOtherUser(userDAO.getUserById(service.getCustomerId()));
         map.addAttribute("services", services);
         map.addAttribute("message", "Closed Services");
-        return "profHome";
+        return "sessions";
     }
 
     @RequestMapping("/logout.htm")

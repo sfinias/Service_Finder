@@ -25,10 +25,10 @@
                                 <ul class="site-menu js-clone-nav d-none d-lg-block">                                    
                                     <li></li>
                                     <li class="has-children">
-                                        <a href="${pageContext.request.contextPath}/user/test.htm"><span class="icon-mms mr-3"></span>My Sessions</a>
+                                        <a href="${pageContext.request.contextPath}/user/services.htm"><span class="icon-mms mr-3"></span>My Sessions</a>
                                         <ul class="dropdown arrow-top">
-                                            <li><a href="${pageContext.request.contextPath}/user/test.htm"><span class="icon-notifications_active mr-3"></span>Active</a></li>
-                                            <li><a href="${pageContext.request.contextPath}/user/test.htm"><span class="icon-notifications_off mr-3"></span>Closed</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/user/activeServices.htm"><span class="icon-notifications_active mr-3"></span>Active</a></li>
+                                            <li><a href="${pageContext.request.contextPath}/user/closedServices.htm"><span class="icon-notifications_off mr-3"></span>Closed</a></li>
                                         </ul>
                                     </li>
                                     <li class="has-children">

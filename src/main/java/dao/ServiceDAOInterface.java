@@ -15,4 +15,6 @@ public interface ServiceDAOInterface {
     List<ServiceEntity> getServicesForProf(RegisterEntity user);
     List<ServiceEntity> getSubServicesForProf(RegisterEntity user, boolean fulfilled);
     public ServiceEntity getServiceById(int id);
+    List<ServiceEntity> getServicesForUser(RegisterEntity user);
+    List<ServiceEntity> getSubServicesForUser(RegisterEntity user, boolean fulfilled);
 }

@@ -5,7 +5,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/profile.css">
 </head>
 <body style="background-image: url('${pageContext.request.contextPath}/dist/images/hero_1.jpg');" data-aos="fade" data-stellar-background-ratio="0.5">
-    <%@include file = "navbarProf.jsp" %>
+    <c:if test="${sessionScope.user.professionsEntity.id==1}">
+        <%@include file="navbar.jsp"%>
+    </c:if>
+    <c:if test="${sessionScope.user.professionsEntity.id>1}">
+        <%@include file = "navbarProf.jsp" %>
+    </c:if>
     <div class="site-wrap">
         <div class="row">
             <div class="col-md-6 mx-auto text-center mb-5 section-heading">
@@ -29,16 +34,8 @@
                         </a>
                     </div>
                 </c:forEach>
-
-                
-
             </div>
         </div>
-
-
-
-
-
 
         <%@include file = "footer.jsp" %>
     </div>

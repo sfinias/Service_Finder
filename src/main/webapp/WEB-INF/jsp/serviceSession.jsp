@@ -5,7 +5,12 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/profile.css">
     </head>
     <body>
+    <c:if test="${sessionScope.user.professionsEntity.id==1}">
+        <%@include file="navbar.jsp"%>
+    </c:if>
+    <c:if test="${sessionScope.user.professionsEntity.id>1}">
         <%@include file = "navbarProf.jsp" %>
+    </c:if>
         <div class="site-wrap">
             <div class="unit-5 overlay" style="background-image: url('${pageContext.request.contextPath}/dist/images/woodWallpaper.jpg');">
                 <div class="container text-center">
@@ -33,18 +38,27 @@
                             </a>
                         </div>
 
-                        <div class="col-md-4">
-                            <div>
-                                <br>
-                                <h2>Starting Date</h2>
-                                <p class="mb-0">${service.startDate}</p>
-                                <br>
-                                <h2></span>Service Discription</h2>
-                                <p class="mb-4 h6 font-italic lineheight1-5">${service.topic}</p>
-                                <h2>Cost : <span class="mb-4 h4 font-italic lineheight1-5">${service.cost}</span><span class="icon-monetization_on h6"></span></h2>
-                            </div>
+                            <div class="col-md-4">
+                                <div>
+                                    <br>
+                                    <h2>Starting Date</h2>
+                                    <p class="mb-0">${service.startDate}</p>
+                                    <br>
+                                    <h2>Service Title</h2>
+                                    <spring:form modelAttribute="service" method="post" action="${pageContext.request.contextPath}/prof/test">
 
-                        </div>
+                                    <p class="mb-4 h6 font-italic lineheight1-5">
+                                        <spring:input class="f" path="topic"/>
+                                    </p>
+                                    <h2>Cost</h2>
+                                    <span class="mb-4 h4 font-italic lineheight1-5">
+                                            <spring:input class="f" path="cost"/>
+                                    </span><span class="icon-monetization_on h6"></span>
+                                        <input type="submit" id="subButton">
+                                    </spring:form>
+
+                                </div>
+                            </div>
 
                         <div class="col-md-4">
                             <a href="#" class=" feature-item">
@@ -68,7 +82,7 @@
                             <br>
                             <h2 style="">Rate Your Experience</h2>
                             <label class="control-label" for="selected_rating">
-                                <input type="hidden" id="selected_rating" name="selected_rating" value="${rating}" >
+                                <input type="hidden" id="selected_rating" name="selected_rating" value="${service.rating}" >
                             </label>
                             <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" data-attr="1" id="rating-star-1">
                                 <i class="icon-star" aria-hidden="true"></i>
@@ -102,6 +116,12 @@
                     $("#rating-star-" + ix).toggleClass('btn-success');
                     $("#rating-star-" + ix).toggleClass('btn-default');
                 }
+
+                if("${sessionScope.user.professionsEntity.id}" == 1){
+                    $('#subButton').addClass('d-none');
+                    $('.f').prop('readonly', true);
+
+            }
 
             });
         </script>

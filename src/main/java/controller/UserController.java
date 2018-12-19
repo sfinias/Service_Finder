@@ -4,24 +4,20 @@ import dao.ProfessionsDAOInterface;
 import dao.ServiceDAOInterface;
 import dao.UserDAOInterface;
 import dao.VerificationTokenDAOInterface;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import model.RegisterEntity;
+import model.ServiceEntity;
 import model.UserEntity;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import utils.MailService;
@@ -65,6 +61,8 @@ public class UserController {
     
     @Autowired
     ServiceDAOInterface serviceDAOInterface;
+
+
 
     private MailService mailService = new MailService();
 
@@ -191,6 +189,44 @@ public class UserController {
         model.addAttribute("allprofswithsamecategoryid", profs);
         model.addAttribute("thiscategory", thiscategory);
         return "selectedcategoryofprof";
+    }
+
+    @RequestMapping(value = "/servicesession.htm")
+    public String serviceSession(@RequestParam("sessionId") int sessionId, ModelMap map ) {
+        ServiceEntity service = serviceDAOInterface.getServiceById(sessionId);
+        service.setOtherUser(u.getUserById(service.getCustomerId()));
+        map.addAttribute("service", service);
+        return "serviceSession";
+    }
+
+    @RequestMapping("/services.htm")
+    public String services(ModelMap map, HttpSession session){
+        RegisterEntity user = (RegisterEntity) session.getAttribute("user");
+        List<ServiceEntity> services = serviceDAOInterface.getServicesForUser(user);
+        for (ServiceEntity service: services) service.setOtherUser(u.getUserById(service.getProfessionalId()));
+        map.addAttribute("services", services);
+        map.addAttribute("message", "My Services");
+        return "sessions";
+    }
+
+    @RequestMapping("/closedServices.htm")
+    public String activeServices(ModelMap map, HttpSession session){
+        RegisterEntity user = (RegisterEntity) session.getAttribute("user");
+        List<ServiceEntity> services = serviceDAOInterface.getSubServicesForUser(user, true);
+        for (ServiceEntity service: services) service.setOtherUser(u.getUserById(service.getProfessionalId()));
+        map.addAttribute("services", services);
+        map.addAttribute("message", "Active Services");
+        return "sessions";
+    }
+
+    @RequestMapping("/activeServices.htm")
+    public String closedServices(ModelMap map, HttpSession session){
+        RegisterEntity user = (RegisterEntity) session.getAttribute("user");
+        List<ServiceEntity> services = serviceDAOInterface.getSubServicesForUser(user, false);
+        for (ServiceEntity service: services) service.setOtherUser(u.getUserById(service.getProfessionalId()));
+        map.addAttribute("services", services);
+        map.addAttribute("message", "Closed Services");
+        return "sessions";
     }
     
 }
