@@ -20,7 +20,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-6 col-md-4 col-lg-3 mb-3" data-aos="fade-up" data-aos-delay="100">
-                            <a href="#" class=" feature-item">
+                            <a href="${pageContext.request.contextPath}/user/service.htm" class=" feature-item">
                                 <div class="avatar-upload">
                                     <div class="avatar-preview">
                                         <div id="imagePreview" style="background-image: url('https://www.agilysys.com/-/media/agilysys/Images/Product%20Pages/Professional%20Services/ProfServ-Hero.png?la=en');">
