@@ -219,14 +219,14 @@ public class UserDAO implements UserDAOInterface {
 
         // Save file on system
         if (!file.getOriginalFilename().isEmpty()) {
+            previousFileToDeleteJPG.delete();
+            previousFileToDeletePNG.delete();
             BufferedOutputStream outputStream = new BufferedOutputStream(
                     new FileOutputStream(new File(RegisterEntity.IMAGE_PATH, newFilename.concat("." + extension))));
             user.getUserEntity().setProfilePicture(newFilename.concat("." + extension));
             outputStream.write(file.getBytes());
             outputStream.flush();
             outputStream.close();
-            previousFileToDeleteJPG.delete();
-            previousFileToDeletePNG.delete();
             return true;
         }else return false;
     }
