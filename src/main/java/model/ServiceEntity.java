@@ -8,7 +8,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Max;
 
 @Entity
-@Table(name = "service", schema = "dnmgdb")
+@Table(name = "service", schema = "dnmgdb", catalog = "")
 public class ServiceEntity {
     private int id;
     private Timestamp startDate;
@@ -22,6 +22,7 @@ public class ServiceEntity {
 
     @Transient
     private RegisterEntity otherUser;
+    private String topic;
 
     @Id
     @Column(name = "id")
@@ -119,5 +120,15 @@ public class ServiceEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, startDate, professionalId, customerId, cost, fulfilled, rating);
+    }
+
+    @Basic
+    @Column(name = "topic")
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 }

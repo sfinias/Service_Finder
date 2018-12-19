@@ -14,5 +14,5 @@ public interface ServiceDAOInterface {
     void setRating(RegisterEntity user, String profID,String rate);
     List<ServiceEntity> getServicesForProf(RegisterEntity user);
     List<ServiceEntity> getSubServicesForProf(RegisterEntity user, boolean fulfilled);
-
+    public ServiceEntity getServiceById(int id);
 }

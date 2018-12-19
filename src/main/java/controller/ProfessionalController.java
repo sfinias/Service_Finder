@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import validation.EditFormValids;
 
 import javax.servlet.http.HttpSession;
@@ -102,7 +103,10 @@ public class ProfessionalController {
     }
 
     @RequestMapping(value = "/servicesession.htm")
-    public String serviceSession() {
+    public String serviceSession(@RequestParam("sessionId") int sessionId, ModelMap map ) {
+        ServiceEntity service = serviceDAO.getServiceById(sessionId);
+        service.setOtherUser(userDAO.getUserById(service.getCustomerId()));
+        map.addAttribute("service", service);
         return "serviceSession";
     }
 

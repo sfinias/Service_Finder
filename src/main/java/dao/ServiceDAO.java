@@ -63,4 +63,10 @@ public class ServiceDAO implements ServiceDAOInterface{
         query.setParameter("active", fulfilled);
         return (List<ServiceEntity>)query.getResultList();
     }
+
+    @Override
+    @Transactional
+    public ServiceEntity getServiceById(int id){
+        return em.find(ServiceEntity.class, id);
+    }
 }

@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/profile.css">
     </head>
     <body>
-        <%@include file = "navbar.jsp" %>
+        <%@include file = "navbarProf.jsp" %>
         <div class="site-wrap">
             <div class="unit-5 overlay" style="background-image: url('${pageContext.request.contextPath}/dist/images/woodWallpaper.jpg');">
                 <div class="container text-center">
@@ -23,13 +23,13 @@
                             <a href="#" class=" feature-item">
                                 <div class="avatar-upload">
                                     <div class="avatar-preview">
-                                        <div id="imagePreview" style="background-image: url('https://www.confirmation.com/media/1118/audit-client.png?width=425&height=425');">
+                                        <div style="background-image: url('http://localhost:8080/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
                                         </div>
                                     </div>
                                 </div>
-                                <h2>Client</h2>                                                           
+                                <h2>${sessionScope.user.userEntity.firstName} ${sessionScope.user.userEntity.lastName}</h2>
                                 <h6><span class="icon-room" ></span> Location</h6>
-                                <p class="mb-0">New York - 2398 <br>  10 Hadson Carl Street</p>  
+                                <p class="mb-0">${sessionScope.user.addressEntity.address}</p>
                             </a>
                         </div>
 
@@ -37,14 +37,11 @@
                             <div>
                                 <br>
                                 <h2>Starting Date</h2>
-                                <p class="mb-0">Wednesdays at 6:30PM</p>                                 
+                                <p class="mb-0">${service.startDate}</p>
                                 <br>
                                 <h2></span>Service Discription</h2>
-                                <p class="mb-4 h6 font-italic lineheight1-5">&ldquo;Lorem ipsum dolor sit amet, 
-                                    consectetur adipisicing elit. Eaque, nisi Lorem ipsum dolor sit amet, 
-                                    consectetur adipisicing elit. Odit nobis magni eaque velit eum, 
-                                    id rem eveniet dolor possimus voluptas..&rdquo;</p>
-                                <h2>Cost : <span class="mb-4 h4 font-italic lineheight1-5">1000</span><span class="icon-monetization_on h6"></span></h2>
+                                <p class="mb-4 h6 font-italic lineheight1-5">${service.topic}</p>
+                                <h2>Cost : <span class="mb-4 h4 font-italic lineheight1-5">${service.cost}</span><span class="icon-monetization_on h6"></span></h2>
                             </div>
 
                         </div>
@@ -53,13 +50,13 @@
                             <a href="#" class=" feature-item">
                                 <div class="avatar-upload">
                                     <div class="avatar-preview">
-                                        <div id="imagePreview" style="background-image: url('https://www.agilysys.com/-/media/agilysys/Images/Product%20Pages/Professional%20Services/ProfServ-Hero.png?la=en');">
+                                        <div id="imagePreview" style="background-image: url('http://localhost:8080/images/${service.otherUser.userEntity.profilePicture}');">
                                         </div>
                                     </div>
                                 </div>
-                                <h2>Servicer</h2>                                                           
+                                <h2>${service.otherUser.userEntity.firstName} ${service.otherUser.userEntity.lastName}</h2>
                                 <h6><span class="icon-room"></span> Location</h6>
-                                <p class="mb-0">New York - 2398 <br>  10 Hadson Carl Street</p>                                                                                       
+                                <p class="mb-0">${service.otherUser.addressEntity.address}</p>
                             </a>
                         </div>
 
