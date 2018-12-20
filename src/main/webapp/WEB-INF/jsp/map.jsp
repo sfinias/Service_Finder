@@ -137,7 +137,7 @@
             scrollTop: $('#searchResults').offset().top
         }, 1000);
             $.ajax({
-            url: '${pageContext.request.contextPath}/profsREST.htm',
+            url: '${pageContext.request.contextPath}/restProfs.htm',
             encoding:"UTF-8",
             // contentType: "application/json; charset=utf-8",
             contentType: false,

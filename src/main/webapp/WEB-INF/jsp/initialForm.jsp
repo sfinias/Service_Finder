@@ -258,6 +258,7 @@
 
 </div>
 <%@include file="footer.jsp" %>
+<%@include file="register.jsp" %>
 <script>
     $(document).ready(function () {
         alert($("#professionId").val());
@@ -310,10 +311,8 @@
         element.value = valueToSelect;
     }
 </script>
-<script src="${pageContext.request.contextPath}/dist/js/register.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/dist/js/autocomplete.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"
         type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/dist/js/autocomplete.js" type="text/javascript"></script>
 </body>
 </html>
