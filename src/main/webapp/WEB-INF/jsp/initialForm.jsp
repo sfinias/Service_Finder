@@ -265,7 +265,7 @@
                                                     <h4 class="somePadding displayNone" >I am a(n)</h4>
                                                     <spring:select path="userEntity.professionId" id="professionId" class="form-control form-control-block displayNone"
                                                                  required="required">
-                                                        <option class="options" id="defaultSelection" value="1" disabled hidden></option>
+                                                        <option class="options" id="defaultSelection" value="1" hidden></option>
                                                         <c:forEach items="${allProfessions}" var="item">
                                                             <option class="options" value="${item.id}">${item.profession}</option>
                                                         </c:forEach>
@@ -300,7 +300,37 @@
 
 </div>
 <%@include file = "footer.jsp" %>
-<%@include file = "register.jsp" %>
+<script>
+    $(document).ready(function () {
+        alert($("#professionId").val());
+    });
+    toggleField=function(){
+        var a=$("#profselect").val();
+        alert(1);
+        if(a==="User"){
+            $("#address").removeAttr("required");
+            $(".displayNone").hide();
+            SelectElement("professionId",1);
+            alert($("#professionId").val());
+        }
+        else if(a==="Professional"){
+            alert(2);
+            alert($("#professionId").val());
+            $("#address").attr("required","required");
+            $(".displayNone").show();
+        }
+    };
+
+
+
+    function SelectElement(id, valueToSelect)
+    {
+        var element = document.getElementById(id);
+        element.value = valueToSelect;
+    }
+</script>
+<script src="${pageContext.request.contextPath}/dist/js/register.js" type="text/javascript" ></script>
+<script src="${pageContext.request.contextPath}/dist/js/autocomplete.js" type="text/javascript" ></script>
 
 
 <script src="${pageContext.request.contextPath}/dist/js/autocomplete.js" type="text/javascript" ></script>
