@@ -162,10 +162,10 @@ public class UserController {
 //        return new ResponseEntity<>("Rate submitted successfully.", HttpStatus.OK);
 //    }
 
-        RegisterEntity user = (RegisterEntity) session.getAttribute("user");
-        s.setRating(user, selectedUserID, rateNumber);
-        return new ResponseEntity<>("Rate submitted successfully.", HttpStatus.OK);
-    }
+//        RegisterEntity user = (RegisterEntity) session.getAttribute("user");
+//        s.setRating(user, selectedUserID, rateNumber);
+//        return new ResponseEntity<>("Rate submitted successfully.", HttpStatus.OK);
+//    }
 
     @RequestMapping("/logout.htm")
     public String logout(HttpSession session) {
