@@ -173,7 +173,5 @@ public class HomeController {
                     emailSubmitted + " successfully.");
             return "response_page";
         }
-
     }
-
 }

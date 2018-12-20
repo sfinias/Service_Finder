@@ -29,7 +29,7 @@
                     <a href="#" class=" feature-item">
                         <div class="avatar-upload">
                             <div class="avatar-preview">
-                                <div style="background-image: url('http://localhost:8080/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
+                                <div style="background-image: url('/images/${sessionScope.user.userEntity.profilePicture}');">
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                         <div class="avatar-upload">
                             <div class="avatar-preview">
                                 <div id="imagePreview"
-                                     style="background-image: url('http://localhost:8080/images/${service.otherUser.userEntity.profilePicture}');">
+                                     style="background-image: url('/images/${service.otherUser.userEntity.profilePicture}');">
                                 </div>
                             </div>
                         </div>
@@ -138,11 +138,10 @@
         <%--$("#rating-star-" + ix).toggleClass('btn-default');--%>
     <%--}--%>
 
-    <%--if ("${sessionScope.user.professionsEntity.id}" == 1) {--%>
-        <%--$('#subButton').addClass('d-none');--%>
-        <%--$('.f').prop('readonly', true);--%>
-
-    <%--}--%>
+    if ("${sessionScope.user.professionsEntity.id}" == 1) {
+        $('#subButton').addClass('d-none');
+        $('.f').prop('readonly', true);
+    }
 
     $('button[name=rating]').click(function(){
         alert(1);

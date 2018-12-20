@@ -36,7 +36,7 @@
                             <div class="avatar-upload">
                                 <div class="avatar-preview">
                                     <div id="imagePreview"
-                                         style="background-image: url('https://www.agilysys.com/-/media/agilysys/Images/Product%20Pages/Professional%20Services/ProfServ-Hero.png?la=en');">
+                                         style="background-image: url('/images/${item.otherUser.userEntity.profilePicture}');">
                                     </div>
                                 </div>
                             </div>
