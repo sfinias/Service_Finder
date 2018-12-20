@@ -112,7 +112,7 @@
                                                 <label for="imageUpload" ></label>
                                             </div>
                                             <div class="avatar-preview">
-                                                <div id="imagePreview" style="background-image: url(''http://localhost:8080/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
+                                                <div id="imagePreview" style="background-image: url('http://localhost:8080/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
                                                 </div>
                                             </div>
                                         </div>
@@ -140,18 +140,12 @@
                                 </spring:form>
                             </div>
                         </div>
-
-
                     </div>
-
-
-
                 </div>
 
             </div>
         </div>
     </div>
-
     <div class="py-5 quick-contact-info">
         <div class="container">
             <div class="row">
