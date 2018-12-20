@@ -24,7 +24,7 @@
                     <c:forEach items="${services}" var="item">
                         <div class="col-sm-6 col-md-4 col-lg-3 mb-3" data-aos="fade-up" data-aos-delay="100">
                             <c:choose>
-                                <c:when test="${professionId!=1}">
+                                <c:when test="${sessionScope.user.professionsEntity.id!=1}">
                                     <a href="${pageContext.request.contextPath}/prof/servicesession.htm?sessionId=${item.id}"
                                        class=" feature-item">
                                     </c:when>
@@ -36,7 +36,7 @@
                                     <div class="avatar-upload">
                                         <div class="avatar-preview">
                                             <div id="imagePreview"
-                                                 style="background-image: url('https://www.agilysys.com/-/media/agilysys/Images/Product%20Pages/Professional%20Services/ProfServ-Hero.png?la=en');">
+                                                 style="background-image: url('/images/${item.otherUser.userEntity.profilePicture}');">
                                             </div>
                                         </div>
                                     </div>

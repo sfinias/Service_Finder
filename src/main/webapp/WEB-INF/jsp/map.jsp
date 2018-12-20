@@ -156,7 +156,7 @@
                         count=count+1;
                         $profCard = $('<a href="${pageContext.request.contextPath}/user/viewselectedprof.htm?email='+item.userEntity.email+'" name="email" class="job-item d-block d-md-flex align-items-center border-bottom fulltime pagination" id="'+count+'">').append(
                             $('<div class="company-logo blank-logo text-center text-md-left pl-3">').append(
-                                $('<img src="${pageContext.request.contextPath}/dist/images/person_1.jpg" alt="Image" class="img-fluid mx-auto">')),
+                                $('<img src="/images/'+ item.userEntity.profilePicture +'"  alt="Image" class="img-fluid mx-auto">')),
                             $('<div class="job-details">').append(
                                 $('<div class="p-3 align-self-center">').append(
                                     $('<h3>').append(item.userEntity.firstName + ' ' + item.userEntity.lastName),

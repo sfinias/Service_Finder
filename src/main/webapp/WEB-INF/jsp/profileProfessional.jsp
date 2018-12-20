@@ -115,7 +115,7 @@
                                                 <label for="imageUpload" ></label>
                                             </div>
                                             <div class="avatar-preview">
-                                                <div id="imagePreview" style="background-image: url('http://localhost:8080/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
+                                                <div id="imagePreview" style="background-image: url('/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
                                                 </div>
                                             </div>
                                         </div>
