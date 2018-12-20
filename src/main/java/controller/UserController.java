@@ -2,6 +2,9 @@ package controller;
 
 import dao.*;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,8 +71,6 @@ public class UserController {
     @Autowired
     private PasswordFormValids passwordFormValids;
 
-    @Autowired
-    ServiceDAOInterface serviceDAOInterface;
 
 
 
@@ -133,7 +134,7 @@ public class UserController {
         RegisterEntity user = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
         int idForFilename = user.getUserEntity().getId();
         String newFilename = String.valueOf(idForFilename);
-        File previousFileToDeleteJPG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".jpg");    
+        File previousFileToDeleteJPG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".jpg");
         File previousFileToDeletePNG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".png");
         previousFileToDeleteJPG.delete();
         previousFileToDeletePNG.delete();
@@ -158,7 +159,7 @@ public class UserController {
             throws IOException {
 
         RegisterEntity user = (RegisterEntity) session.getAttribute("user");
-        serviceDAOInterface.setRating(user, selectedUserID, rateNumber);
+        s.setRating(user, selectedUserID, rateNumber);
         return new ResponseEntity<>("Rate submitted successfully.", HttpStatus.OK);
     }
 
@@ -174,7 +175,7 @@ public class UserController {
         if (user.getUserEntity().getProfessionId() == 1)
             return "testSearch";
         else {
-            long rating = serviceDAOInterface.getRating(user);
+            long rating = s.getRating(user);
             model.addAttribute("selectedUser", user);
             model.addAttribute("rating", rating);
             return "viewSelectedUserInfo";
@@ -242,8 +243,8 @@ public class UserController {
 
     @RequestMapping(value = "/servicesession.htm")
     public String serviceSession(@RequestParam("sessionId") int sessionId, ModelMap map ) {
-        ServiceEntity service = serviceDAOInterface.getServiceById(sessionId);
-        service.setOtherUser(u.getUserById(service.getCustomerId()));
+        ServiceEntity service = s.getServiceById(sessionId);
+        service.setOtherUser(u.getUserByID(service.getCustomerId()));
         map.addAttribute("service", service);
         return "serviceSession";
     }
@@ -251,8 +252,8 @@ public class UserController {
     @RequestMapping("/services.htm")
     public String services(ModelMap map, HttpSession session){
         RegisterEntity user = (RegisterEntity) session.getAttribute("user");
-        List<ServiceEntity> services = serviceDAOInterface.getServicesForUser(user);
-        for (ServiceEntity service: services) service.setOtherUser(u.getUserById(service.getProfessionalId()));
+        List<ServiceEntity> services = s.getServicesForUser(user);
+        for (ServiceEntity service: services) service.setOtherUser(u.getUserByID(service.getProfessionalId()));
         map.addAttribute("services", services);
         map.addAttribute("message", "My Services");
         return "sessions";
@@ -261,8 +262,8 @@ public class UserController {
     @RequestMapping("/closedServices.htm")
     public String activeServices(ModelMap map, HttpSession session){
         RegisterEntity user = (RegisterEntity) session.getAttribute("user");
-        List<ServiceEntity> services = serviceDAOInterface.getSubServicesForUser(user, true);
-        for (ServiceEntity service: services) service.setOtherUser(u.getUserById(service.getProfessionalId()));
+        List<ServiceEntity> services = s.getSubServicesForUser(user, true);
+        for (ServiceEntity service: services) service.setOtherUser(u.getUserByID(service.getProfessionalId()));
         map.addAttribute("services", services);
         map.addAttribute("message", "Active Services");
         return "sessions";
@@ -271,8 +272,8 @@ public class UserController {
     @RequestMapping("/activeServices.htm")
     public String closedServices(ModelMap map, HttpSession session){
         RegisterEntity user = (RegisterEntity) session.getAttribute("user");
-        List<ServiceEntity> services = serviceDAOInterface.getSubServicesForUser(user, false);
-        for (ServiceEntity service: services) service.setOtherUser(u.getUserById(service.getProfessionalId()));
+        List<ServiceEntity> services = s.getSubServicesForUser(user, false);
+        for (ServiceEntity service: services) service.setOtherUser(u.getUserByID(service.getProfessionalId()));
         map.addAttribute("services", services);
         map.addAttribute("message", "Closed Services");
         return "sessions";
