@@ -35,7 +35,7 @@ public class PageFilter implements Filter {
             else if (user.getUserEntity().getProfessionId()!=1) res.sendRedirect(req.getContextPath().concat("/prof/services.htm"));
         }else if(req.getServletPath().startsWith("/prof")){
             if(user==null) res.sendRedirect(req.getContextPath().concat("/home/initialForm.htm"));
-            else if (user.getUserEntity().getProfessionId()!=1) res.sendRedirect(req.getContextPath().concat("/user/search.htm"));
+            else if (user.getUserEntity().getProfessionId()==1) res.sendRedirect(req.getContextPath().concat("/user/search.htm"));
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

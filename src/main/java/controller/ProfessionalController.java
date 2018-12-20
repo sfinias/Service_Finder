@@ -49,7 +49,7 @@ public class ProfessionalController {
         List<ServiceEntity> services = serviceDAO.getSubServicesForProf(user, true);
         for (ServiceEntity service: services) service.setOtherUser(userDAO.getUserByID(service.getCustomerId()));
         map.addAttribute("services", services);
-        map.addAttribute("message", "Active Services");
+        map.addAttribute("message", "Closed Services");
         return "sessions";
     }
 
@@ -59,7 +59,7 @@ public class ProfessionalController {
         List<ServiceEntity> services = serviceDAO.getSubServicesForProf(user, false);
         for (ServiceEntity service: services) service.setOtherUser(userDAO.getUserByID(service.getCustomerId()));
         map.addAttribute("services", services);
-        map.addAttribute("message", "Closed Services");
+        map.addAttribute("message", "Active Services");
         return "sessions";
     }
 
