@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <h3 class="footer-heading mb-4 text-white">About <a href="#top" target="_self" >ServiceFinder</a></h3>
                 <p title="Kapeleri Stamatiki | Dimitris Tsamoglou | Ioannis Sfinias | Nikolaos Angelos Chatzipanagiotis (Nah)">DMNG team guided by AFDemp coding bootcamp 5 created this web app to accomplish the final team project.
-The purpose of this app is to simplify the searching and contacting between client and servicer.
+The purpose of this app is to simplify the searching and contacting between client and service provider.
 
 </p>
             </div>
