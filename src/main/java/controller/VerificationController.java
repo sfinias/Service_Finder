@@ -3,6 +3,7 @@ package controller;
 import dao.UserDAOInterface;
 import dao.VerificationTokenDAOInterface;
 import model.UserEntity;
+import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -47,7 +48,7 @@ public class VerificationController {
     }
 
     @RequestMapping(value = "/sendNewLink.htm")
-    public String handleForm3(ModelMap model, UserEntity user) {
+    public String handleForm3(ModelMap model, UserEntity user) throws EmailException {
         String emailSubmitted = user.getEmail();
         if (u.userExists(emailSubmitted) && !u.isUserActivated(emailSubmitted)) {
             int uid = u.findUserByEmail(emailSubmitted).getId();

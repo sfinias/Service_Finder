@@ -25,6 +25,7 @@ public class UserEntity {
     private int professionId;
 
 
+
     public UserEntity() {
     }
 

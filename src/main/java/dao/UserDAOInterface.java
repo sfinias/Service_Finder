@@ -5,13 +5,10 @@ import model.PhoneEntity;
 import model.RegisterEntity;
 import model.UserEntity;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import model.RegisterEntity;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.mail.Multipart;
 
 /**
  * @author tsamo
@@ -25,11 +22,13 @@ public interface UserDAOInterface {
     ArrayList<UserEntity> getAllUsers();
     UserEntity findUserByEmail(String email);
     boolean userExists(String email);
+    boolean userExistsId(int userID);
     void enableUser(UserEntity u);
     int getUserid(UserEntity u);
     String getSalt(String email);
     boolean isUserActivated(String email);
     void changePasswordOfUser(String email, String newPassword);
+    RegisterEntity getUserByID (int userID);
     RegisterEntity getUserByEmail(String email);
     RegisterEntity editUser(RegisterEntity editUser , RegisterEntity user);
 }
