@@ -121,7 +121,7 @@ public class UserEntity {
     
     @Transient
     public String getProfilePicture() {
-        return  profilePicture;
+        return profilePicture;
     }
 
     public void setProfilePicture(String profilePicture) {
