@@ -97,7 +97,7 @@
             <div class="row h-75">
                 <div class="col-md-5 mb-5 mb-md-0" data-aos="fade-up" data-aos-delay="100">
                     <h2 class="mb-5 h3">Available Professionals</h2>
-                    <div class="ml-auto mt-1"><a href="#" class="owl-custom2-prev" onclick="previousFivechildren(event);">Prev</a> / <a href="#"
+                    <div class="ml-auto mt-1"><a href="#" class="owl-custom2-prev" onclick="nextFivechildren(event);">Prev</a> / <a href="#"
                                                                                                  class="owl-custom2-next"
                                                                                                  onclick="nextFivechildren(event);">Next</a>
                     </div>
@@ -115,7 +115,9 @@
         </div>
             <div class="site-section site-block-feature bg-light">
       <div class="container">
-        
+        <br>
+          <br>
+          <br>
         <div class="text-center mb-5 section-heading">
           <h2>Categories of Services</h2>
         </div>

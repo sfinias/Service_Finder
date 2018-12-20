@@ -120,11 +120,13 @@
 
     $(document).ready(function () {
         $("#email").change(function () {
+            alert("beggining of ajax");
             var text = $(this).val();
             document.getElementById('message4').style.color = 'blue';
             document.getElementById('message4').innerHTML = 'Please allow some seconds to check the database';
             $.ajax({
-                url: '${pageContext.request.contextPath}/mailREST.htm?email='+text,
+
+                url: 'http://localhost:8080/dmngMaven2_war_exploded/mailREST.htm?email='+text,
                 contentType: false,
                 success: function (result) {
                     var jsonobj = $.parseJSON(result);

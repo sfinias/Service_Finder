@@ -134,13 +134,13 @@
 
 
     <%--for (ix = 1; ix <= $("#selected_rating").val(); ++ix) {--%>
-    <%--$("#rating-star-" + ix).toggleClass('btn-success');--%>
-    <%--$("#rating-star-" + ix).toggleClass('btn-default');--%>
+        <%--$("#rating-star-" + ix).toggleClass('btn-success');--%>
+        <%--$("#rating-star-" + ix).toggleClass('btn-default');--%>
     <%--}--%>
 
     <%--if ("${sessionScope.user.professionsEntity.id}" == 1) {--%>
-    <%--$('#subButton').addClass('d-none');--%>
-    <%--$('.f').prop('readonly', true);--%>
+        <%--$('#subButton').addClass('d-none');--%>
+        <%--$('.f').prop('readonly', true);--%>
 
     <%--}--%>
 

@@ -1,5 +1,6 @@
 package controller;
 
+import dao.MessageDAOInterface;
 import dao.ServiceDAOInterface;
 import dao.UserDAOInterface;
 import model.RegisterEntity;
@@ -10,14 +11,14 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import validation.EditFormValids;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,16 +26,19 @@ import java.util.List;
 public class ProfessionalController {
 
     @Autowired
-    ServiceDAOInterface serviceDAO;
+    private ServiceDAOInterface serviceDAO;
 
     @Autowired
-    UserDAOInterface userDAO;
+    private UserDAOInterface userDAO;
+
+    @Autowired
+    private MessageDAOInterface messageDAO;
 
     @Autowired
     private EditFormValids editFormValids;
 
-    @RequestMapping("/services.htm")
-    public String services(ModelMap map, HttpSession session){
+    @RequestMapping(value = "/services.htm")
+    public String services(ModelMap map, HttpSession session) {
         RegisterEntity user = (RegisterEntity) session.getAttribute("user");
         List<ServiceEntity> services = serviceDAO.getServicesForProf(user);
         for (ServiceEntity service: services) service.setOtherUser(userDAO.getUserByID(service.getCustomerId()));
@@ -43,8 +47,19 @@ public class ProfessionalController {
         return "sessions";
     }
 
-    @RequestMapping("/closedServices.htm")
-    public String activeServices(ModelMap map, HttpSession session){
+    @RequestMapping(value = "/editService.htm", method = RequestMethod.POST)
+    public String editService(ModelMap map, @ModelAttribute("service") @Valid ServiceEntity service, HttpSession session) {
+        ServiceEntity serviceEntity = (ServiceEntity) session.getAttribute("service");
+        serviceEntity.setCost(service.getCost());
+        serviceEntity.setTopic(service.getTopic());
+        serviceDAO.updateService(serviceEntity);
+        session.setAttribute("service", serviceEntity);
+        map.addAttribute("service", serviceEntity);
+        return "serviceSession";
+    }
+
+    @RequestMapping(value = "/closedServices.htm")
+    public String activeServices(ModelMap map, HttpSession session) {
         RegisterEntity user = (RegisterEntity) session.getAttribute("user");
         List<ServiceEntity> services = serviceDAO.getSubServicesForProf(user, true);
         for (ServiceEntity service: services) service.setOtherUser(userDAO.getUserByID(service.getCustomerId()));
@@ -53,8 +68,8 @@ public class ProfessionalController {
         return "sessions";
     }
 
-    @RequestMapping("/activeServices.htm")
-    public String closedServices(ModelMap map, HttpSession session){
+    @RequestMapping(value = "/activeServices.htm")
+    public String closedServices(ModelMap map, HttpSession session) {
         RegisterEntity user = (RegisterEntity) session.getAttribute("user");
         List<ServiceEntity> services = serviceDAO.getSubServicesForProf(user, false);
         for (ServiceEntity service: services) service.setOtherUser(userDAO.getUserByID(service.getCustomerId()));
@@ -63,8 +78,57 @@ public class ProfessionalController {
         return "sessions";
     }
 
-    @RequestMapping("/logout.htm")
-    public String logout(HttpSession session){
+    @RequestMapping(value = "/chat/{userIDString}")
+    public String handleForm(@PathVariable String userIDString, HttpSession session, ModelMap modelMap) {
+        RegisterEntity sessionUser = new RegisterEntity((RegisterEntity) session.getAttribute("user"));
+        int user1ID = Integer.parseInt(userIDString);
+        if (userDAO.userExistsId(user1ID)) {
+            session.setAttribute("user1ID", user1ID);
+            session.setAttribute("user2ID", sessionUser.getUserEntity().getId());
+            session.setAttribute("user1Name", userDAO.getUserByID(user1ID).getUserEntity().getFirstName());
+            session.setAttribute("user2Name", sessionUser.getUserEntity().getFirstName());
+            int id = serviceDAO.returnIfServiceExists(user1ID, sessionUser.getUserEntity().getId());
+            if (id == 0) {
+                ServiceEntity se = new ServiceEntity();
+                se.setProfessionalId(user1ID);
+                se.setCustomerId(sessionUser.getUserEntity().getId());
+                se.setStartDate(Timestamp.from(Instant.now()));
+                id = serviceDAO.insertService(se).getId();
+            }
+            ArrayList<ServiceEntity> servicesOfcurrentUser;
+            ArrayList<UserEntity> currentConnectedUsersOrProfs = new ArrayList<>();
+            if (sessionUser.getUserEntity().getProfessionId() == 1) {
+                servicesOfcurrentUser = serviceDAO.getAllServiceOfUser(sessionUser.getUserEntity().getId());
+                for (ServiceEntity sa : servicesOfcurrentUser) {
+                    UserEntity u = userDAO.getUserByID(sa.getCustomerId()).getUserEntity();
+                    if (!currentConnectedUsersOrProfs.contains(u)) {
+                        currentConnectedUsersOrProfs.add(u);
+                    }
+                }
+            } else {
+                servicesOfcurrentUser = serviceDAO.getAllServiceOfProfessional(sessionUser.getUserEntity().getId());
+                for (ServiceEntity sa : servicesOfcurrentUser) {
+                    UserEntity u = userDAO.getUserByID(sa.getCustomerId()).getUserEntity();
+                    if (!currentConnectedUsersOrProfs.contains(u)) {
+                        currentConnectedUsersOrProfs.add(u);
+                    }
+                }
+            }
+            modelMap.addAttribute("sessionUser", sessionUser);
+            modelMap.addAttribute("usersSessionChats", servicesOfcurrentUser);
+            modelMap.addAttribute("profs", currentConnectedUsersOrProfs);
+            modelMap.addAttribute("currentSessionsMessages", messageDAO.getServicesMessages(id));
+            modelMap.addAttribute("currentSession", serviceDAO.getServiceByID(id));
+            modelMap.addAttribute("currentSessionRecipient", userDAO.getUserByID(user1ID));
+            session.setAttribute("serviceID", id);
+            return "chatPageTest";
+        } else {
+            return "404";
+        }
+    }
+
+    @RequestMapping(value = "/logout.htm")
+    public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/home/initialForm.htm";
     }
@@ -75,7 +139,7 @@ public class ProfessionalController {
 
         if (userInSession.getUserEntity().getProfessionId() == 1)
             return "redirect:/home/initialForm.htm";
-        else{
+        else {
             model.addAttribute("userInSession", userInSession);
             model.addAttribute("userInFormPassword", new UserEntity());
             long rating = serviceDAO.getRating(userInSession);
@@ -109,10 +173,11 @@ public class ProfessionalController {
     }
 
     @RequestMapping(value = "/servicesession.htm")
-    public String serviceSession(@RequestParam("sessionId") int sessionId, ModelMap map ) {
+    public String serviceSession(@RequestParam("sessionId") int sessionId, ModelMap map, HttpSession session) {
         ServiceEntity service = serviceDAO.getServiceById(sessionId);
         service.setOtherUser(userDAO.getUserByID(service.getCustomerId()));
         map.addAttribute("service", service);
+        session.setAttribute("service", service);
         return "serviceSession";
     }
 
