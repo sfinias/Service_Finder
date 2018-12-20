@@ -18,6 +18,7 @@ import model.ServiceEntity;
 import model.UserEntity;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -94,6 +95,7 @@ public class UserController {
         editFormValids.validate(updatedUser, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("userInSession", updatedUser);
+            model.addAttribute("userInFormPassword", new UserEntity());
             model.addAttribute("message", "Update was not successful");
         } else {
             RegisterEntity sessionEntity = (RegisterEntity) session.getAttribute("user");
@@ -101,22 +103,24 @@ public class UserController {
             RegisterEntity updatedEntity = u.editUser(originalEntity, updatedUser);
             session.setAttribute("user", updatedEntity);
             model.addAttribute("userInSession", updatedEntity);
+            model.addAttribute("userInFormPassword", new UserEntity());
             model.addAttribute("message", "Profile updated successfully");
         }
         return "profile";
     }
 
-    @RequestMapping(value = "/pass.htm", method = RequestMethod.POST, consumes = {MediaType.ALL_VALUE})
-    public String passwordUpdate(ModelMap model, @ModelAttribute("userInForm") @Valid UserEntity userInFormPassword, BindingResult bindingResult,
-                                 HttpSession session) {
-        passwordFormValids.validate(userInFormPassword, bindingResult);
-        RegisterEntity userInSession = (RegisterEntity) session.getAttribute("user");
+    @RequestMapping(value = "/pass.htm", method = RequestMethod.POST)
+    public String passwordUpdate(ModelMap model, @ModelAttribute("userInFormPassword") UserEntity user, BindingResult bindingResult,
+            HttpSession session) {
+        RegisterEntity userInSession =(RegisterEntity) session.getAttribute("user");
+        passwordFormValids.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
-            model.addAttribute("userInSession", userInFormPassword);
+            model.addAttribute("userInSession", userInSession);
+            model.addAttribute("userInFormPassword", new UserEntity());
             model.addAttribute("message", "Could not update password");
-            return "profile";
-        } else {
-            u.changePasswordOfUser(userInSession.getUserEntity().getEmail(), userInFormPassword.getPasswordHash());
+        } else {                 
+            u.changePasswordOfUser(userInSession.getUserEntity().getEmail() , user.getPasswordHash());
+            model.addAttribute("userInFormPassword", new UserEntity());
             model.addAttribute("userInSession", userInSession);
             model.addAttribute("message", "Password updated successfully");
         }
@@ -131,32 +135,27 @@ public class UserController {
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
     public ResponseEntity<String> fileUpload(@RequestParam("uploaded") MultipartFile file, HttpSession session)
             throws IOException {
-        RegisterEntity user = (RegisterEntity) session.getAttribute("user");
-        if (u.uploadPhoto(file, user)) {
+        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+        RegisterEntity user = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
+        int idForFilename = user.getUserEntity().getId();
+        String newFilename = String.valueOf(idForFilename);
+        File previousFileToDeleteJPG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".jpg");    
+        File previousFileToDeletePNG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".png");
+        previousFileToDeleteJPG.delete();
+        previousFileToDeletePNG.delete();
+        // Save file on system
+        if (!file.getOriginalFilename().isEmpty()) {
+            BufferedOutputStream outputStream = new BufferedOutputStream(
+                    new FileOutputStream( new File("/Users/matina/apache-tomcat-8.0.53/webapps/images", newFilename.concat("."+extension))));
+            user.getUserEntity().setProfilePicture(newFilename.concat("."+extension));
             session.setAttribute("user", user);
+            outputStream.write(file.getBytes());
+            outputStream.flush();
+            outputStream.close();
             return new ResponseEntity<>("File Uploaded Successfully.", HttpStatus.OK);
-        } else return new ResponseEntity<>("Invalid file.", HttpStatus.BAD_REQUEST);
-//        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-//        int idForFilename = user.getUserEntity().getId();
-//        String newFilename = String.valueOf(idForFilename);
-//        File previousFileToDeleteJPG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".jpg");
-//        File previousFileToDeletePNG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".png");
-//
-//        // Save file on system
-//        if (!file.getOriginalFilename().isEmpty()) {
-//            BufferedOutputStream outputStream = new BufferedOutputStream(
-//                    new FileOutputStream( new File("/Users/Nah/apache-tomcat-8.0.53/webapps/images", newFilename.concat("."+extension))));
-//            user.getUserEntity().setProfilePicture(newFilename.concat("."+extension));
-//            session.setAttribute("user", user);
-//            outputStream.write(file.getBytes());
-//            outputStream.flush();
-//            outputStream.close();
-//            previousFileToDeleteJPG.delete();
-//            previousFileToDeletePNG.delete();
-//            return new ResponseEntity<>("File Uploaded Successfully.", HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>("Invalid file.", HttpStatus.BAD_REQUEST);
-//        }
+        } else {
+            return new ResponseEntity<>("Invalid file.", HttpStatus.BAD_REQUEST);
+        }
     }
 
 

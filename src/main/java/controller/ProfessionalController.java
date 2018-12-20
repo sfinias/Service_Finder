@@ -90,6 +90,9 @@ public class ProfessionalController {
         editFormValids.validate(updatedUser, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("userInSession", updatedUser);
+            model.addAttribute("userInFormPassword", new UserEntity());
+            long rating = serviceDAOInterface.getRating(updatedUser);
+            model.addAttribute("rating", rating);
             model.addAttribute("message", "Update was not successful");
         } else {
             RegisterEntity sessionEntity = (RegisterEntity) session.getAttribute("user");
@@ -97,6 +100,9 @@ public class ProfessionalController {
             RegisterEntity updatedEntity = userDAO.editUser(originalEntity, updatedUser);
             session.setAttribute("user", updatedEntity);
             model.addAttribute("userInSession", updatedEntity);
+            model.addAttribute("userInFormPassword", new UserEntity());
+            long rating = serviceDAOInterface.getRating(updatedEntity);
+            model.addAttribute("rating", rating);
             model.addAttribute("message", "Profile updated successfully");
         }
         return "profileProfessional";

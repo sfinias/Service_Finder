@@ -18,7 +18,9 @@
     </div>
     <div class="site-section bg-light">
         <div class="container">
-            <h1>${message}</h1>
+            <div class="text-left mb-5 section-heading">
+                <h3>${message}</h3>
+            </div>
             <div class="row">
                 <div id="login" class="col-md-12 col-lg-8 mb-5">
                     <spring:form action="${pageContext.request.contextPath}/prof/edited.htm" method="post" modelAttribute="userInSession" class="p-5 bg-white">
@@ -113,7 +115,7 @@
                                                 <label for="imageUpload" ></label>
                                             </div>
                                             <div class="avatar-preview">
-                                                <div id="imagePreview" style="background-image: url(''http://localhost:8080/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
+                                                <div id="imagePreview" style="background-image: url('http://localhost:8080/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
                                                 </div>
                                             </div>
                                         </div>

@@ -19,8 +19,6 @@ public class RegisterEntity {
     @Valid
     private ProfessionsEntity professionsEntity;
 
-    public static final String IMAGE_PATH = "C:/Program Files/Apache Software Foundation/Apache Tomcat 8.0.27/webapps/images";
-
     public RegisterEntity() {
     }
 

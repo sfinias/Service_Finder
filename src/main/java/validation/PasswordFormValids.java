@@ -25,7 +25,7 @@ public class PasswordFormValids implements Validator{
         String patternPass = "[A-Za-z0-9#@$_]{6,30}";
         
         if(!r.getPasswordHash().matches(patternPass)){
-            errors.rejectValue("userEntity.passwordHash", "password_salt.notvalid");
+            errors.rejectValue("passwordHash", "password_salt.notvalid");
         }     
     }
 }
