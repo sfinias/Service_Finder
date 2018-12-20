@@ -71,9 +71,6 @@ public class UserController {
     @Autowired
     private PasswordFormValids passwordFormValids;
 
-
-
-
     private MailService mailService = new MailService();
 
     @RequestMapping(value = "/account.htm")
@@ -244,7 +241,7 @@ public class UserController {
     @RequestMapping(value = "/servicesession.htm")
     public String serviceSession(@RequestParam("sessionId") int sessionId, ModelMap map ) {
         ServiceEntity service = s.getServiceById(sessionId);
-        service.setOtherUser(u.getUserByID(service.getCustomerId()));
+        service.setOtherUser(u.getUserByID(service.getProfessionalId()));
         map.addAttribute("service", service);
         return "serviceSession";
     }
@@ -265,7 +262,7 @@ public class UserController {
         List<ServiceEntity> services = s.getSubServicesForUser(user, true);
         for (ServiceEntity service: services) service.setOtherUser(u.getUserByID(service.getProfessionalId()));
         map.addAttribute("services", services);
-        map.addAttribute("message", "Active Services");
+        map.addAttribute("message", "Closed Services");
         return "sessions";
     }
 
@@ -275,7 +272,7 @@ public class UserController {
         List<ServiceEntity> services = s.getSubServicesForUser(user, false);
         for (ServiceEntity service: services) service.setOtherUser(u.getUserByID(service.getProfessionalId()));
         map.addAttribute("services", services);
-        map.addAttribute("message", "Closed Services");
+        map.addAttribute("message", "Active Services");
         return "sessions";
     }
     

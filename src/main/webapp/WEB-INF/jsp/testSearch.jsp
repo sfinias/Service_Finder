@@ -3,7 +3,6 @@
 <head>
     <title>Service Finder &mdash; DMNG team</title>
     <%@include file="newHeader.jsp" %>
-    <script src="${pageContext.request.contextPath}/dist/js/jquery-3.3.1.min.js"></script>
     <style>
         #distance {
             background-color: rgba(0, 0, 0, 0) !important;

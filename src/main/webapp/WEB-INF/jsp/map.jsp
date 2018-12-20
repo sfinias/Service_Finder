@@ -86,9 +86,9 @@
             'Error: Your browser doesn\'t support geolocation.');
     }
 
-    document.getElementById('search').onclick = function (ev) {
-        ev.preventDefault();
-    };
+    // document.getElementById('search').onclick = function (ev) {
+    //     ev.preventDefault();
+    // };
 
 
     var profMarkers = null;
@@ -109,7 +109,6 @@
             circle.setMap(null);
         }
         var dist = $('#distance').val();
-        if (dist>1.5) map.setZoom(10);
         circle = new google.maps.Circle({
             strokeColor: '#FF0000',
             strokeOpacity: 0.8,

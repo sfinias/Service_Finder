@@ -25,7 +25,6 @@ public class SpringRest {
     @Autowired
     ProfessionsDAOInterface professionsDAOInterface;
 
-
     @RequestMapping(value = "/mailREST.htm", method = RequestMethod.GET, headers = "Accept=*/*", produces = "application/json")
     public @ResponseBody
     String getAllUsersByRest(@RequestParam("email") String email) {
