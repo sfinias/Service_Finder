@@ -183,8 +183,8 @@ public class UserDAO implements UserDAOInterface {
     //set profile Picture
     public String setProfilePicture(UserEntity userEntity){
         int id = userEntity.getId();
-        String pathJPG = RegisterEntity.IMAGE_PATH+id+".jpg";
-        String pathPNG = RegisterEntity.IMAGE_PATH+id+".png";
+        String pathJPG = "/Users/matina/apache-tomcat-8.0.53/webapps/images/"+id+".jpg";
+        String pathPNG = "/Users/matina/apache-tomcat-8.0.53/webapps/images/"+id+".png";
         File filenameJPG = new File(pathJPG);
         File filenamePNG = new File(pathPNG);
         if((filenameJPG.exists() && !filenameJPG.isDirectory())) 
@@ -208,26 +208,4 @@ public class UserDAO implements UserDAOInterface {
         return !list.isEmpty();
     }
 
-    @Override
-    public boolean uploadPhoto(MultipartFile file, RegisterEntity user) throws IOException {
-        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-//        RegisterEntity user = (RegisterEntity)session.getAttribute("user");
-        int idForFilename = user.getUserEntity().getId();
-        String newFilename = String.valueOf(idForFilename);
-        File previousFileToDeleteJPG = new File(RegisterEntity.IMAGE_PATH+user.getUserEntity().getId()+".jpg");
-        File previousFileToDeletePNG = new File(RegisterEntity.IMAGE_PATH+user.getUserEntity().getId()+".png");
-
-        // Save file on system
-        if (!file.getOriginalFilename().isEmpty()) {
-            previousFileToDeleteJPG.delete();
-            previousFileToDeletePNG.delete();
-            BufferedOutputStream outputStream = new BufferedOutputStream(
-                    new FileOutputStream(new File(RegisterEntity.IMAGE_PATH, newFilename.concat("." + extension))));
-            user.getUserEntity().setProfilePicture(newFilename.concat("." + extension));
-            outputStream.write(file.getBytes());
-            outputStream.flush();
-            outputStream.close();
-            return true;
-        }else return false;
-    }
 }

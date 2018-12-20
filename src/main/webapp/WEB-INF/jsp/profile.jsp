@@ -18,7 +18,7 @@
     </div>
     <div class="site-section bg-light">
         <div class="container">
-            <h1>${message}</h1>
+            <h3 class="green">${message}</h3>
             <div class="row">
                 <div id="login" class="col-md-12 col-lg-8 mb-5">
                     <spring:form action="${pageContext.request.contextPath}/user/edited.htm" method="post" modelAttribute="userInSession" class="p-5 bg-white">
@@ -112,7 +112,7 @@
                                                 <label for="imageUpload" ></label>
                                             </div>
                                             <div class="avatar-preview">
-                                                <div id="imagePreview" style="background-image: url('${sessionScope.user.getUserEntity().getProfilePicture()}');">
+                                                <div id="imagePreview" style="background-image: url('http://localhost:8080/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
                                                 </div>
                                             </div>
                                         </div>
@@ -130,9 +130,9 @@
                                             <span style="padding-left:15px" class="icon-edit">Edit</span>
                                         </a>
                                     <spring:input path="passwordHash" title="8 to 50 characters" pattern=".{8,50}" type="password" id="password" class="form-control" readonly="true"
-                                                  onkeyup='CheckPassword(); EnablePassword();' placeholder="Password"/>
+                                                  onkeyup='CheckPassword(); EnablePassword();' placeholder="Password"/><spring:errors path="passwordHash"/>
                                 </div>
-                                <spring:errors path="passwordHash"/>
+                                
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12">

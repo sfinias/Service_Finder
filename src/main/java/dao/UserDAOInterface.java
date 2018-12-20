@@ -32,5 +32,4 @@ public interface UserDAOInterface {
     void changePasswordOfUser(String email, String newPassword);
     RegisterEntity getUserByEmail(String email);
     RegisterEntity editUser(RegisterEntity editUser , RegisterEntity user);
-    boolean uploadPhoto(MultipartFile file, RegisterEntity user) throws IOException;
 }
