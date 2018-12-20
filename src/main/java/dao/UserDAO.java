@@ -140,7 +140,16 @@ public class UserDAO implements UserDAOInterface {
                 "LEFT JOIN AddressEntity a ON u.id = a.userId " +
                 "LEFT JOIN PhoneEntity ph ON u.id = ph.userId " +
                 "WHERE u.email='" + email + "'");
-        return getUser(query);
+        List<Object[]> objs = query.getResultList();
+        if (objs.size()==0) return null;
+        Object[] result = objs.get(0);
+        RegisterEntity user = new RegisterEntity();
+        user.setUserEntity((UserEntity)result[0]);
+        user.setProfessionsEntity((ProfessionsEntity)result[1]);
+        user.setAddressEntity((AddressEntity)result[2]);
+        user.setPhoneEntity((PhoneEntity)result[3]);
+        user.getUserEntity().setProfilePicture(setProfilePicture(user.getUserEntity())); //call method for setting profile Picture
+        return user;
     }
 
     @Transactional

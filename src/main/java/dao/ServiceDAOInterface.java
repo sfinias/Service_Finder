@@ -23,5 +23,5 @@ public interface ServiceDAOInterface {
     public ServiceEntity getServiceById(int id);
     List<ServiceEntity> getServicesForUser(RegisterEntity user);
     List<ServiceEntity> getSubServicesForUser(RegisterEntity user, boolean fulfilled);
-    void setRating(RegisterEntity user, String profID, String rate);
+//    void setRating(RegisterEntity user, String profID, String rate);
 }

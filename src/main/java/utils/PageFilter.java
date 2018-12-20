@@ -28,10 +28,14 @@ public class PageFilter implements Filter {
         if(req.getServletPath().startsWith("/verification") || req.getServletPath().startsWith("/home")){
             if(user!=null){
                 if(user.getUserEntity().getProfessionId()==1) res.sendRedirect(req.getContextPath().concat("/user/search.htm"));
+                else res.sendRedirect(req.getContextPath().concat("/prof/services.htm"));
             }
         }else if(req.getServletPath().startsWith("/user")){
             if(user==null) res.sendRedirect(req.getContextPath().concat("/home/initialForm.htm"));
-            else if (user.getUserEntity().getProfessionId()!=1) System.out.println("Profess");
+            else if (user.getUserEntity().getProfessionId()!=1) res.sendRedirect(req.getContextPath().concat("/prof/services.htm"));
+        }else if(req.getServletPath().startsWith("/prof")){
+            if(user==null) res.sendRedirect(req.getContextPath().concat("/home/initialForm.htm"));
+            else if (user.getUserEntity().getProfessionId()!=1) res.sendRedirect(req.getContextPath().concat("/user/search.htm"));
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

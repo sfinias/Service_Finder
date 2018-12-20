@@ -37,7 +37,7 @@ public class ProfessionalController {
     public String services(ModelMap map, HttpSession session){
         RegisterEntity user = (RegisterEntity) session.getAttribute("user");
         List<ServiceEntity> services = serviceDAO.getServicesForProf(user);
-        for (ServiceEntity service: services) service.setOtherUser(userDAO.getUserById(service.getCustomerId()));
+        for (ServiceEntity service: services) service.setOtherUser(userDAO.getUserByID(service.getCustomerId()));
         map.addAttribute("services", services);
         map.addAttribute("message", "My Services");
         return "sessions";
@@ -47,7 +47,7 @@ public class ProfessionalController {
     public String activeServices(ModelMap map, HttpSession session){
         RegisterEntity user = (RegisterEntity) session.getAttribute("user");
         List<ServiceEntity> services = serviceDAO.getSubServicesForProf(user, true);
-        for (ServiceEntity service: services) service.setOtherUser(userDAO.getUserById(service.getCustomerId()));
+        for (ServiceEntity service: services) service.setOtherUser(userDAO.getUserByID(service.getCustomerId()));
         map.addAttribute("services", services);
         map.addAttribute("message", "Active Services");
         return "sessions";
@@ -57,7 +57,7 @@ public class ProfessionalController {
     public String closedServices(ModelMap map, HttpSession session){
         RegisterEntity user = (RegisterEntity) session.getAttribute("user");
         List<ServiceEntity> services = serviceDAO.getSubServicesForProf(user, false);
-        for (ServiceEntity service: services) service.setOtherUser(userDAO.getUserById(service.getCustomerId()));
+        for (ServiceEntity service: services) service.setOtherUser(userDAO.getUserByID(service.getCustomerId()));
         map.addAttribute("services", services);
         map.addAttribute("message", "Closed Services");
         return "sessions";
@@ -91,7 +91,7 @@ public class ProfessionalController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("userInSession", updatedUser);
             model.addAttribute("userInFormPassword", new UserEntity());
-            long rating = serviceDAOInterface.getRating(updatedUser);
+            long rating = serviceDAO.getRating(updatedUser);
             model.addAttribute("rating", rating);
             model.addAttribute("message", "Update was not successful");
         } else {
@@ -101,7 +101,7 @@ public class ProfessionalController {
             session.setAttribute("user", updatedEntity);
             model.addAttribute("userInSession", updatedEntity);
             model.addAttribute("userInFormPassword", new UserEntity());
-            long rating = serviceDAOInterface.getRating(updatedEntity);
+            long rating = serviceDAO.getRating(updatedEntity);
             model.addAttribute("rating", rating);
             model.addAttribute("message", "Profile updated successfully");
         }
@@ -111,7 +111,7 @@ public class ProfessionalController {
     @RequestMapping(value = "/servicesession.htm")
     public String serviceSession(@RequestParam("sessionId") int sessionId, ModelMap map ) {
         ServiceEntity service = serviceDAO.getServiceById(sessionId);
-        service.setOtherUser(userDAO.getUserById(service.getCustomerId()));
+        service.setOtherUser(userDAO.getUserByID(service.getCustomerId()));
         map.addAttribute("service", service);
         return "serviceSession";
     }

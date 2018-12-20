@@ -140,18 +140,12 @@
                                 </spring:form>
                             </div>
                         </div>
-
-
                     </div>
-
-
-
                 </div>
 
             </div>
         </div>
     </div>
-
     <div class="py-5 quick-contact-info">
         <div class="container">
             <div class="row">
