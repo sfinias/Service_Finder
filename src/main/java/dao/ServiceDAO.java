@@ -93,4 +93,46 @@ public class ServiceDAO implements ServiceDAOInterface {
         int rating = Integer.parseInt(rate);
         Query query = em.createQuery("");
     }
+
+    @Override
+    @Transactional
+    public List<ServiceEntity> getServicesForProf(RegisterEntity user) {
+        Query query = em.createQuery("SELECT s FROM ServiceEntity s WHERE s.professionalId = :id");
+        query.setParameter("id", user.getUserEntity().getId());
+        return (List<ServiceEntity>)query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public List<ServiceEntity> getSubServicesForProf(RegisterEntity user, boolean fulfilled) {
+        Query query = em.createQuery("SELECT s FROM ServiceEntity s WHERE s.professionalId = :id " +
+                "AND s.fulfilled = :active");
+        query.setParameter("id", user.getUserEntity().getId());
+        query.setParameter("active", fulfilled);
+        return (List<ServiceEntity>)query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public List<ServiceEntity> getServicesForUser(RegisterEntity user) {
+        Query query = em.createQuery("SELECT s FROM ServiceEntity s WHERE s.customerId = :id");
+        query.setParameter("id", user.getUserEntity().getId());
+        return (List<ServiceEntity>)query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public List<ServiceEntity> getSubServicesForUser(RegisterEntity user, boolean fulfilled) {
+        Query query = em.createQuery("SELECT s FROM ServiceEntity s WHERE s.customerId = :id " +
+                "AND s.fulfilled = :active");
+        query.setParameter("id", user.getUserEntity().getId());
+        query.setParameter("active", fulfilled);
+        return (List<ServiceEntity>)query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public ServiceEntity getServiceById(int id){
+        return em.find(ServiceEntity.class, id);
+    }
 }

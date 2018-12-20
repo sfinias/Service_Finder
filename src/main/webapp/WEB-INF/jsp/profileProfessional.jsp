@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/profile.css">
 </head>
 <body>
-<%@include file = "navbar.jsp" %>
+<%@include file = "navbarProf.jsp" %>
 <div class="site-wrap">
     <div class="unit-5 overlay" style="background-image: url('${pageContext.request.contextPath}/dist/images/woodWallpaper.jpg');">
         <div class="container text-center">
@@ -21,7 +21,7 @@
             <h1>${message}</h1>
             <div class="row">
                 <div id="login" class="col-md-12 col-lg-8 mb-5">
-                    <spring:form action="${pageContext.request.contextPath}/user/edited.htm" method="post" modelAttribute="userInSession" class="p-5 bg-white">
+                    <spring:form action="${pageContext.request.contextPath}/prof/edited.htm" method="post" modelAttribute="userInSession" class="p-5 bg-white">
                         <h4 class="h4 text-black mb-3">Edit profile</h4>
                         <div class="row form-group">
                             <div class="col-md-12 mb-3 mb-md-0">
@@ -101,6 +101,7 @@
                 <div class="col-lg-4">
                     <div class="p-4 mb-3 bg-white">
                         <h3 class="h5 text-black mb-3">Profile Image</h3>
+                        
                         <form class="form" action="" method="post" id="registrationForm" enctype="multipart/data" >
                             <div class="form-group">
 
@@ -112,7 +113,7 @@
                                                 <label for="imageUpload" ></label>
                                             </div>
                                             <div class="avatar-preview">
-                                                <div id="imagePreview" style="background-image: url(''http://localhost:8080/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
+                                                <div id="imagePreview" style="background-image: url('${sessionScope.user.getUserEntity().getProfilePicture()}');">
                                                 </div>
                                             </div>
                                         </div>
@@ -120,8 +121,29 @@
                                 </div>
                             </div>
                         </form>
-
-                        <spring:form action="${pageContext.request.contextPath}/user/pass.htm" method="post" modelAttribute="userInFormPassword" class="p-5 bg-white">
+<div class="form-group" id="rating-ability-wrapper">
+	     <label class="control-label" for="selected_rating">
+	  
+	    <input type="hidden" id="selected_rating" name="selected_rating" value="${rating}" >
+	    </label>
+	 
+	    <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" data-attr="1" id="rating-star-1">
+	        <i class="icon-star" aria-hidden="true"></i>
+	    </button>
+	    <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" data-attr="2" id="rating-star-2">
+	        <i class="icon-star" aria-hidden="true"></i>
+	    </button>
+	    <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" data-attr="3" id="rating-star-3">
+	        <i class="icon-star" aria-hidden="true"></i>
+	    </button>
+	    <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" data-attr="4" id="rating-star-4">
+	        <i class="icon-star" aria-hidden="true"></i>
+	    </button>
+	    <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" data-attr="5" id="rating-star-5">
+	        <i class="icon-star" aria-hidden="true"></i>
+	    </button>
+	</div>
+                        <spring:form action="${pageContext.request.contextPath}/user/pass.htm" method="post" modelAttribute="userInFormPassword" class="p-3 bg-white">
                             <h4 class="h4 text-black mb-3">Change Password</h4>
                             <div class="row form-group">
                                 <div class="col-md-12 mb-3 mb-md-0">
@@ -181,5 +203,16 @@
 
         <%@include file = "footer.jsp" %>
         <script src="${pageContext.request.contextPath}/dist/js/profile.js" type="text/javascript" ></script>
+        <script>jQuery(document).ready(function($){
+	    
+            
+            for (ix = 1; ix <= $("#selected_rating").val(); ++ix) {
+                    $("#rating-star-"+ix).toggleClass('btn-success');
+                    $("#rating-star-"+ix).toggleClass('btn-default');
+                    }
+
+    });
+</script>
+
     </body>
 </html>

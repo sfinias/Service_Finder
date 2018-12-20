@@ -5,6 +5,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.sql.Timestamp;
 import java.util.Objects;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Max;
 
@@ -23,6 +24,10 @@ public class ServiceEntity {
     @Min(1)
     @Max(5)
     private int rating;
+
+    @Transient
+    private RegisterEntity otherUser;
+    private String topic;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -84,6 +89,25 @@ public class ServiceEntity {
         this.fulfilled = fulfilled;
     }
 
+    @Basic
+    @Column(name = "rating")
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    @Transient
+    public RegisterEntity getOtherUser() {
+        return otherUser;
+    }
+
+    public void setOtherUser(RegisterEntity otherUser) {
+        this.otherUser = otherUser;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -103,12 +127,12 @@ public class ServiceEntity {
     }
 
     @Basic
-    @Column(name = "rating", nullable = true)
-    public int getRating() {
-        return rating;
+    @Column(name = "topic")
+    public String getTopic() {
+        return topic;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 }
