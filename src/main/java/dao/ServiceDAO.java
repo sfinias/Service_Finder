@@ -66,6 +66,12 @@ public class ServiceDAO implements ServiceDAOInterface {
     }
 
     @Override
+    public ArrayList<ServiceEntity> getAllServiceOfProfessional(int profID) {
+        Query query = em.createQuery("SELECT s FROM ServiceEntity s WHERE s.professionalId="+profID);
+        return (ArrayList<ServiceEntity>) query.getResultList();
+    }
+
+    @Override
     @Transactional
     public long getRating(RegisterEntity user) {
         int id = user.getUserEntity().getId();

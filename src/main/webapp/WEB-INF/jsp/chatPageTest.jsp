@@ -275,32 +275,6 @@
             <div class="row">
                 <div class="col-md-12 right-header-contentChat" id="test2">
                     <ul id="msgContainer">
-
-                        <%--<c:forEach items="${currentSessionsMessages}" var="item">--%>
-                        <%--<c:choose>--%>
-                        <%--<c:when test="${item.senderId==sessionUser.userEntity.id}">--%>
-                        <%--<li>--%>
-                        <%--<div class="rightside-right-chat test">--%>
-                        <%--<span><i class="fa fa-circle"--%>
-                        <%--aria-hidden="true"></i> ${sessionUser.userEntity.firstName} ${sessionUser.userEntity.lastName} <small>${item.timeSent.toLocaleString()}</small> </span><br><br>--%>
-                        <%--<p>${item.data}</p>--%>
-                        <%--</div>--%>
-                        <%--</li>--%>
-                        <%--</c:when>--%>
-                        <%--<c:otherwise>--%>
-                        <%--<li>--%>
-                        <%--<div class="rightside-left-chat test">--%>
-                        <%--<span> <small>${item.timeSent.toLocaleString()}<br>--%>
-                        <%--</small>  ${currentSessionRecipient.userEntity.firstName} ${currentSessionRecipient.userEntity.lastName} <i--%>
-                        <%--class="fa fa-circle"--%>
-                        <%--aria-hidden="true"></i></span><br><br>--%>
-                        <%--<p>${item.data}</p>--%>
-                        <%--</div>--%>
-                        <%--</li>--%>
-                        <%--</c:otherwise>--%>
-                        <%--</c:choose>--%>
-                        <%--</c:forEach>--%>
-
                         <c:forEach items="${currentSessionsMessages}" var="item">
                             <c:choose>
                                 <c:when test="${item.senderId==sessionUser.userEntity.id}">
@@ -329,16 +303,15 @@
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
-
                     </ul>
                 </div>
             </div>
-            <a href="#" onclick="proxy.login_keyup(event)" id="myA">Start chat</a>
+            <a href="#" onclick="proxy.login_keyup(event)" id="myA" hidden>Start chat</a>
             <div class="row" id="msgPanel">
                 <div id="msgContainer2">
                     <div class="col-md-12 right-chat-textbox">
                         <input type="text" id="txtMsg" onkeyup="proxy.sendMessage_keyup(event)"><a href="#"
-                                                                                                   onclick="proxy.sendMessage_keyup(event)"><i
+                                                                                                   onclick="proxy.sendMessage_button()"><i
                             class="fa fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
                 </div>
@@ -348,41 +321,10 @@
 </div>
 </div>
 <script>
-    $(document).ready(function () {
-        var height = $(window).height();
-        $('.left-chat').css('height', (height - 92) + 'px');
-        $('.right-header-contentChat').css('height', (height - 163) + 'px');
-
-        // alert("test");
-        // $( 'body' ).animate( {
-        //     scrollTop: $( '#test2' + currentElementId ).offset().top
-        //         + $( '#test2' + currentElementId ).height()
-        //         - $( window ).height()
-        // }, 1000 );
-
-        // This works
-        goToBottomOfChat();
-
-        //Animation kinda works
-        // $('#test2').animate({scrollTop:$(document).height()}, 'slow');
-
-        // $('#test2').animate({scrollTop:$('#test2').scrollHeight}, 'slow');
-
-
-
-        // $("#msgContainer").scrollTop($("#msgContainer")[0].scrollHeight);
-        // window.scrollTo(0,document.querySelector(".right-header-contentChat").scrollHeight);
-
-        // $(".right-header-contentChat").scrollBottom
-        // $(".right-header-contentChat").animate({ scrollTop: $("#myID").scrollTop() }, 1000);
-
-        // $("#msgContainer").scrollTop($("#test2").position().top);​
-    });
-
-    var goToBottomOfChat=function(){
+    var goToBottomOfChat = function () {
         var objDiv = document.getElementById("test2");
         objDiv.scrollTop = objDiv.scrollHeight;
-    }
+    };
 
     var CreateProxy = function (wsUri) {
         var websocket = null;
@@ -397,34 +339,9 @@
             audio.play();
         };
 
-        // var showMsgPanel = function () {
-        //     elements.loginPanel.style.display = "none";
-        //     elements.msgPanel.style.display = "block";
-        //     elements.txtMsg.focus();
-        // };
-        //
-        // var hideMsgPanel = function () {
-        //     elements.loginPanel.style.display = "block";
-        //     elements.msgPanel.style.display = "none";
-        //     // elements.txtLogin.focus();
-        // };
-
-        // var displayMessage = function (msg) {
-        //     if (elements.msgContainer.childNodes.length == 100) {
-        //         elements.msgContainer.removeChild(elements.msgContainer.childNodes[0]);
-        //     }
-        //
-        //     var div = document.createElement('div');
-        //     div.className = 'msgrow';
-        //     var textnode = document.createTextNode(msg);
-        //     div.appendChild(textnode);
-        //     elements.msgContainer.appendChild(div);
-        //
-        //     elements.msgContainer.scrollTop = elements.msgContainer.scrollHeight;
-        // };
-
-        var displayMessage = function (msg) {
-            alert(1);
+        var displayMessage = function (msgJSON) {
+            var msg = JSON.parse(msgJSON);
+            // alert("This is the json messages data="+msg.data);
             var txt;
             if (msg.senderId ===${sessionUser.userEntity.id}) {
                 txt = "<li>\n" +
@@ -450,31 +367,8 @@
                     "                                    </li>";
             }
 
-            <%--if (msg.senderId ===${sessionUser.userEntity.id}) {--%>
-            <%--txt = " <li>\n" +--%>
-            <%--"                                        <div class=\"rightside-right-chat\">\n" +--%>
-            <%--"                                    <span><i class=\"fa fa-circle\"\n" +--%>
-            <%--"                                             aria-hidden=\"true\"></i> ${sessionUser.userEntity.firstName} ${sessionUser.userEntity.lastName} <small>" + msg.timeSent.format('ll') + " " + msg.timeSent.format('LTS') + "</small> </span><br><br>\n" +--%>
-            <%--"                                            <p>" + msg.data + "</p>\n" +--%>
-            <%--"                                        </div>\n" +--%>
-            <%--"                                    </li>";--%>
-            <%--} else {--%>
-            <%--txt = "<li>\n" +--%>
-            <%--"                                        <div class=\"rightside-left-chat\">\n" +--%>
-            <%--"                                <span> <small>" + msg.timeSent + "<br>\n" +--%>
-            <%--"                                </small>  ${currentSessionRecipient.userEntity.firstName} ${currentSessionRecipient.userEntity.lastName} <i\n" +--%>
-            <%--"                                        class=\"fa fa-circle\"\n" +--%>
-            <%--"                                        aria-hidden=\"true\"></i></span><br><br>\n" +--%>
-            <%--"                                            <p>" + msg.data + "</p>\n" +--%>
-            <%--"                                        </div>\n" +--%>
-            <%--"                                    </li>";--%>
-            <%--}--%>
-
-            alert(3);
             $('#msgContainer').append(txt);
             goToBottomOfChat();
-            // elements.msgContainer.appendChild(txt);
-            // elements.msgContainer.scrollTop = elements.msgContainer.scrollHeight;
         };
 
         var clearMessage = function () {
@@ -483,6 +377,7 @@
 
         return {
             login: function () {
+                alert("iam inside login");
                 // elements.txtLogin.focus();
 
                 // var name = elements.txtLogin.value.trim();
@@ -499,14 +394,15 @@
                     websocket = new WebSocket(wsUri);
 
                     websocket.onopen = function () {
-                        // var message = {messageType: 'LOGIN', data: name};
-                        // websocket.send(JSON.stringify(message));
+                        var message = {messageType: 'LOGIN', data: "login"};
+                        websocket.send(JSON.stringify(message));
                     };
                     websocket.onmessage = function (e) {
-                        alert(0)
+
+                        // alert(e.data+" this is onmessage");
                         displayMessage(e.data);
                         // showMsgPanel();
-                        // playSound();
+                        playSound();
                     };
                     websocket.onerror = function (e) {
                     };
@@ -522,6 +418,7 @@
 
                 if (websocket != null && websocket.readyState == 1) {
                     var input = elements.txtMsg.value.trim();
+                    // alert(input);
                     if (input == '') {
                         return;
                     }
@@ -534,22 +431,25 @@
                         senderId: ${sessionUser.userEntity.id},
                         timeSent: moment()
                     };
-                    alert("data: " + input + ", sender: " + message.senderId + ", time sent: " + message.timeSent);
-                    displayMessage(message);
+                    // alert("data: " + input + ", sender: " + message.senderId + ", time sent: " + message.timeSent);
+                    // displayMessage(message);
                     // Send a message through the web-socket
-                    alert("before web socket");
+                    // alert("before web socket");
                     websocket.send(JSON.stringify(message));
-                    alert("after web socket");
+                    // alert("after web socket");
                 }
             },
-            // login_keyup: function(e) { if (e.keyCode == 13) { this.login(); } },
             login_keyup: function (e) {
-                this.login();
+                // alert("login");
+                    this.login();
             },
             sendMessage_keyup: function (e) {
                 if (e.keyCode == 13) {
                     this.sendMessage();
                 }
+            },
+            sendMessage_button: function () {
+                this.sendMessage();
             },
             logout: function () {
                 if (websocket != null && websocket.readyState == 1) {
@@ -577,6 +477,14 @@
             // txtLogin: document.getElementById('txtLogin'),
             msgContainer: document.getElementById('msgContainer')
         });
+    });
+
+    $(document).ready(function () {
+        var height = $(window).height();
+        $('.left-chat').css('height', (height - 92) + 'px');
+        $('.right-header-contentChat').css('height', (height - 163) + 'px');
+        goToBottomOfChat();
+        document.getElementById('myA').dispatchEvent(new MouseEvent("click"));
     });
 </script>
 </body>

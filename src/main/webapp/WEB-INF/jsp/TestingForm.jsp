@@ -723,7 +723,9 @@
         }
     };
 
-
+    $(document).ready(function () {
+        alert($("#professionId").val());
+    });
 
     function SelectElement(id, valueToSelect)
     {

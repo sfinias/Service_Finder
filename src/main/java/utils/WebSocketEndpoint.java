@@ -2,6 +2,8 @@ package utils;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import model.MessageEntity;
 import model.RegisterEntity;
 import org.springframework.stereotype.Service;
@@ -54,15 +56,15 @@ public class WebSocketEndpoint {
         Map<String, Object> properties = session.getUserProperties();
         if (chatMessage.getMessageType() == MessageType.LOGIN) {
             String name = chatMessage.getData();
-            properties.put("name", name);
+//            properties.put("name", name);
             room.join(session);
-            room.sendMessage(name + " - Joined the chat room");
         }
         else {
-            String name = (String)properties.get("name");
+            Gson gson = new Gson();
+            String JsonMessage=gson.toJson(chatMessage);
             chatMessage.getData();
-            room.join(session);
-            room.sendMessage(chatMessage.getData());
+//            room.join(session);
+            room.sendMessage(JsonMessage);
             chatMessage.setServiceId(serviceID);
             chatMessage.setTimeSent(Timestamp.from(Instant.now()));
             RegisterEntity r=(RegisterEntity)httpSession.getAttribute("user");

@@ -265,7 +265,7 @@
                                                     <h4 class="somePadding displayNone" >I am a(n)</h4>
                                                     <spring:select path="userEntity.professionId" id="professionId" class="form-control form-control-block displayNone"
                                                                  required="required">
-                                                        <option class="options" id="defaultSelection" value="1" disabled hidden></option>
+                                                        <option class="options" id="defaultSelection" value="1" hidden></option>
                                                         <c:forEach items="${allProfessions}" var="item">
                                                             <option class="options" value="${item.id}">${item.profession}</option>
                                                         </c:forEach>

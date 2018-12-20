@@ -108,7 +108,7 @@
         if (circle !== null){
             circle.setMap(null);
         }
-        let dist = $('#distance').val();
+        var dist = $('#distance').val();
         if (dist>1.5) map.setZoom(10);
         circle = new google.maps.Circle({
             strokeColor: '#FF0000',
@@ -150,10 +150,12 @@
                 profMarkers = [];
                 if (!jsonobj) {
                     // alert('There are no profs of this kind');
-                    $('.jobs-wrap').append($('<div class="job-item d-block d-md-flex align-items-center border-bottom fulltime">').append('No Professionals found for these criteria'));
+                    $('.jobs-wrap').append($('<div class="job-item d-block d-md-flex align-items-center border-bottom fulltime">').append('No Professionals found matching these criteria'));
                 } else {
+                    var count=0;
                     $.each(jsonobj, function (i, item) {
-                        $profCard = $('<a href="${pageContext.request.contextPath}/user/viewselectedprof.htm?email='+item.userEntity.email+'" name="email" class="job-item d-block d-md-flex align-items-center border-bottom fulltime">').append(
+                        count=count+1;
+                        $profCard = $('<a href="${pageContext.request.contextPath}/user/viewselectedprof.htm?email='+item.userEntity.email+'" name="email" class="job-item d-block d-md-flex align-items-center border-bottom fulltime pagination" id="'+count+'">').append(
                             $('<div class="company-logo blank-logo text-center text-md-left pl-3">').append(
                                 $('<img src="${pageContext.request.contextPath}/dist/images/person_1.jpg" alt="Image" class="img-fluid mx-auto">')),
                             $('<div class="job-details">').append(
@@ -171,6 +173,9 @@
                             $('<a href="${pageContext.request.contextPath}/user/chat/'+item.userEntity.id+'.htm " class="text-info p-2 rounded border border-info">').append(
                                 $('<span class="icon-message">')))
                             ));
+                        if(count>5){
+                            $profCard.addClass("hiddenProfessional");
+                        }
                         $('.jobs-wrap').append($profCard);
                         var m = new google.maps.Marker({
                             position: new google.maps.LatLng(parseFloat(item.addressEntity.latit),parseFloat(item.addressEntity.longit)) ,

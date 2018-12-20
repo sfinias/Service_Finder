@@ -15,6 +15,7 @@ public interface ServiceDAOInterface {
     ServiceEntity insertService(ServiceEntity serviceEntity);
     ServiceEntity getServiceByID(int serviceID);
     ArrayList<ServiceEntity> getAllServiceOfUser(int userID);
+    ArrayList<ServiceEntity> getAllServiceOfProfessional(int profID);
     long getRating(RegisterEntity user);
     void setRating(RegisterEntity user, String profID, String rate);
 }
