@@ -76,6 +76,19 @@ public class UserDAO implements UserDAOInterface {
     }
 
     @Transactional
+    public boolean userExistsId(int userID) {
+        boolean flag;
+        Query query = em.createQuery("SELECT u FROM UserEntity u WHERE u.id=" + userID);
+        ArrayList<UserEntity> users = (ArrayList<UserEntity>) query.getResultList();
+        if (users.size() == 0) {
+            flag = false;
+        } else {
+            flag = true;
+        }
+        return flag;
+    }
+
+    @Transactional
     public void enableUser(UserEntity u) {
         u.setEnabled(true);
         em.merge(u);
@@ -128,6 +141,25 @@ public class UserDAO implements UserDAOInterface {
                 "LEFT JOIN PhoneEntity ph ON u.id = ph.userId " +
                 "WHERE u.email='" + email + "'");
         return getUser(query);
+    }
+
+    @Transactional
+    public RegisterEntity getUserByID(int userID) {
+        Query query = em.createQuery("SELECT u, p, a, ph FROM UserEntity u " +
+                "LEFT JOIN ProfessionsEntity p ON u.professionId = p.id " +
+                "LEFT JOIN AddressEntity a ON u.id = a.userId " +
+                "LEFT JOIN PhoneEntity ph ON u.id = ph.userId " +
+                "WHERE u.id=" + userID);
+        List<Object[]> objs = query.getResultList();
+        if (objs.size()==0) return null;
+        Object[] result = objs.get(0);
+        RegisterEntity user = new RegisterEntity();
+        user.setUserEntity((UserEntity)result[0]);
+        user.setProfessionsEntity((ProfessionsEntity)result[1]);
+        user.setAddressEntity((AddressEntity)result[2]);
+        user.setPhoneEntity((PhoneEntity)result[3]);
+        user.getUserEntity().setProfilePicture(setProfilePicture(user.getUserEntity())); //call method for setting profile Picture
+        return user;
     }
 
     @Transactional

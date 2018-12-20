@@ -1,12 +1,17 @@
 package model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.sql.Timestamp;
 import java.util.Objects;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Max;
 
+/**
+ * @author tsamo
+ */
 @Entity
 @Table(name = "service", schema = "dnmgdb", catalog = "")
 public class ServiceEntity {
@@ -25,7 +30,7 @@ public class ServiceEntity {
     private String topic;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -35,7 +40,7 @@ public class ServiceEntity {
     }
 
     @Basic
-    @Column(name = "start_date")
+    @Column(name = "start_date", nullable = false)
     public Timestamp getStartDate() {
         return startDate;
     }
@@ -45,7 +50,7 @@ public class ServiceEntity {
     }
 
     @Basic
-    @Column(name = "professional_id")
+    @Column(name = "professional_id", nullable = false)
     public int getProfessionalId() {
         return professionalId;
     }
@@ -55,7 +60,7 @@ public class ServiceEntity {
     }
 
     @Basic
-    @Column(name = "customer_id")
+    @Column(name = "customer_id", nullable = false)
     public int getCustomerId() {
         return customerId;
     }
@@ -65,7 +70,7 @@ public class ServiceEntity {
     }
 
     @Basic
-    @Column(name = "cost")
+    @Column(name = "cost", nullable = false)
     public int getCost() {
         return cost;
     }
@@ -75,7 +80,7 @@ public class ServiceEntity {
     }
 
     @Basic
-    @Column(name = "fulfilled")
+    @Column(name = "fulfilled", nullable = false)
     public boolean isFulfilled() {
         return fulfilled;
     }
@@ -113,13 +118,12 @@ public class ServiceEntity {
                 customerId == that.customerId &&
                 cost == that.cost &&
                 fulfilled == that.fulfilled &&
-                rating == that.rating &&
                 Objects.equals(startDate, that.startDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, startDate, professionalId, customerId, cost, fulfilled, rating);
+        return Objects.hash(id, startDate, professionalId, customerId, cost, fulfilled);
     }
 
     @Basic
