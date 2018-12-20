@@ -88,10 +88,9 @@ public class ServiceDAO implements ServiceDAOInterface {
 
     @Override
     @Transactional
-    public void setRating(RegisterEntity user, String profID, String rate) {
-        int idProf = Integer.parseInt(profID);
-        int rating = Integer.parseInt(rate);
-        Query query = em.createQuery("");
+    public void setRating(ServiceEntity serviceEntity, int rating) {
+        serviceEntity.setRating(rating);
+        em.merge(serviceEntity);
     }
 
     @Override
@@ -134,5 +133,11 @@ public class ServiceDAO implements ServiceDAOInterface {
     @Transactional
     public ServiceEntity getServiceById(int id){
         return em.find(ServiceEntity.class, id);
+    }
+
+    @Override
+    @Transactional
+    public void updateService(ServiceEntity s) {
+        em.merge(s);
     }
 }

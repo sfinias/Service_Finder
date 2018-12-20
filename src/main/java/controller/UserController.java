@@ -11,6 +11,7 @@ import java.util.List;
 import java.sql.Timestamp;
 import java.time.Instant;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import model.RegisterEntity;
@@ -70,8 +71,6 @@ public class UserController {
 
     @Autowired
     private PasswordFormValids passwordFormValids;
-
-
 
 
     private MailService mailService = new MailService();
@@ -154,9 +153,14 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/rate", method = RequestMethod.GET)
-    public ResponseEntity<String> rating(@RequestParam("selected_rating") String rateNumber, @RequestParam("selectedUser") String selectedUserID, HttpSession session, ModelMap model)
-            throws IOException {
+//    @RequestMapping(value = "/rate", method = RequestMethod.GET)
+//    public ResponseEntity<String> rating(@RequestParam("selected_rating") String rateNumber, @RequestParam("selectedUser") String selectedUserID, HttpSession session, ModelMap model)
+//            throws IOException {
+//
+//        RegisterEntity user = (RegisterEntity) session.getAttribute("user");
+//        serviceDAOInterface.setRating(user, selectedUserID, rateNumber);
+//        return new ResponseEntity<>("Rate submitted successfully.", HttpStatus.OK);
+//    }
 
         RegisterEntity user = (RegisterEntity) session.getAttribute("user");
         s.setRating(user, selectedUserID, rateNumber);
@@ -215,17 +219,23 @@ public class UserController {
                 se.setStartDate(Timestamp.from(Instant.now()));
                 id = s.insertService(se).getId();
             }
-            ArrayList<ServiceEntity> servicesOfcurrentUser;
+            ArrayList<ServiceEntity> servicesOfcurrentUser = new ArrayList<>();
             ArrayList<UserEntity> currentConnectedUsersOrProfs = new ArrayList<>();
-            if (sessionUser.getUserEntity().getProfessionId() == 0) {
+            if (sessionUser.getUserEntity().getProfessionId() == 1) {
                 servicesOfcurrentUser = s.getAllServiceOfUser(sessionUser.getUserEntity().getId());
                 for (ServiceEntity sa : servicesOfcurrentUser) {
-                    currentConnectedUsersOrProfs.add(u.getUserByID(sa.getCustomerId()).getUserEntity());
+                    UserEntity user = u.getUserByID(sa.getCustomerId()).getUserEntity();
+                    if (!currentConnectedUsersOrProfs.contains(user)) {
+                        currentConnectedUsersOrProfs.add(user);
+                    }
                 }
             } else {
                 servicesOfcurrentUser = s.getAllServiceOfProfessional(sessionUser.getUserEntity().getId());
                 for (ServiceEntity sa : servicesOfcurrentUser) {
-                    currentConnectedUsersOrProfs.add(u.getUserByID(sa.getCustomerId()).getUserEntity());
+                    UserEntity user = u.getUserByID(sa.getCustomerId()).getUserEntity();
+                    if (!currentConnectedUsersOrProfs.contains(user)) {
+                        currentConnectedUsersOrProfs.add(user);
+                    }
                 }
             }
             modelMap.addAttribute("sessionUser", sessionUser);
@@ -250,7 +260,7 @@ public class UserController {
     }
 
     @RequestMapping("/services.htm")
-    public String services(ModelMap map, HttpSession session){
+    public String services(ModelMap map, HttpSession session) {
         RegisterEntity user = (RegisterEntity) session.getAttribute("user");
         List<ServiceEntity> services = s.getServicesForUser(user);
         for (ServiceEntity service: services) service.setOtherUser(u.getUserByID(service.getProfessionalId()));
@@ -260,23 +270,24 @@ public class UserController {
     }
 
     @RequestMapping("/closedServices.htm")
-    public String activeServices(ModelMap map, HttpSession session){
+    public String closedServices(ModelMap map, HttpSession session) {
         RegisterEntity user = (RegisterEntity) session.getAttribute("user");
         List<ServiceEntity> services = s.getSubServicesForUser(user, true);
         for (ServiceEntity service: services) service.setOtherUser(u.getUserByID(service.getProfessionalId()));
         map.addAttribute("services", services);
-        map.addAttribute("message", "Active Services");
+        map.addAttribute("professionId", user.getUserEntity().getProfessionId());
+        map.addAttribute("message", "Closed Services");
         return "sessions";
     }
 
     @RequestMapping("/activeServices.htm")
-    public String closedServices(ModelMap map, HttpSession session){
+    public String activeServices(ModelMap map, HttpSession session) {
         RegisterEntity user = (RegisterEntity) session.getAttribute("user");
         List<ServiceEntity> services = s.getSubServicesForUser(user, false);
         for (ServiceEntity service: services) service.setOtherUser(u.getUserByID(service.getProfessionalId()));
         map.addAttribute("services", services);
-        map.addAttribute("message", "Closed Services");
+        map.addAttribute("professionId", user.getUserEntity().getProfessionId());
+        map.addAttribute("message", "Active Services");
         return "sessions";
     }
-    
 }

@@ -239,23 +239,20 @@
 <div class="container main-section">
     <div class="row">
         <div class="col-md-3 col-sm-3 col-xs-12 left-sidebar">
-            <div class="input-group searchbox">
-                <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
-                <div class="input-group-btn">
-                    <button class="btn btn-default search-icon" type="submit"><i class="glyphicon glyphicon-search"></i>
-                    </button>
-                </div>
-            </div>
+            <a href="${pageContext.request.contextPath}/home/initialForm.htm" class="btn btn-search btn-primary btn-block" style="padding: 20px; color: white; height: 90px; font-size: 30px; line-height: 50px; background-color: green; font-weight: 500;
+">Home</a>
             <div class="left-chat">
                 <ul>
                     <c:forEach items="${profs}" var="item">
                         <li>
-                            <div class="chat-left-img">
-                                <img src="${item.profilePicture}">
-                            </div>
-                            <div class="chat-left-detail">
-                                <p>${item.firstName} ${item.lastName}</p>
-                            </div>
+                            <a href="${item.id}.htm">
+                                <div class="chat-left-img">
+                                    <img src="${item.profilePicture}">
+                                </div>
+                                <div class="chat-left-detail">
+                                    <p>${item.firstName} ${item.lastName}</p>
+                                </div>
+                            </a>
                         </li>
                     </c:forEach>
                 </ul>
@@ -441,7 +438,7 @@
             },
             login_keyup: function (e) {
                 // alert("login");
-                    this.login();
+                this.login();
             },
             sendMessage_keyup: function (e) {
                 if (e.keyCode == 13) {
