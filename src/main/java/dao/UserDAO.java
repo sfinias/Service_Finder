@@ -210,6 +210,7 @@ public class UserDAO implements UserDAOInterface {
 //    }
 
     //set profile Picture
+    @Override
     public String setProfilePicture(UserEntity userEntity) {
         int id = userEntity.getId();
         String pathJPG = "C:\\Tomcat\\webapps\\images\\"+id+".jpg";

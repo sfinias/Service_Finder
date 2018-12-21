@@ -31,4 +31,5 @@ public interface UserDAOInterface {
     RegisterEntity getUserByID (int userID);
     RegisterEntity getUserByEmail(String email);
     RegisterEntity editUser(RegisterEntity editUser , RegisterEntity user);
+    String setProfilePicture(UserEntity userEntity);
 }

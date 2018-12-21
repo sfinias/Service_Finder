@@ -29,7 +29,6 @@
                     <a href="#" class=" feature-item">
                         <div class="avatar-upload">
                             <div class="avatar-preview">
-                                <div style="background-image: url('/images/${sessionScope.user.userEntity.profilePicture}');">
                                 <div style="background-image: url('/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
                                 </div>
                             </div>
@@ -161,11 +160,6 @@
         $('#subButton').addClass('d-none');
         $('.f').prop('readonly', true);
     }
-
-    $('button[name=rating]').click(function () {
-        alert(1);
-        $('#ratingForm').submit();
-    });
 });
 </script>
 </body>

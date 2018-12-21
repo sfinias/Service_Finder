@@ -4,8 +4,13 @@
     <%@include file="newHeader.jsp" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/profile.css">
 </head>
+<c:if test="${services.size()==0}">
+<body>
+</c:if>
+<c:if test="${services.size()!=0}">
 <body style="background-image: url('${pageContext.request.contextPath}/dist/images/hero_1.jpg');" data-aos="fade"
       data-stellar-background-ratio="0.5">
+</c:if>
 <c:if test="${sessionScope.user.professionsEntity.id==1}">
     <%@include file="navbar.jsp" %>
 </c:if>
@@ -19,6 +24,21 @@
             <h1 style=" color: azure">${message}</h1>
         </div>
     </div>
+    <c:if test="${services.size()==0}">
+        <div class="unit-5 overlay"
+             style="background-image: url('${pageContext.request.contextPath}/dist/images/woodWallpaper.jpg');">
+            <div class="container text-center">
+                <h2 class="mb-0">No Services at the Moment!</h2>
+            </div>
+        </div>
+        <div class="site-section" data-aos="fade">
+            <div class="container">
+                <div class="container text-center">
+                    <h3>Be patient and make your profile more attractive to lure customers.</h3>
+                </div>
+            </div>
+        </div>
+    </c:if>
     <div class="container">
         <div class="row">
             <c:forEach items="${services}" var="item">
@@ -38,11 +58,11 @@
                                     <div id="imagePreview"
                                          style="background-image: url('/images/${item.otherUser.userEntity.profilePicture}');">
                                     </div>
-                                    <h2>${item.otherUser.userEntity.firstName} ${item.otherUser.userEntity.lastName}</h2>
-                                    <span class="counting">${item.startDate}</span>
-                                </a>
-                        </div>
-                    </c:forEach>
+                                </div>
+                            </div>
+                            <h2>${item.otherUser.userEntity.firstName} ${item.otherUser.userEntity.lastName}</h2>
+                            <span class="counting">${item.startDate}</span>
+                        </a>
                 </div>
             </c:forEach>
         </div>

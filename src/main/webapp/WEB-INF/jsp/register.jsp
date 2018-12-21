@@ -120,7 +120,6 @@
 
     $(document).ready(function () {
         $("#email").change(function () {
-            alert("beggining of ajax");
             var text = $(this).val();
             document.getElementById('message4').style.color = 'blue';
             document.getElementById('message4').innerHTML = 'Please allow some seconds to check the database';
