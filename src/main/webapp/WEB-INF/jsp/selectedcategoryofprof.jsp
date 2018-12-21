@@ -17,95 +17,40 @@
                         <br /></p>
                 </div>
             </div>
-
-            <div class="site-section site-block-feature bg-light">
-                <div class="container">
-
-                    <div class="text-center mb-5 section-heading">
-                        <h2>Why Choose Us</h2>
-                    </div>
-
-                    <div class="d-block d-md-flex border-bottom">
-                        <div class="text-center p-4 item border-right aos-init aos-animate" data-aos="fade">
-                            <div class="avatar-upload">
-                                    <div class="avatar-preview">
-                                        <div id="imagePreview" style="background-image: url('https://www.agilysys.com/-/media/agilysys/Images/Product%20Pages/Professional%20Services/ProfServ-Hero.png?la=en');">
-                                        </div>
-                                    </div>
-                                </div>
-                            <h2 class="h4">More Jobs Every Day</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati reprehenderit explicabo quos fugit vitae dolorum.</p>
-                            <p><a href="${pageContext.request.contextPath}/user/viewselectedprof.htm">Read More <span class="icon-arrow-right small"></span></a></p>
-                        </div>
-                        <div class="text-center p-4 item aos-init aos-animate" data-aos="fade">
-                            <div class="avatar-upload">
-                                    <div class="avatar-preview">
-                                        <div id="imagePreview" style="background-image: url('https://www.agilysys.com/-/media/agilysys/Images/Product%20Pages/Professional%20Services/ProfServ-Hero.png?la=en');">
-                                        </div>
-                                    </div>
-                                </div>
-                            <h2 class="h4">Creative Jobs</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati reprehenderit explicabo quos fugit vitae dolorum.</p>
-                            <p><a href="${pageContext.request.contextPath}/user/viewselectedprof.htm">Read More <span class="icon-arrow-right small"></span></a></p>
-                        </div>
-                    </div>
-                    <div class="d-block d-md-flex">
-                        <div class="text-center p-4 item border-right aos-init" data-aos="fade">
-                            <div class="avatar-upload">
-                                    <div class="avatar-preview">
-                                        <div id="imagePreview" style="background-image: url('https://www.agilysys.com/-/media/agilysys/Images/Product%20Pages/Professional%20Services/ProfServ-Hero.png?la=en');">
-                                        </div>
-                                    </div>
-                                </div>
-                            <h2 class="h4">Healthcare</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati reprehenderit explicabo quos fugit vitae dolorum.</p>
-                            <p><a href="${pageContext.request.contextPath}/user/viewselectedprof.htm">Read More <span class="icon-arrow-right small"></span></a></p>
-                        </div>
-                        <div class="text-center p-4 item aos-init" data-aos="fade">
-                            <div class="avatar-upload">
-                                    <div class="avatar-preview">
-                                        <div id="imagePreview" style="background-image: url('https://www.agilysys.com/-/media/agilysys/Images/Product%20Pages/Professional%20Services/ProfServ-Hero.png?la=en');">
-                                        </div>
-                                    </div>
-                                </div>
-                            <h2 class="h4">Finance &amp; Accounting</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati reprehenderit explicabo quos fugit vitae dolorum.</p>
-                            <p><a href="${pageContext.request.contextPath}/user/viewselectedprof.htm">Read More <span class="icon-arrow-right small"></span></a></p>
-                        </div>
-                    </div>
-                </div>
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 mx-auto text-center mb-5 section-heading">
+            <h2 class="mb-5">Profiles</h2> 
+            <c:if test="${allprofswithsamecategoryid.size()==0}">
+       
+            <div class="container text-center">
+                <h2 class="mb-0">There are no providers at the Moment!</h2>
             </div>
-
-
-
-
-            <div class="py-5 quick-contact-info">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div>
-                                <h2><span class="icon-room"></span> Location</h2>
-                                <p class="mb-0">New York - 2398 <br>  10 Hadson Carl Street</p>
+    </c:if>
+          </div>
+        </div>
+        <div class="row">
+             <c:forEach items="${allprofswithsamecategoryid}" var="item">
+          <div class="col-sm-6 col-md-4 col-lg-3 mb-3" data-aos="fade-up" data-aos-delay="100">
+            <a href="${pageContext.request.contextPath}/user/viewselectedprof.htm?email=${item.userEntity.email}" name="email" class="h-100 feature-item">
+                        
+                            <div class="avatar-upload">
+                                <div class="avatar-preview">
+                                    <div id="imagePreview"
+                                         style="background-image: url('http://localhost:8080/images/${item.getUserEntity().getProfilePicture()}');">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div>
-                                <h2><span class="icon-clock-o"></span> Service Times</h2>
-                                <p class="mb-0">Wednesdays at 6:30PM - 7:30PM <br>
-                                    Fridays at Sunset - 7:30PM <br>
-                                    Saturdays at 8:00AM - Sunset</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <h2><span class="icon-comments"></span> Get In Touch</h2>
-                            <p class="mb-0">Email: info@yoursite.com <br>
-                                Phone: (123) 3240-345-9348 </p>
-                        </div>
-                    </div>
+                            <h2>${item.userEntity.firstName} ${item.userEntity.lastName}</h2>
+                        </a>
                 </div>
-            </div>
-
+            </c:forEach>
+        </div>
+      </div>
+    </div>
             <%@include file = "footer.jsp" %>
+        </div>
             <script src="${pageContext.request.contextPath}/dist/js/profile.js" type="text/javascript" ></script>
     </body>
 </html>

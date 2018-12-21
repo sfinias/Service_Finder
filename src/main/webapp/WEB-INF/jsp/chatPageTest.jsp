@@ -298,7 +298,6 @@
         </div>
     </div>
 </div>
-</div>
 <script>
     var goToBottomOfChat = function () {
         var objDiv = document.getElementById("test2");
