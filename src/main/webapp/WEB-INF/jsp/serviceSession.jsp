@@ -97,7 +97,7 @@
                 <div class="col-md-4" id="rating-ability-wrapper">
                     <br>
                     <h2 style="">Rate Your Experience</h2>
-                    <form id="ratingForm" method="post" action="${pageContext.request.contextPath}/user/rate.htm">
+                    <form>
                         <label class="control-label" for="selected_rating">
                             <input type="hidden" id="selected_rating" name="selected_rating" value="${service.rating}">
                         </label>
@@ -130,23 +130,32 @@
 
     <%@include file="footer.jsp" %>
 </div>
-<script>jQuery(document).ready(function ($) {
+<script>
 
-
-    <%--for (ix = 1; ix <= $("#selected_rating").val(); ++ix) {--%>
-        <%--$("#rating-star-" + ix).toggleClass('btn-success');--%>
-        <%--$("#rating-star-" + ix).toggleClass('btn-default');--%>
-    <%--}--%>
-
-    if ("${sessionScope.user.professionsEntity.id}" == 1) {
-        $('#subButton').addClass('d-none');
-        $('.f').prop('readonly', true);
+    function markStars(rating){
+        $("btnrating").toggleClass('btn-default');
+        for (i = 1; i <= rating; i++) {
+            $("#rating-star-"+i).toggleClass('btn-success');
+        }
     }
 
-    $('button[name=rating]').click(function(){
-        alert(1);
-        $('#ratingForm').submit();
-    });
+$(document).ready(function(){
+
+    $(".btnrating").on('click',(function(e) {
+        e.preventDefault();
+        if('${sessionScope.user.professionsEntity.id}' == 1){
+            var rating = $(this).val();
+            $.ajax({
+                url: '${pageContext.request.contextPath}/user/rate.htm?selected_rating=' + rating + '&serviceid=${service.id}',
+                contentType: 'application/json',
+                method: 'get',
+                success: function (result) {
+                    markStars(rating);
+                }
+            });
+        }
+    }));
+
 });
 </script>
 </body>
