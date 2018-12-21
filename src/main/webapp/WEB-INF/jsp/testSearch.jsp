@@ -122,35 +122,28 @@
 
                 <div class="d-block d-md-flex border-bottom">
                     <div class="text-center p-4 item border-right" data-aos="fade">
-                        <span class="flaticon-computer-graphic display-3 mb-3 d-block text-primary"></span>
-                        <h2 class="h4">More Jobs Every Day</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati reprehenderit explicabo
-                            quos fugit vitae dolorum.</p>
-                        <p><a href="#">Read More <span class="icon-arrow-right small"></span></a></p>
+                        <span class="flaticon-calculator display-3 mb-3 d-block text-primary"></span>
+                        <h2 class="h4">Accountants</h2>
+                        <p>Provides financial information to management by researching and analyzing accounting data,
+                            preparing reports.</p>
+                        <p><a href="${pageContext.request.contextPath}/user/viewselectedcategoryofprof.htm?categoryidofprof=2">See Profiles <span class="icon-arrow-right small"></span></a></p>
                     </div>
                     <div class="text-center p-4 item" data-aos="fade">
-                        <span class="flaticon-wrench display-3 mb-3 d-block text-primary"></span>
-                        <h2 class="h4">Creative Jobs</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati reprehenderit explicabo
-                            quos fugit vitae dolorum.</p>
-                        <p><a href="#">Read More <span class="icon-arrow-right small"></span></a></p>
+                        <span class="flaticon-stethoscope display-3 mb-3 d-block text-primary"></span>
+                        <h2 class="h4">Doctors</h2>
+                        <p>Hospital doctors diagnose and treat medical conditions, disorders, and diseases through the application of 
+                            specialist medical skills and knowledge.</p>
+                        <p><a href="${pageContext.request.contextPath}/user/viewselectedcategoryofprof.htm?categoryidofprof=3">See Profiles <span class="icon-arrow-right small"></span></a></p>
                     </div>
                 </div>
                 <div class="d-block d-md-flex">
                     <div class="text-center p-4 item border-right" data-aos="fade">
-                        <span class="flaticon-stethoscope display-3 mb-3 d-block text-primary"></span>
-                        <h2 class="h4">Healthcare</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati reprehenderit explicabo
-                            quos fugit vitae dolorum.</p>
-                        <p><a href="#">Read More <span class="icon-arrow-right small"></span></a></p>
-                    </div>
-                    <div class="text-center p-4 item" data-aos="fade">
-                        <span class="flaticon-calculator display-3 mb-3 d-block text-primary"></span>
-                        <h2 class="h4">Finance &amp; Accounting</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati reprehenderit explicabo
-                            quos fugit vitae dolorum.</p>
-                        <p><a href="#">Read More <span class="icon-arrow-right small"></span></a></p>
-                    </div>
+                        <span class="flaticon-computer-graphic display-3 mb-3 d-block text-primary"></span>
+                        <h2 class="h4">Web-Developers </h2>
+                        <p>Web developer responsibilities include building our website from concept all the way to completion from the bottom up, 
+                            fashioning everything from the home page to site layout and function.</p>
+                        <p><a href="${pageContext.request.contextPath}/user/viewselectedcategoryofprof.htm?categoryidofprof=4">See Profiles <span class="icon-arrow-right small"></span></a></p>
+                    </div>                    
                 </div>
             </div>
         </div>
