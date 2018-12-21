@@ -190,8 +190,8 @@ public class UserDAO implements UserDAOInterface {
     @Override
     public String setProfilePicture(UserEntity userEntity) {
         int id = userEntity.getId();
-        String pathJPG = "/Users/matina/apache-tomcat-8.0.53/webapps/images/"+id+".jpg";
-        String pathPNG = "/Users/matina/apache-tomcat-8.0.53/webapps/images/"+id+".png";
+        String pathJPG = "C:\\Tomcat\\webapps\\images\\"+id+".jpg";
+        String pathPNG = "C:\\Tomcat\\webapps\\images\\"+id+".jpg";
         File filenameJPG = new File(pathJPG);
         File filenamePNG = new File(pathPNG);
         if ((filenameJPG.exists() && !filenameJPG.isDirectory())) {

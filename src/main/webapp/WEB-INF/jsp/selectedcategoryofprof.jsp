@@ -38,7 +38,7 @@
                             <div class="avatar-upload">
                                 <div class="avatar-preview">
                                     <div id="imagePreview"
-                                         style="background-image: url('http://localhost:8080/images/${item.getUserEntity().getProfilePicture()}');">
+                                         style="background-image: url('/images/${item.userEntity.profilePicture}');">
                                     </div>
                                 </div>
                             </div>

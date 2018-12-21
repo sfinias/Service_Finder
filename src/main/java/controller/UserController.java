@@ -176,6 +176,9 @@ public class UserController {
     @RequestMapping(value = "/viewselectedcategoryofprof.htm", method = RequestMethod.GET)
     public String viewselectedcategoryofprof(ModelMap model, @RequestParam(value = "categoryidofprof") int categoryidofprof) {
         List<RegisterEntity> profs = p.getProfs(categoryidofprof);
+        for (RegisterEntity re:profs) {
+            re.getUserEntity().setProfilePicture(u.setProfilePicture(re.getUserEntity()));
+        }
         ProfessionsEntity thiscategory = p.getProfession(categoryidofprof);
         model.addAttribute("allprofswithsamecategoryid", profs);
         model.addAttribute("thiscategory", thiscategory);
