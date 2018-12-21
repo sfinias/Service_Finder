@@ -247,7 +247,7 @@
                         <li>
                             <a href="${item.id}.htm">
                                 <div class="chat-left-img">
-                                    <img src="${item.profilePicture}">
+                                    <img src="/images/${item.profilePicture}">
                                 </div>
                                 <div class="chat-left-detail">
                                     <p>${item.firstName} ${item.lastName}</p>
@@ -262,7 +262,7 @@
             <div class="row">
                 <div class="col-md-12 right-header">
                     <div class="right-header-img">
-                        <img class="rounded-circle" src="${sessionScope.user.getUserEntity().getProfilePicture()}">
+                        <img class="rounded-circle" src="/images/${sessionScope.user.getUserEntity().getProfilePicture()}">
                     </div>
                     <div class="right-header-detail">
                         <p>${sessionUser.userEntity.firstName} ${sessionUser.userEntity.lastName}</p>

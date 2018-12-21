@@ -30,6 +30,7 @@
                         <div class="avatar-upload">
                             <div class="avatar-preview">
                                 <div style="background-image: url('/images/${sessionScope.user.userEntity.profilePicture}');">
+                                <div style="background-image: url('/images/${sessionScope.user.getUserEntity().getProfilePicture()}');">
                                 </div>
                             </div>
                         </div>
@@ -62,13 +63,27 @@
                                 <span class="icon-euro h5"></span>
                                 <input type="submit" id="subButton">
                             </spring:form>
-                            <a href="tel:'${service.otherUser.phoneEntity.mobile}'" class="text-info p-2 rounded border border-info h3"><span class="icon-phone"></span></a>
+                            <a href="tel:'${service.otherUser.phoneEntity.mobile}'"
+                               class="text-info p-2 rounded border border-info h3"><span class="icon-phone"></span></a>
                             <c:choose>
                                 <c:when test="${sessionScope.user.userEntity.professionId==1}">
-                                    <a href="${pageContext.request.contextPath}/user/chat/${service.otherUser.userEntity.id}.htm " class="text-info p-2 rounded border border-info h3"><span class="icon-message"></span></a>
+                                    <a href="${pageContext.request.contextPath}/user/chat/${service.otherUser.userEntity.id}.htm "
+                                       class="text-info p-2 rounded border border-info h3"><span
+                                            class="icon-message"></span></a>
+                                    <c:choose>
+                                        <c:when test="${service.fulfilled==false}">
+                                            <form method="get"
+                                                  action="${pageContext.request.contextPath}/user/endService.htm">
+                                                <input type="submit" value="End Service"
+                                                       class="btn btn-primary pill px-4 py-2">
+                                            </form>
+                                        </c:when>
+                                    </c:choose>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="${pageContext.request.contextPath}/prof/chat/${service.otherUser.userEntity.id}.htm " class="text-info p-2 rounded border border-info h3"><span class="icon-message"></span></a>
+                                    <a href="${pageContext.request.contextPath}/prof/chat/${service.otherUser.userEntity.id}.htm "
+                                       class="text-info p-2 rounded border border-info h3"><span
+                                            class="icon-message"></span></a>
                                 </c:otherwise>
                             </c:choose>
                         </center>
@@ -101,23 +116,28 @@
                         <label class="control-label" for="selected_rating">
                             <input type="hidden" id="selected_rating" name="selected_rating" value="${service.rating}">
                         </label>
-                        <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating" value="1"
+                        <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
+                                value="1"
                                 id="rating-star-1">
                             <i class="icon-star" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating" value="2"
+                        <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
+                                value="2"
                                 id="rating-star-2">
                             <i class="icon-star" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating" value="3"
+                        <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
+                                value="3"
                                 id="rating-star-3">
                             <i class="icon-star" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating" value="4"
+                        <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
+                                value="4"
                                 id="rating-star-4">
                             <i class="icon-star" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating" value="5"
+                        <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
+                                value="5"
                                 id="rating-star-5">
                             <i class="icon-star" aria-hidden="true"></i>
                         </button>
@@ -132,18 +152,17 @@
 </div>
 <script>jQuery(document).ready(function ($) {
 
+    for (ix = 1; ix <= $("#selected_rating").val(); ++ix) {
+        $("#rating-star-" + ix).toggleClass('btn-success');
+        $("#rating-star-" + ix).toggleClass('btn-default');
+    }
 
-    <%--for (ix = 1; ix <= $("#selected_rating").val(); ++ix) {--%>
-        <%--$("#rating-star-" + ix).toggleClass('btn-success');--%>
-        <%--$("#rating-star-" + ix).toggleClass('btn-default');--%>
-    <%--}--%>
-
-    if ("${sessionScope.user.professionsEntity.id}" == 1) {
+    if ("${sessionScope.user.professionsEntity.id}" == 1 || "${service.fulfilled}" == true) {
         $('#subButton').addClass('d-none');
         $('.f').prop('readonly', true);
     }
 
-    $('button[name=rating]').click(function(){
+    $('button[name=rating]').click(function () {
         alert(1);
         $('#ratingForm').submit();
     });
