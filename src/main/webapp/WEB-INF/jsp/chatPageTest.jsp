@@ -247,7 +247,7 @@
                         <li>
                             <a href="${item.id}.htm">
                                 <div class="chat-left-img">
-                                    <img src="${item.profilePicture}">
+                                    <img src="/images/${item.profilePicture}">
                                 </div>
                                 <div class="chat-left-detail">
                                     <p>${item.firstName} ${item.lastName}</p>
@@ -262,7 +262,7 @@
             <div class="row">
                 <div class="col-md-12 right-header">
                     <div class="right-header-img">
-                        <img class="rounded-circle" src="${sessionScope.user.getUserEntity().getProfilePicture()}">
+                        <img class="rounded-circle" src="/images/${sessionScope.user.getUserEntity().getProfilePicture()}">
                     </div>
                     <div class="right-header-detail">
                         <p>${sessionUser.userEntity.firstName} ${sessionUser.userEntity.lastName}</p>
@@ -463,7 +463,7 @@
 <script src="${pageContext.request.contextPath}/dist/js/moment-with-locales.js" type="text/javascript"></script>
 <script>
 
-    var proxy = CreateProxy("ws://localhost:8080/dmngMaven2_war_exploded/chat");
+    var proxy = CreateProxy("ws://localhost:8080/dmngMaven2/chat");
 
     document.addEventListener("DOMContentLoaded", function (event) {
         // console.log(document.getElementById('loginPanel'));
