@@ -6,16 +6,24 @@ import dao.UserDAOInterface;
 import model.RegisterEntity;
 import model.ServiceEntity;
 import model.UserEntity;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import validation.EditFormValids;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -37,7 +45,7 @@ public class ProfessionalController {
     @Autowired
     private EditFormValids editFormValids;
 
-    @RequestMapping(value = "/services.htm")
+    @RequestMapping("/services.htm")
     public String services(ModelMap map, HttpSession session) {
         RegisterEntity user = (RegisterEntity) session.getAttribute("user");
         List<ServiceEntity> services = serviceDAO.getServicesForProf(user);
@@ -145,6 +153,32 @@ public class ProfessionalController {
             long rating = serviceDAO.getRating(userInSession);
             model.addAttribute("rating", rating);
             return "profileProfessional";
+        }
+    }
+
+    @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
+    public ResponseEntity<String> fileUpload(@RequestParam("uploaded") MultipartFile file, HttpSession session)
+            throws IOException {
+        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+        RegisterEntity user = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
+        int idForFilename = user.getUserEntity().getId();
+        String newFilename = String.valueOf(idForFilename);
+        // Save file on system
+        if (!file.getOriginalFilename().isEmpty()) {
+            File previousFileToDeleteJPG = new File("C:\\Tomcat\\webapps\\images\\"+user.getUserEntity().getId()+".jpg");
+            File previousFileToDeletePNG = new File("C:\\Tomcat\\webapps\\images\\"+user.getUserEntity().getId()+".png");
+            previousFileToDeleteJPG.delete();
+            previousFileToDeletePNG.delete();
+            BufferedOutputStream outputStream = new BufferedOutputStream(
+                    new FileOutputStream( new File("C:\\Tomcat\\webapps\\images\\", newFilename.concat("."+extension))));
+            user.getUserEntity().setProfilePicture(newFilename.concat("."+extension));
+            session.setAttribute("user", user);
+            outputStream.write(file.getBytes());
+            outputStream.flush();
+            outputStream.close();
+            return new ResponseEntity<>("File Uploaded Successfully.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Invalid file.", HttpStatus.BAD_REQUEST);
         }
     }
 

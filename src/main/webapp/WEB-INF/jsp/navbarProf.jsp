@@ -36,6 +36,8 @@
                                             <li><a href="${pageContext.request.contextPath}/prof/logout.htm"><span class="icon-power-off mr-3"></span>Log Out</a></li>
                                         </ul>
                                     </li>
+                                    <li><span style="padding: 10px;"></span></li>
+                                
                                 </ul>
                             </div>
                         </nav>

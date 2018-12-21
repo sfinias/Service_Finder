@@ -133,14 +133,14 @@ public class UserController {
         RegisterEntity user = new RegisterEntity((RegisterEntity)session.getAttribute("user"));
         int idForFilename = user.getUserEntity().getId();
         String newFilename = String.valueOf(idForFilename);
-        File previousFileToDeleteJPG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".jpg");
-        File previousFileToDeletePNG = new File("/Users/matina/apache-tomcat-8.0.53/webapps/images/"+user.getUserEntity().getId()+".png");
-        previousFileToDeleteJPG.delete();
-        previousFileToDeletePNG.delete();
         // Save file on system
         if (!file.getOriginalFilename().isEmpty()) {
+            File previousFileToDeleteJPG = new File("C:\\Tomcat\\webapps\\images\\"+user.getUserEntity().getId()+".jpg");
+            File previousFileToDeletePNG = new File("C:\\Tomcat\\webapps\\images\\"+user.getUserEntity().getId()+".png");
+            previousFileToDeleteJPG.delete();
+            previousFileToDeletePNG.delete();
             BufferedOutputStream outputStream = new BufferedOutputStream(
-                    new FileOutputStream( new File("/Users/matina/apache-tomcat-8.0.53/webapps/images", newFilename.concat("."+extension))));
+                    new FileOutputStream( new File("C:\\Tomcat\\webapps\\images\\", newFilename.concat("."+extension))));
             user.getUserEntity().setProfilePicture(newFilename.concat("."+extension));
             session.setAttribute("user", user);
             outputStream.write(file.getBytes());
@@ -153,14 +153,12 @@ public class UserController {
     }
 
 
-//    @RequestMapping(value = "/rate", method = RequestMethod.GET)
-//    public ResponseEntity<String> rating(@RequestParam("selected_rating") String rateNumber, @RequestParam("selectedUser") String selectedUserID, HttpSession session, ModelMap model)
-//            throws IOException {
-//
-//        RegisterEntity user = (RegisterEntity) session.getAttribute("user");
-//        serviceDAOInterface.setRating(user, selectedUserID, rateNumber);
-//        return new ResponseEntity<>("Rate submitted successfully.", HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/rate", method = RequestMethod.GET)
+    public ResponseEntity<String> rating(@RequestParam("selected_rating") int rateNumber, @RequestParam("serviceid") int serviceId) {
+        ServiceEntity service = s.getServiceById(serviceId);
+        s.setRating(service, rateNumber);
+        return new ResponseEntity<>("Rate submitted successfully.", HttpStatus.OK);
+    }
 
 
     @RequestMapping("/logout.htm")
@@ -220,7 +218,7 @@ public class UserController {
             if (sessionUser.getUserEntity().getProfessionId() == 1) {
                 servicesOfcurrentUser = s.getAllServiceOfUser(sessionUser.getUserEntity().getId());
                 for (ServiceEntity sa : servicesOfcurrentUser) {
-                    UserEntity user = u.getUserByID(sa.getCustomerId()).getUserEntity();
+                    UserEntity user = u.getUserByID(sa.getProfessionalId()).getUserEntity();
                     if (!currentConnectedUsersOrProfs.contains(user)) {
                         currentConnectedUsersOrProfs.add(user);
                     }
@@ -248,10 +246,21 @@ public class UserController {
     }
 
     @RequestMapping(value = "/servicesession.htm")
-    public String serviceSession(@RequestParam("sessionId") int sessionId, ModelMap map ) {
+    public String serviceSession(@RequestParam("sessionId") int sessionId, ModelMap map,HttpSession session) {
         ServiceEntity service = s.getServiceById(sessionId);
         service.setOtherUser(u.getUserByID(service.getProfessionalId()));
         map.addAttribute("service", service);
+        session.setAttribute("service", service);
+        return "serviceSession";
+    }
+
+    @RequestMapping(value = "/endService.htm",method = RequestMethod.GET)
+    public String endService(ModelMap map, HttpSession session) {
+        ServiceEntity serviceEntity=(ServiceEntity)session.getAttribute("service");
+        serviceEntity.setFulfilled(true);
+        s.updateService(serviceEntity);
+        map.addAttribute("service",serviceEntity);
+        session.setAttribute("service",serviceEntity);
         return "serviceSession";
     }
 

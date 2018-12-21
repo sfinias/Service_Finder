@@ -68,7 +68,7 @@ public class HomeController {
             model.addAttribute("message", "Incorrect Credentials");
             return "response_page";
         } else if (!u.isUserActivated(emailSubmitted)) {
-            model.addAttribute("message", "Account is not activated");
+            model.addAttribute("message", "Account is not activated. Check your email 's inbox messages.");
             return "response_page";
         } else {
             RegisterEntity regEntity = u.getUserByEmail(emailSubmitted);
@@ -105,7 +105,7 @@ public class HomeController {
             u.insertPhone(user2.getPhoneEntity(), uid);
             v.createTokenForUser(uid);
             String token = v.getTokenOfUser(uid);
-            model.addAttribute("message", "Registered account with e-mail: " + user2.getUserEntity().getEmail());
+            model.addAttribute("message", "A verification email has sent to " + user2.getUserEntity().getEmail() + " to enable your account.");
             mailService.sendMail(user2.getUserEntity().getEmail(), "Activation", "http://localhost:8080/verification/token/" + token + ".htm");
             return "response_page";
         }

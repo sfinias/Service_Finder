@@ -260,20 +260,13 @@
 <%@include file="footer.jsp" %>
 <%@include file="register.jsp" %>
 <script>
-    $(document).ready(function () {
-        alert($("#professionId").val());
-    });
     toggleField = function () {
         var a = $("#profselect").val();
-        alert(1);
         if (a === "User") {
             $("#address").removeAttr("required");
             $(".displayNone").hide();
             SelectElement("professionId", 1);
-            alert($("#professionId").val());
         } else if (a === "Professional") {
-            alert(2);
-            alert($("#professionId").val());
             $("#address").attr("required", "required");
             $(".displayNone").show();
         }

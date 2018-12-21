@@ -132,7 +132,6 @@
                                     <spring:input path="passwordHash" title="8 to 50 characters" pattern=".{8,50}" type="password" id="password" class="form-control" readonly="true"
                                                   onkeyup='CheckPassword(); EnablePassword();' placeholder="Password"/><spring:errors path="passwordHash"/>
                                 </div>
-                                
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12">

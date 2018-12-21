@@ -67,6 +67,7 @@ public class ProfessionsDAO implements ProfessionsDAOInterface {
         query.setParameter("longit", lng);
         query.setParameter("latit", lat);
         query.setParameter("dist", distance);
+
         return getRegisterEntities(profs, query);
     }
 
