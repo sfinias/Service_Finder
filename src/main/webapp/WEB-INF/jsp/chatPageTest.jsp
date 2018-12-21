@@ -463,7 +463,7 @@
 <script src="${pageContext.request.contextPath}/dist/js/moment-with-locales.js" type="text/javascript"></script>
 <script>
 
-    var proxy = CreateProxy("ws://localhost:8080/dmngMaven2_war_exploded/chat");
+    var proxy = CreateProxy("ws://localhost:8080/dmngMaven2/chat");
 
     document.addEventListener("DOMContentLoaded", function (event) {
         // console.log(document.getElementById('loginPanel'));

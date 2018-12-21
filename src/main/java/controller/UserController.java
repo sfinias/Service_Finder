@@ -153,14 +153,12 @@ public class UserController {
     }
 
 
-//    @RequestMapping(value = "/rate", method = RequestMethod.GET)
-//    public ResponseEntity<String> rating(@RequestParam("selected_rating") String rateNumber, @RequestParam("selectedUser") String selectedUserID, HttpSession session, ModelMap model)
-//            throws IOException {
-//
-//        RegisterEntity user = (RegisterEntity) session.getAttribute("user");
-//        serviceDAOInterface.setRating(user, selectedUserID, rateNumber);
-//        return new ResponseEntity<>("Rate submitted successfully.", HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/rate", method = RequestMethod.GET)
+    public ResponseEntity<String> rating(@RequestParam("selected_rating") int rateNumber, @RequestParam("serviceid") int serviceId) {
+        ServiceEntity service = s.getServiceById(serviceId);
+        s.setRating(service, rateNumber);
+        return new ResponseEntity<>("Rate submitted successfully.", HttpStatus.OK);
+    }
 
 
     @RequestMapping("/logout.htm")

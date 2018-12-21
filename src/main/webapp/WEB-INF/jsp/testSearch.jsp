@@ -110,14 +110,15 @@
                 </div>
             </div>
         </div>
-        <div class="site-section site-block-feature bg-light">
-            <div class="container">
-                <br>
-                <br>
-                <br>
-                <div class="text-center mb-5 section-heading">
-                    <h2>Categories of Services</h2>
-                </div>
+		</div>
+            <div class="site-section site-block-feature bg-light">
+      <div class="container">
+        <br>
+          <br>
+          <br>
+        <div class="text-center mb-5 section-heading">
+          <h2>Categories of Services</h2>
+        </div>
 
                 <div class="d-block d-md-flex border-bottom">
                     <div class="text-center p-4 item border-right" data-aos="fade">
@@ -154,7 +155,6 @@
             </div>
         </div>
     </div>
-</div>
 <script>
     var nextFivechildren = function (event) {
         event.preventDefault();
