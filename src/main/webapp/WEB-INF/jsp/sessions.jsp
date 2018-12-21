@@ -34,7 +34,7 @@
         <div class="site-section" data-aos="fade">
             <div class="container">
                 <div class="container text-center">
-                    <h3>Be patient and make your profile more attractive to lure customers.</h3>
+                    <h3>Make some connections and enjoy the ServiceFinder</h3>
                 </div>
             </div>
         </div>
