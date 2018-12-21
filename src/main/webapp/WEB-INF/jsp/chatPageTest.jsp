@@ -316,7 +316,6 @@
         </div>
     </div>
 </div>
-</div>
 <script>
     var goToBottomOfChat = function () {
         var objDiv = document.getElementById("test2");
@@ -338,7 +337,6 @@
 
         var displayMessage = function (msgJSON) {
             var msg = JSON.parse(msgJSON);
-            // alert("This is the json messages data="+msg.data);
             var txt;
             if (msg.senderId ===${sessionUser.userEntity.id}) {
                 txt = "<li>\n" +
@@ -374,17 +372,6 @@
 
         return {
             login: function () {
-                alert("iam inside login");
-                // elements.txtLogin.focus();
-
-                // var name = elements.txtLogin.value.trim();
-                <%--<% String username=(String)session.getAttribute("user2Name");%>--%>
-                <%--var name = '<%=username%>';--%>
-                // if (name == '') {
-                //     return;
-                // }
-
-                // elements.txtLogin.value = '';
 
                 // Initiate the socket and set up the events
                 if (websocket == null) {
@@ -396,9 +383,7 @@
                     };
                     websocket.onmessage = function (e) {
 
-                        // alert(e.data+" this is onmessage");
                         displayMessage(e.data);
-                        // showMsgPanel();
                         playSound();
                     };
                     websocket.onerror = function (e) {
@@ -406,16 +391,13 @@
                     websocket.onclose = function (e) {
                         websocket = null;
                         clearMessage();
-                        // hideMsgPanel();
                     };
                 }
             },
             sendMessage: function () {
-                // elements.txtMsg.focus();
 
                 if (websocket != null && websocket.readyState == 1) {
                     var input = elements.txtMsg.value.trim();
-                    // alert(input);
                     if (input == '') {
                         return;
                     }
@@ -428,16 +410,10 @@
                         senderId: ${sessionUser.userEntity.id},
                         timeSent: moment()
                     };
-                    // alert("data: " + input + ", sender: " + message.senderId + ", time sent: " + message.timeSent);
-                    // displayMessage(message);
-                    // Send a message through the web-socket
-                    // alert("before web socket");
                     websocket.send(JSON.stringify(message));
-                    // alert("after web socket");
                 }
             },
             login_keyup: function (e) {
-                // alert("login");
                 this.login();
             },
             sendMessage_keyup: function (e) {
@@ -455,7 +431,6 @@
             },
             initiate: function (e) {
                 elements = e;
-                // elements.txtLogin.focus();
             }
         }
     };
@@ -466,12 +441,9 @@
     var proxy = CreateProxy("ws://localhost:8080/dmngMaven2/chat");
 
     document.addEventListener("DOMContentLoaded", function (event) {
-        // console.log(document.getElementById('loginPanel'));
         proxy.initiate({
-            // loginPanel: document.getElementById('loginPanel'),
             msgPanel: document.getElementById('msgPanel'),
             txtMsg: document.getElementById('txtMsg'),
-            // txtLogin: document.getElementById('txtLogin'),
             msgContainer: document.getElementById('msgContainer')
         });
     });

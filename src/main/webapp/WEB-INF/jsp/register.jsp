@@ -56,31 +56,14 @@
         }
     };
 
-    // changeColour=function(e){
-    //     alert("1st in");
-    //     var a=document.getElementsByName("professionalSelection").item(0);
-    //     if(a.value==="true"){
-    //         alert("2nd in");
-    //         $("#proftrue").css("color","greenyellow !important");
-    //         $("#proffalse").css("color","white");
-    //     }
-    //     else if(a.value==="false"){
-    //         alert("3rd in");
-    //         $("#proftrue").css("color","white");
-    //         $("#proffalse").css("color","greenyellow");
-    //     }
-    // };
-
     toggleField=function(){
         var a=$("#profselect").val();
         if(a==="User"){
             $("#address").removeAttr("required");
             $(".displayNone").hide();
             SelectElement("professionId",1);
-            // alert($("#professionId").val());
         }
         else if(a==="Professional"){
-            // alert($("#professionId").val());
             $("#address").attr("required","required");
             $(".displayNone").show();
         }
@@ -91,13 +74,6 @@
         var element = document.getElementById(id);
         element.value = valueToSelect;
     }
-
-    // $('#register-form').disableAutoFill({
-    //     passwordField: '.password',
-    //     debugMode: false,
-    //     randomizeInputName: true,
-    //     html5FormValidate: true
-    // });
 
     function blockSpecialChar(e) {
         var k = e.charCode || e.keyCode;

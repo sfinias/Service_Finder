@@ -113,7 +113,7 @@
                     <h2 style="">Rate Your Experience</h2>
                     <form>
                         <label class="control-label" for="selected_rating">
-                            <input type="hidden" id="selected_rating" name="selected_rating" value="${service.rating}">
+                            <input type="hidden" id="selected_rating" name="selected_rating" value="">
                         </label>
                         <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
                                 value="1"
@@ -159,6 +159,14 @@
     }
 
 $(document).ready(function(){
+    
+     if ("${sessionScope.user.professionsEntity.id}" > 1 && "${service.fulfilled}" === true) {
+       
+           for (ix = 1; ix <= ${service.rating}; ++ix) {
+            $("#rating-star-" + ix).toggleClass('btn-success');
+            $("#rating-star-" + ix).toggleClass('btn-default');
+        }
+    };
 
     $(".btnrating").on('click',(function(e) {
         e.preventDefault();

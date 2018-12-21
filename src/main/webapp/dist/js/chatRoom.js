@@ -46,8 +46,8 @@ var CreateProxy = function (wsUri) {
             elements.txtLogin.focus();
 
             // var name = elements.txtLogin.value.trim();
-            var name=
-            if (name == '') {
+            var name;
+            if (name === '') {
                 return;
             }
 
