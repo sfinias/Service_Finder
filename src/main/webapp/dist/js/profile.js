@@ -73,10 +73,9 @@ $(document).ready(function () {
     }
 
 
-    $("#imageUpload").change(function (e) { // ???? handler ??? input type
-        //  alert("88888");
-        //e.preventDefault();//??? ???? ?? ????? submit
-        var form = document.forms[1];//???? ??? ????? ????
+    $("#imageUpload").change(function (e) {
+       
+        var form = document.forms[1];
         var formData = new FormData(form);//html5 FormData
         var ajaxReq = $.ajax({
             url: 'fileUpload.htm',
@@ -84,16 +83,15 @@ $(document).ready(function () {
             data: formData,
             cache: false,//mporei k na mi xreiazetai sto post
             //to documentation leei na mi cacharetai i selida
-            contentType: false, // ???? ?? ??? ????? content-type ??? request
+            contentType: false,
             //den jerw ti arxeio tha m steilei
-            processData: false // ?? ??? ?? ????? string ??? ?? ?? ???????
+            processData: false 
             //Callback for creating the XMLHttpRequest object
         });readURL(this);
 
         // Called on success of file upload
         ajaxReq.done(function (msg) {
-            //alert("done")
-            $('#alertMsg').text(msg);//???????? ??? ??? controller
+            $('#alertMsg').text(msg);
             $('#imageUpload').val('');
 
         });
@@ -102,7 +100,6 @@ $(document).ready(function () {
         ajaxReq.fail(function (jqXHR) {
             $('#alertMsg').text(jqXHR.responseText + '(' + jqXHR.status +
                 ' - ' + jqXHR.statusText + ')');
-//                        $('#myfileuploading').prop('disabled', false);
         });
     });
 });
