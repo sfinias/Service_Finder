@@ -113,7 +113,7 @@
                 </div>
             </div>
         </div>
-
+		</div>
             <div class="site-section site-block-feature bg-light">
       <div class="container">
         <br>
@@ -153,8 +153,6 @@
         </div>
       </div>
     </div>
-    </div>
-</div>
 <script>
     var nextFivechildren = function (event) {
         event.preventDefault();
