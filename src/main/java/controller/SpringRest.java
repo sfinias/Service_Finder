@@ -28,7 +28,6 @@ public class SpringRest {
     public @ResponseBody
     String getAllUsersByRest(@RequestParam("email") String email) {
         boolean exists = userDAOInterface.userExists(email);
-        System.out.println("Spring rest");
         return "{ \"exists\":" + exists + "}";
     }
 

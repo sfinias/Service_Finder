@@ -105,43 +105,49 @@
                 </div>
 
             </div>
+
             <div class="row">
                 <div class="col-md-4">
                 </div>
-                <div class="col-md-4" id="rating-ability-wrapper">
-                    <br>
-                    <h2 style="">Rate Your Experience</h2>
-                    <form>
-                        <label class="control-label" for="selected_rating">
-                            <input type="hidden" id="selected_rating" name="selected_rating" value="">
-                        </label>
-                        <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
-                                value="1"
-                                id="rating-star-1">
-                            <i class="icon-star" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
-                                value="2"
-                                id="rating-star-2">
-                            <i class="icon-star" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
-                                value="3"
-                                id="rating-star-3">
-                            <i class="icon-star" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
-                                value="4"
-                                id="rating-star-4">
-                            <i class="icon-star" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
-                                value="5"
-                                id="rating-star-5">
-                            <i class="icon-star" aria-hidden="true"></i>
-                        </button>
-                    </form>
-                </div>
+
+                <c:choose>
+                    <c:when test="${service.fulfilled==true}">
+                        <div class="col-md-4" id="rating-ability-wrapper">
+                            <br>
+                            <h2 style="">Rate Your Experience</h2>
+                            <form>
+                                <label class="control-label" for="selected_rating">
+                                    <input type="hidden" id="selected_rating" name="selected_rating" value="">
+                                </label>
+                                <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
+                                        value="1"
+                                        id="rating-star-1">
+                                    <i class="icon-star" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
+                                        value="2"
+                                        id="rating-star-2">
+                                    <i class="icon-star" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
+                                        value="3"
+                                        id="rating-star-3">
+                                    <i class="icon-star" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
+                                        value="4"
+                                        id="rating-star-4">
+                                    <i class="icon-star" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="btnrating btn btn-default btn-lg rating-dmng" name="rating"
+                                        value="5"
+                                        id="rating-star-5">
+                                    <i class="icon-star" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </c:when>
+                </c:choose>
             </div>
         </div>
     </div>
@@ -162,10 +168,16 @@
 
         if ("${sessionScope.user.professionsEntity.id}" > 1 && "${service.fulfilled}" === true) {
             for (ix = 1; ix <= ${service.rating}; ++ix) {
-                $("#rating-star-" + ix).toggleClass('btn-success');
+                $("#rating-star-" + ix).tog gleClass('btn-success');
                 $("#rating-star-" + ix).toggleClass('btn-default');
             }
         }
+
+        if ("${sessionScope.user.professionsEntity.id}" == 1 || "${service.fulfilled}" == true) {
+            $('#subButton').addClass('d-none');
+            $('.f').prop('readonly', true);
+        }
+
         $(".btnrating").on('click', (function (e) {
             e.preventDefault();
             if ('${sessionScope.user.professionsEntity.id}' == 1) {

@@ -13,9 +13,7 @@
             <div class="row align-items-center">
                 <div class="col-12" data-aos="fade">
                     <h1>Input your email to send a new activation link</h1>
-                    <form action="#">
-                        <spring:form method="post"
-                                     action="${pageContext.request.contextPath}/verification/sendNewLink.htm"
+                        <spring:form method="post" action="${pageContext.request.contextPath}/verification/sendNewLink.htm"
                                      modelAttribute="user">
                             <div class="row mb-3">
                                 <div class="col-md-9">
@@ -23,7 +21,6 @@
                                         <div class="col-md-6 mb-3 mb-md-0">
                                             <spring:input path="email" id="email" type="email"
                                                           class="mr-3 form-control border-0 px-4" required="required"/>
-                                            <spring:label path="email" for="email">Email</spring:label>
                                         </div>
                                     </div>
                                 </div>
@@ -33,7 +30,6 @@
                                 </div>
                             </div>
                         </spring:form>
-                    </form>
                 </div>
             </div>
         </div>

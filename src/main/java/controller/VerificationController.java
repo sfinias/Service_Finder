@@ -2,14 +2,19 @@ package controller;
 
 import dao.UserDAOInterface;
 import dao.VerificationTokenDAOInterface;
+import model.RegisterEntity;
 import model.UserEntity;
 import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import utils.MailService;
+
+import javax.validation.Valid;
 
 /**
  * @author tsamo
@@ -47,8 +52,8 @@ public class VerificationController {
         return "newActivationLink";
     }
 
-    @RequestMapping(value = "/sendNewLink.htm")
-    public String handleForm3(ModelMap model, UserEntity user) throws EmailException {
+    @RequestMapping(value = "/sendNewLink.htm",method = RequestMethod.POST)
+    public String handleForm3(ModelMap model, @ModelAttribute("user") @Valid UserEntity user) throws EmailException {
         String emailSubmitted = user.getEmail();
         if (u.userExists(emailSubmitted) && !u.isUserActivated(emailSubmitted)) {
             int uid = u.findUserByEmail(emailSubmitted).getId();
