@@ -7,7 +7,6 @@ import model.RegisterEntity;
 import model.UserEntity;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -93,7 +92,6 @@ public class HomeController {
             user2.getUserEntity().setPasswordHash("");
             model.addAttribute("user2", user2);
             return "initialForm";
-//            return "TestingForm";
         }
         if (u.userExists(user2.getUserEntity().getEmail())) {
             model.addAttribute("message", "User with e-mail " + user2.getUserEntity().getEmail() + " already exists.");
@@ -150,7 +148,8 @@ public class HomeController {
             v.removeTokenByUserId(user.getId());
             return "resetPasswordForm";
         } else if (v.checkIfTokenExists(token) && !v.checkIfTimeLessThan24Hours(v.getTimestampOfTokenCreation(token))) {
-            return "tokenExpired";
+            modelMap.addAttribute("message", "Your link has expired or no longer exists.");
+            return "response_page";
         } else {
             modelMap.addAttribute("message", "Token does not exist");
             return "response_page";

@@ -1,6 +1,5 @@
 <script>
 
-
     $( "#slider" ).slider({
         value:1,
         min: 0.5,
@@ -30,7 +29,7 @@
             window.alert("No details available for input: '" + place.name + "'");
             return;
         }
-        pos = place.geometry.location
+        pos = place.geometry.location;
         moveMark(pos);
     });
 
@@ -47,12 +46,6 @@
     }
 
     var geocoder = new google.maps.Geocoder();
-
-    // google.maps.event.addListener(map, 'click', function(event) {
-    //     pos = new google.maps.LatLng(parseFloat(event.latLng.lat()),parseFloat(event.latLng.lng()));
-    //     moveMark(pos);
-    //     getAddress(pos);
-    // });
 
     document.getElementById('loc').onclick = function (ev){
         ev.preventDefault();
@@ -85,10 +78,6 @@
             'Error: The Geolocation service failed.' :
             'Error: Your browser doesn\'t support geolocation.');
     }
-
-    // document.getElementById('search').onclick = function (ev) {
-    //     ev.preventDefault();
-    // };
 
 
     var profMarkers = null;
@@ -127,10 +116,7 @@
         e.preventDefault();
         clearMarkers();
         $('.jobs-wrap').html('');
-        // var id = $('#pro').val();
-        // alert(id);
         var form = document.forms[0];
-        //FormData makes all the files from the form in a name/value object
         var formData = new FormData(form);
         createCircle();
         $('html, body').animate({
@@ -139,7 +125,6 @@
             $.ajax({
             url: '${pageContext.request.contextPath}/restProfs.htm',
             encoding:"UTF-8",
-            // contentType: "application/json; charset=utf-8",
             contentType: false,
             data: formData,
             type: 'POST',
@@ -148,7 +133,6 @@
                 var jsonobj = $.parseJSON(result);
                 profMarkers = [];
                 if (!jsonobj) {
-                    // alert('There are no profs of this kind');
                     $('.jobs-wrap').append($('<div class="job-item d-block d-md-flex align-items-center border-bottom fulltime">').append('No Professionals found matching these criteria'));
                 } else {
                     var count=0;

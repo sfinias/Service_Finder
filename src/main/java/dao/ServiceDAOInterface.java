@@ -1,14 +1,13 @@
 package dao;
 
-import java.util.List;
 import model.RegisterEntity;
 import model.ServiceEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public interface ServiceDAOInterface {
-    boolean checkIfServiceExists(int userID, int ProfessionalID);
     int returnIfServiceExists(int customerID, int professionalID);
     ServiceEntity insertService(ServiceEntity serviceEntity);
     ServiceEntity getServiceByID(int serviceID);
@@ -21,6 +20,5 @@ public interface ServiceDAOInterface {
     ServiceEntity getServiceById(int id);
     List<ServiceEntity> getServicesForUser(RegisterEntity user);
     List<ServiceEntity> getSubServicesForUser(RegisterEntity user, boolean fulfilled);
-//    void setRating(RegisterEntity user, String profID, String rate);
     void updateService(ServiceEntity s);
 }

@@ -23,59 +23,50 @@ public class VerificationTokenDAO implements VerificationTokenDAOInterface {
     @PersistenceContext
     private EntityManager em;
 
-    @Transactional
-    public void insertToken(VerificationTokenEntity v) {
-        em.persist(v);
-    }
-
-    @Transactional
+    @Override
     public UserEntity getUserFromToken(VerificationTokenEntity v) {
         return em.find(UserEntity.class, v.getUserId());
     }
 
-    @Transactional
+    @Override
     public boolean checkIfTokenExists(String token) {
-        Query query = em.createQuery("SELECT v FROM VerificationTokenEntity v WHERE v.token='" + token + "'");
+        Query query = em.createQuery("SELECT v FROM VerificationTokenEntity v WHERE v.token= :token");
+        query.setParameter("token", token);
         ArrayList<VerificationTokenEntity> tokenEntities = (ArrayList<VerificationTokenEntity>) query.getResultList();
         boolean flag;
-        if (tokenEntities.size() == 0) {
-            flag = false;
-        } else {
-            flag = true;
-        }
+        flag = tokenEntities.size() != 0;
         return flag;
     }
 
-    @Transactional
+    @Override
     public VerificationTokenEntity getTokenEntityFromToken(String token) {
-        Query query = em.createQuery("SELECT v FROM VerificationTokenEntity v WHERE v.token='" + token + "'");
+        Query query = em.createQuery("SELECT v FROM VerificationTokenEntity v WHERE v.token= :token");
+        query.setParameter("token", token);
         return (VerificationTokenEntity) query.getSingleResult();
     }
 
-    @Transactional
+    @Override
     public boolean checkIfTimeLessThan24Hours(Timestamp timestamp) {
         boolean flag;
         Timestamp timestamp2 = new Timestamp(new Date().getTime());
         long now = timestamp2.getTime();
         long then = timestamp.getTime();
-        if (now - then <= 86400000) {
-            flag = true;
-        } else {
-            flag = false;
-        }
+        flag = now - then <= 86400000;
         return flag;
     }
 
-    @Transactional
+    @Override
     public Timestamp getTimestampOfTokenCreation(String token) {
-        Query query = em.createQuery("SELECT v.generatedTokenDateTime FROM VerificationTokenEntity v WHERE v.token='" + token + "'");
+        Query query = em.createQuery("SELECT v.generatedTokenDateTime FROM VerificationTokenEntity v WHERE v.token= :token");
+        query.setParameter("token", token);
         return (Timestamp) query.getSingleResult();
     }
 
+    @Override
     @Transactional
     public void createTokenForUser(int userId) {
         if (tokenForUserExists(userId)) {
-            String originaltoken=getTokenOfUser(userId);
+            String originaltoken = getTokenOfUser(userId);
             VerificationTokenEntity v = getTokenEntityFromToken(originaltoken);
             v.setGeneratedTokenDateTime(new Timestamp(new Date().getTime()));
             int length = 20;
@@ -97,29 +88,29 @@ public class VerificationTokenDAO implements VerificationTokenDAOInterface {
         }
     }
 
-    @Transactional
+    @Override
     public boolean tokenForUserExists(int userId) {
         boolean flag;
-        Query query = em.createQuery("SELECT v FROM VerificationTokenEntity v WHERE v.userId=" + userId);
+        Query query = em.createQuery("SELECT v FROM VerificationTokenEntity v WHERE v.userId= :userId");
+        query.setParameter("userId", userId);
         ArrayList<VerificationTokenEntity> tokenEntities = (ArrayList<VerificationTokenEntity>) query.getResultList();
-        if (tokenEntities.size() == 0) {
-            flag = false;
-        } else {
-            flag = true;
-        }
+        flag = tokenEntities.size() != 0;
         return flag;
     }
 
-    @Transactional
+    @Override
     public String getTokenOfUser(int userId) {
-        Query query = em.createQuery("SELECT v.token FROM VerificationTokenEntity v WHERE v.userId=" + userId);
+        Query query = em.createQuery("SELECT v.token FROM VerificationTokenEntity v WHERE v.userId= :userId");
+        query.setParameter("userId", userId);
         return (String) query.getSingleResult();
     }
 
+    @Override
     @Modifying
     @Transactional
     public int removeTokenByUserId(int userId) {
-        Query query = em.createQuery("DELETE FROM VerificationTokenEntity v WHERE v.userId=" + userId);
+        Query query = em.createQuery("DELETE FROM VerificationTokenEntity v WHERE v.userId= :userId");
+        query.setParameter("userId", userId);
         return query.executeUpdate();
     }
 }

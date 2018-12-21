@@ -81,25 +81,14 @@
                                               onkeypress="return blockSpecialCharForNumber(event)" readonly="true"/>
                             </div>
                             <spring:errors path="phoneEntity.mobile"/>
-
-
                         </div>
-
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <input type="submit" value="Confirm Changes" class="btn btn-primary pill px-4 py-2">
                             </spring:form>
                         </div>
-
-
                     </div>
-
-
-
                 </div>
-
-
-
                 <div class="col-lg-4">
                     <div class="p-4 mb-3 bg-white">
                         <h3 class="h5 text-black mb-3">Profile Image</h3>
@@ -164,14 +153,8 @@
                                 </spring:form>
                             </div>
                         </div>
-
-
                     </div>
-
-
-
                 </div>
-
             </div>
         </div>
     </div>

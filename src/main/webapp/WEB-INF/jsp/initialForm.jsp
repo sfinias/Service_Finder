@@ -161,7 +161,6 @@
                                                                   placeholder="Mobile"
                                                                   onkeypress="return blockSpecialCharForNumber(event)"/><br>
                                                     <spring:errors path="phoneEntity.mobile"/>
-                                                        <%--Icons--%>
                                                     </span>
                                                 </div>
                                             </div>
@@ -175,7 +174,6 @@
                                                                   placeholder="Landline"
                                                                   onkeypress="return blockSpecialCharForNumber(event)"/><br>
                                                     <spring:errors path="phoneEntity.landline"/>
-                                                        <%--Icons--%>
                                                     </span>
                                                 </div>
                                             </div>
@@ -189,7 +187,6 @@
                                                                   name="address"
                                                                   class="form-control placeHolderColor"
                                                                   placeholder="Address"/>
-                                                        <%--Icons--%>
                                                     <spring:input path="addressEntity.longit" id="long" name="lng"
                                                                   class="d-none"/>
                                                     <spring:input path="addressEntity.latit" id="lat" name="lat"
@@ -209,7 +206,6 @@
                                                         <option value="User">User</option>
                                                         <option value="Professional">Professional</option>
                                                     </select>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -259,53 +255,5 @@
 </div>
 <%@include file="footer.jsp" %>
 <%@include file="register.jsp" %>
-<script>
-    toggleField = function () {
-        var a = $("#profselect").val();
-        if (a === "User") {
-            $("#address").removeAttr("required");
-            $(".displayNone").hide();
-            SelectElement("professionId", 1);
-        } else if (a === "Professional") {
-            $("#address").attr("required", "required");
-            $(".displayNone").show();
-        }
-    };
-
-    $(function () {
-
-        if (localStorage.chkbox && localStorage.chkbox != '') {
-            $('#rememberChkBox').attr('checked', 'checked');
-            $('#emailLogin').val(localStorage.email);
-            $('#passwordLogin').val(localStorage.pass);
-        } else {
-            $('#rememberChkBox').removeAttr('checked');
-            $('#emailLogin').val('');
-            $('#passwordLogin').val('');
-        }
-
-        $('#rememberChkBox').click(function () {
-
-            if ($('#rememberChkBox').is(':checked')) {
-                localStorage.email = $('#emailLogin').val();
-                localStorage.pass = $('#passwordLogin').val();
-                localStorage.chkbox = $('#rememberChkBox').val();
-            } else {
-                localStorage.username = '';
-                localStorage.pass = '';
-                localStorage.chkbox = '';
-            }
-        });
-    });
-
-
-    function SelectElement(id, valueToSelect) {
-        var element = document.getElementById(id);
-        element.value = valueToSelect;
-    }
-</script>
-<script src="${pageContext.request.contextPath}/dist/js/autocomplete.js" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"
-        type="text/javascript"></script>
 </body>
 </html>

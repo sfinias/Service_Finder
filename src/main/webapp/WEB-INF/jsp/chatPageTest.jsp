@@ -5,7 +5,6 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style>
         .main-section {
@@ -15,23 +14,6 @@
         .left-sidebar {
             background-color: #3A3A3A;
             padding: 0px;
-        }
-
-        .searchbox {
-            width: 100%;
-            padding: 27px 10px;
-            border-bottom: 2px solid #000;
-        }
-
-        .form-control, .search-icon, .search-icon:hover {
-            background-color: #6A6C75;
-            border: 1px solid #fff;
-            color: #fff;
-            box-shadow: none !important;
-        }
-
-        .form-control:focus {
-            border: 1px solid #fff;
         }
 
         .chat-left-img, .chat-left-detail {
@@ -325,20 +307,10 @@
 
     var CreateProxy = function (wsUri) {
         var websocket = null;
-        var audio = null;
         var elements = null;
-
-        var playSound = function () {
-            if (audio == null) {
-                audio = new Audio('/dist/sounds/sound_chat.wav');
-            }
-
-            audio.play();
-        };
 
         var displayMessage = function (msgJSON) {
             var msg = JSON.parse(msgJSON);
-            // alert("This is the json messages data="+msg.data);
             var txt;
             if (msg.senderId ===${sessionUser.userEntity.id}) {
                 txt = "<li>\n" +
@@ -374,18 +346,6 @@
 
         return {
             login: function () {
-                alert("iam inside login");
-                // elements.txtLogin.focus();
-
-                // var name = elements.txtLogin.value.trim();
-                <%--<% String username=(String)session.getAttribute("user2Name");%>--%>
-                <%--var name = '<%=username%>';--%>
-                // if (name == '') {
-                //     return;
-                // }
-
-                // elements.txtLogin.value = '';
-
                 // Initiate the socket and set up the events
                 if (websocket == null) {
                     websocket = new WebSocket(wsUri);
@@ -395,49 +355,34 @@
                         websocket.send(JSON.stringify(message));
                     };
                     websocket.onmessage = function (e) {
-
-                        // alert(e.data+" this is onmessage");
                         displayMessage(e.data);
-                        // showMsgPanel();
-                        playSound();
                     };
                     websocket.onerror = function (e) {
                     };
                     websocket.onclose = function (e) {
                         websocket = null;
                         clearMessage();
-                        // hideMsgPanel();
                     };
                 }
             },
             sendMessage: function () {
-                // elements.txtMsg.focus();
 
                 if (websocket != null && websocket.readyState == 1) {
                     var input = elements.txtMsg.value.trim();
-                    // alert(input);
                     if (input == '') {
                         return;
                     }
-
                     elements.txtMsg.value = '';
-
                     var message = {
                         messageType: 'MESSAGE',
                         data: input,
                         senderId: ${sessionUser.userEntity.id},
                         timeSent: moment()
                     };
-                    // alert("data: " + input + ", sender: " + message.senderId + ", time sent: " + message.timeSent);
-                    // displayMessage(message);
-                    // Send a message through the web-socket
-                    // alert("before web socket");
                     websocket.send(JSON.stringify(message));
-                    // alert("after web socket");
                 }
             },
             login_keyup: function (e) {
-                // alert("login");
                 this.login();
             },
             sendMessage_keyup: function (e) {
@@ -455,7 +400,6 @@
             },
             initiate: function (e) {
                 elements = e;
-                // elements.txtLogin.focus();
             }
         }
     };
@@ -463,15 +407,12 @@
 <script src="${pageContext.request.contextPath}/dist/js/moment-with-locales.js" type="text/javascript"></script>
 <script>
 
-    var proxy = CreateProxy("ws://localhost:8080/dmngMaven2/chat");
+    var proxy = CreateProxy("ws://localhost:8080/dmngMaven2_war_exploded/chat");
 
     document.addEventListener("DOMContentLoaded", function (event) {
-        // console.log(document.getElementById('loginPanel'));
         proxy.initiate({
-            // loginPanel: document.getElementById('loginPanel'),
             msgPanel: document.getElementById('msgPanel'),
             txtMsg: document.getElementById('txtMsg'),
-            // txtLogin: document.getElementById('txtLogin'),
             msgContainer: document.getElementById('msgContainer')
         });
     });

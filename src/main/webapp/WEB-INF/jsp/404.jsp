@@ -53,20 +53,6 @@
             font-size: 20px;
         }
 
-        .text {
-            font-size: 70px;
-            text-align: center;
-            position: relative;
-            display: inline-block;
-            margin: 19px 0px 0px 0px;
-            /* top: 256.301px; */
-            z-index: 3;
-            width: 100%;
-            line-height: 1.2em;
-            display: inline-block;
-        }
-
-
         .btn {
             background-color: rgb(255, 255, 255);
             position: relative;
@@ -79,11 +65,6 @@
             color: #33cc99;
             text-decoration: none;
             margin-right: 10px
-        }
-
-        .right {
-            float: right;
-            width: 60%;
         }
 
         hr {

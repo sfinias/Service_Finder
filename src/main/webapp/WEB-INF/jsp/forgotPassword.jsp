@@ -37,25 +37,3 @@
 <%@include file = "footer.jsp" %>
 </body>
 </html>
-
-
-<%--<form:form class="col s12" method="post" action="${pageContext.request.contextPath}/user/resetPassword.htm" modelAttribute="user">--%>
-    <%--<div class="form-container">--%>
-        <%--<h3 class="red-text">Forgot password</h3>--%>
-        <%--<h5 class="red-text">An email will be sent to your email, with a link to reset your password</h5>--%>
-        <%--<div class="row">--%>
-            <%--<div class="input-field col s12">--%>
-                <%--<form:input path="email" id="email" type="email" class="validate" required="required"/>--%>
-                <%--<form:label path="email" for="email">Email</form:label>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<br>--%>
-        <%--<center>--%>
-            <%--<button class="btn waves-effect waves-light red" type="submit" id="actionLogin" name="actionLogin">--%>
-                <%--Submit--%>
-            <%--</button>--%>
-            <%--<br>--%>
-            <%--<br>--%>
-        <%--</center>--%>
-    <%--</div>--%>
-<%--</form:form>--%>

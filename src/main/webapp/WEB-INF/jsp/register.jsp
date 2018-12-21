@@ -2,7 +2,6 @@
     var ajaxEnabled = true;
     var emailEnabled = true;
     var passwordEnabled = true;
-    var enabled = true;
 
     EnableSubmit = function (val) {
         var sbmt = document.getElementById("actionLogin");
@@ -56,48 +55,22 @@
         }
     };
 
-    // changeColour=function(e){
-    //     alert("1st in");
-    //     var a=document.getElementsByName("professionalSelection").item(0);
-    //     if(a.value==="true"){
-    //         alert("2nd in");
-    //         $("#proftrue").css("color","greenyellow !important");
-    //         $("#proffalse").css("color","white");
-    //     }
-    //     else if(a.value==="false"){
-    //         alert("3rd in");
-    //         $("#proftrue").css("color","white");
-    //         $("#proffalse").css("color","greenyellow");
-    //     }
-    // };
-
-    toggleField=function(){
-        var a=$("#profselect").val();
-        if(a==="User"){
+    toggleField = function () {
+        var a = $("#profselect").val();
+        if (a === "User") {
             $("#address").removeAttr("required");
             $(".displayNone").hide();
-            SelectElement("professionId",1);
-            // alert($("#professionId").val());
-        }
-        else if(a==="Professional"){
-            // alert($("#professionId").val());
-            $("#address").attr("required","required");
+            SelectElement("professionId", 1);
+        } else if (a === "Professional") {
+            $("#address").attr("required", "required");
             $(".displayNone").show();
         }
     };
 
-    function SelectElement(id, valueToSelect)
-    {
+    function SelectElement(id, valueToSelect) {
         var element = document.getElementById(id);
         element.value = valueToSelect;
     }
-
-    // $('#register-form').disableAutoFill({
-    //     passwordField: '.password',
-    //     debugMode: false,
-    //     randomizeInputName: true,
-    //     html5FormValidate: true
-    // });
 
     function blockSpecialChar(e) {
         var k = e.charCode || e.keyCode;
@@ -125,7 +98,7 @@
             document.getElementById('message4').innerHTML = 'Please allow some seconds to check the database';
             $.ajax({
 
-                url: 'http://localhost:8080/dmngMaven2_war_exploded/mailREST.htm?email='+text,
+                url: 'http://localhost:8080/dmngMaven2_war_exploded/mailREST.htm?email=' + text,
                 contentType: false,
                 success: function (result) {
                     var jsonobj = $.parseJSON(result);
@@ -170,4 +143,32 @@
         return false;
 
     });
+
+    $(function () {
+
+        if (localStorage.chkbox && localStorage.chkbox != '') {
+            $('#rememberChkBox').attr('checked', 'checked');
+            $('#emailLogin').val(localStorage.email);
+            $('#passwordLogin').val(localStorage.pass);
+        } else {
+            $('#rememberChkBox').removeAttr('checked');
+            $('#emailLogin').val('');
+            $('#passwordLogin').val('');
+        }
+
+        $('#rememberChkBox').click(function () {
+
+            if ($('#rememberChkBox').is(':checked')) {
+                localStorage.email = $('#emailLogin').val();
+                localStorage.pass = $('#passwordLogin').val();
+                localStorage.chkbox = $('#rememberChkBox').val();
+            } else {
+                localStorage.username = '';
+                localStorage.pass = '';
+                localStorage.chkbox = '';
+            }
+        });
+    });
 </script>
+<script src="${pageContext.request.contextPath}/dist/js/autocomplete.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/dist/js/jquery.cookie.min.js" type="text/javascript"></script>

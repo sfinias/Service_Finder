@@ -60,17 +60,17 @@
 
                             <dt class="col-sm-3">Mobile</dt>
                             <dd class="col-sm-9"><p><a href="tel: ${selectedUser.phoneEntity.mobile}"
-                                                       class="text-info p-2 rounded border border-info">${selectedUser.getPhoneEntity().getMobile()}</a>
+                                                       class="text-info p-2 rounded border border-info">${selectedUser.phoneEntity.mobile}</a>
                             </p></dd>
 
                             <dt class="col-sm-3">Landline</dt>
                             <dd class="col-sm-9"><p><a href="tel:${selectedUser.phoneEntity.landline}"
-                                                       class="text-info p-2 rounded border border-info">${selectedUser.getPhoneEntity().getLandline()}</a>
+                                                       class="text-info p-2 rounded border border-info">${selectedUser.phoneEntity.landline}</a>
                             </p></dd>
 
                             <dt class="col-sm-3">Chat</dt>
                             <dd class="col-sm-9"><p><a
-                                    href="${pageContext.request.contextPath}/user/chat/${service.otherUser.userEntity.id}.htm "
+                                    href="${pageContext.request.contextPath}/user/chat/${selectedUser.userEntity.id}.htm"
                                     class="text-info p-2 rounded border border-info h5"><span
                                     class="icon-message"></span></a>
                             </p></dd>

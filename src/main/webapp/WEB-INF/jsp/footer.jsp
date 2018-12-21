@@ -27,12 +27,10 @@ The purpose of this app is to simplify the searching and contacting between clie
     </div>
 </footer>
 
-
 <script src="${pageContext.request.contextPath}/dist/js/jquery-3.3.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/dist/js/jquery-migrate-3.0.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/dist/js/jquery-ui.js"></script>
-<script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
-<script src="https://terrylinooo.github.io/jquery.disableAutoFill/assets/js/jquery.disableAutoFill.min.js"></script>
+<script src="${pageContext.request.contextPath}/dist/js/jquery.flip.min.js"></script>
 <script src="${pageContext.request.contextPath}/dist/js/popper.min.js"></script>
 <script src="${pageContext.request.contextPath}/dist/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/dist/js/owl.carousel.min.js"></script>
@@ -41,8 +39,5 @@ The purpose of this app is to simplify the searching and contacting between clie
 <script src="${pageContext.request.contextPath}/dist/js/jquery.magnific-popup.min.js"></script>
 <script src="${pageContext.request.contextPath}/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="${pageContext.request.contextPath}/dist/js/aos.js"></script>
-
-
 <script src="${pageContext.request.contextPath}/dist/js/mediaelement-and-player.min.js"></script>
-
 <script src="${pageContext.request.contextPath}/dist/js/main.js"></script>

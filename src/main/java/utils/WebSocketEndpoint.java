@@ -3,7 +3,6 @@ package utils;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import model.MessageEntity;
 import model.RegisterEntity;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.Map;
 
 /**
  * @author tsamo
@@ -53,17 +51,12 @@ public class WebSocketEndpoint {
                 ex.printStackTrace(); }
         }
 
-        Map<String, Object> properties = session.getUserProperties();
         if (chatMessage.getMessageType() == MessageType.LOGIN) {
-            String name = chatMessage.getData();
-//            properties.put("name", name);
             room.join(session);
         }
         else {
             Gson gson = new Gson();
             String JsonMessage=gson.toJson(chatMessage);
-            chatMessage.getData();
-//            room.join(session);
             room.sendMessage(JsonMessage);
             chatMessage.setServiceId(serviceID);
             chatMessage.setTimeSent(Timestamp.from(Instant.now()));
@@ -75,15 +68,13 @@ public class WebSocketEndpoint {
                 chatMessage.setSenderId(user2ID);
                 chatMessage.setReceiverId(user1ID);
             }
-            db.insertIntoDB(chatMessage);
-//            m.insertMessageQuery(chatMessage);
+            DBUtils.insertIntoDB(chatMessage);
         }
     }
 
     @OnClose
-    public void onClose(Session session, CloseReason reason) {
+    public void onClose(Session session) {
         room.leave(session);
-        room.sendMessage((String)session.getUserProperties().get("name") + " - Left the room");
     }
 
     @OnError

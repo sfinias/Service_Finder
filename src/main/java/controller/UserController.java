@@ -1,42 +1,34 @@
 package controller;
 
 import dao.*;
-
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.sql.Timestamp;
-import java.time.Instant;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import model.ProfessionsEntity;
 import model.RegisterEntity;
 import model.ServiceEntity;
 import model.UserEntity;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import utils.MailService;
-import validation.FormValids;
-
-import javax.validation.Valid;
-
-import model.ProfessionsEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 import validation.EditFormValids;
 import validation.PasswordFormValids;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author tsamo
@@ -64,16 +56,10 @@ public class UserController {
     private MessageDAOInterface m;
 
     @Autowired
-    private FormValids formValids;
-
-    @Autowired
     private EditFormValids editFormValids;
 
     @Autowired
     private PasswordFormValids passwordFormValids;
-
-
-    private MailService mailService = new MailService();
 
     @RequestMapping(value = "/account.htm")
     public String account(ModelMap model, HttpSession session) {
@@ -123,7 +109,7 @@ public class UserController {
 
     @RequestMapping(value = "/search.htm")
     public String Search() {
-        return "testSearch";
+        return "search";
     }
 
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
@@ -171,7 +157,7 @@ public class UserController {
     public String selected(ModelMap model, HttpSession session, @RequestParam(value = "email") String email) {
         RegisterEntity user = u.getUserByEmail(email);
         if (user.getUserEntity().getProfessionId() == 1)
-            return "testSearch";
+            return "search";
         else {
             long rating = s.getRating(user);
             model.addAttribute("selectedUser", user);

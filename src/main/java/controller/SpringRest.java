@@ -5,12 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.ProfessionsDAOInterface;
 import dao.UserDAOInterface;
 import model.RegisterEntity;
-import model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

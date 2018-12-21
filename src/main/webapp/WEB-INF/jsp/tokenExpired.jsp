@@ -33,18 +33,6 @@
         </div>
     </div>
 </div>
-
 <%@include file = "footer.jsp" %>
 </body>
 </html>
-
-
-
-
-
-
-
-
-<%--<h3 class="red-text center" >Your link has expired or no longer exists</h3>--%>
-<%--<p>If you would like us to send you a new link to activate your account, please click the following link</p>--%>
-<%--<a href="${pageContext.request.contextPath}/verification/newActivationLink.htm">I want a new activation link</a>--%>

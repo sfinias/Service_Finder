@@ -1,23 +1,17 @@
 package dao;
 
-import java.io.*;
-
 import model.*;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.mail.Multipart;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import org.springframework.transaction.annotation.Transactional;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import model.ProfessionsEntity;
-import model.RegisterEntity;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author tsamo
@@ -28,6 +22,7 @@ public class UserDAO implements UserDAOInterface {
     @PersistenceContext
     private EntityManager em;
 
+    @Override
     @Transactional
     public void insertUser(UserEntity u) {
         int length = 20;
@@ -42,31 +37,28 @@ public class UserDAO implements UserDAOInterface {
         em.persist(u);
     }
 
+    @Override
     @Transactional
     public void insertAddress(AddressEntity a, int userid) {
         a.setUserId(userid);
         em.persist(a);
     }
 
+    @Override
     @Transactional
     public void insertPhone(PhoneEntity p, int userid) {
         p.setUserId(userid);
         em.persist(p);
     }
 
-    @Transactional
-    public ArrayList<UserEntity> getAllUsers() {
-        Query query = em.createQuery("SELECT u FROM UserEntity u");
-        return (ArrayList<UserEntity>) query.getResultList();
-    }
-
-    @Transactional
+    @Override
     public UserEntity findUserByEmail(String email) {
-        Query query = em.createQuery("SELECT u FROM UserEntity u WHERE u.email='" + email + "'");
+        Query query = em.createQuery("SELECT u FROM UserEntity u WHERE u.email= :email");
+        query.setParameter("email", email);
         return (UserEntity) query.getSingleResult();
     }
 
-    @Transactional
+    @Override
     public boolean userExists(String email) {
         boolean flag;
         Query query = em.createQuery("SELECT u FROM UserEntity u WHERE u.email='" + email + "'");
@@ -75,46 +67,48 @@ public class UserDAO implements UserDAOInterface {
         return flag;
     }
 
-    @Transactional
+    @Override
     public boolean userExistsId(int userID) {
         boolean flag;
         Query query = em.createQuery("SELECT u FROM UserEntity u WHERE u.id=" + userID);
         ArrayList<UserEntity> users = (ArrayList<UserEntity>) query.getResultList();
-        if (users.size() == 0) {
-            flag = false;
-        } else {
-            flag = true;
-        }
+        flag = users.size() != 0;
         return flag;
     }
 
+    @Override
     @Transactional
     public void enableUser(UserEntity u) {
         u.setEnabled(true);
         em.merge(u);
     }
 
-    @Transactional
+    @Override
     public int getUserid(UserEntity user) {
-        Query query = em.createQuery("SELECT u.id FROM UserEntity u WHERE u.email='" + user.getEmail() + "'");
+        Query query = em.createQuery("SELECT u.id FROM UserEntity u WHERE u.email= :email");
+        query.setParameter("email", user.getEmail());
         return (Integer) query.getSingleResult();
     }
 
-    @Transactional
+    @Override
     public String getSalt(String email) {
-        Query query = em.createQuery("SELECT u.passwordSalt FROM UserEntity u WHERE u.email='" + email + "'");
+        Query query = em.createQuery("SELECT u.passwordSalt FROM UserEntity u WHERE u.email= :email");
+        query.setParameter("email", email);
         return (String) query.getSingleResult();
     }
 
-    @Transactional
+    @Override
     public boolean isUserActivated(String email) {
-        Query query = em.createQuery("SELECT u.enabled FROM UserEntity u WHERE u.email='" + email + "'");
+        Query query = em.createQuery("SELECT u.enabled FROM UserEntity u WHERE u.email= :email");
+        query.setParameter("email", email);
         return (boolean) query.getSingleResult();
     }
 
+    @Override
     @Transactional
     public void changePasswordOfUser(String email, String newPassword) {
-        Query query = em.createQuery("SELECT u FROM UserEntity u WHERE u.email='" + email + "'");
+        Query query = em.createQuery("SELECT u FROM UserEntity u WHERE u.email= :email");
+        query.setParameter("email", email);
         UserEntity u = (UserEntity) query.getSingleResult();
         int length = 20;
         boolean useLetters = true;
@@ -127,12 +121,7 @@ public class UserDAO implements UserDAOInterface {
         em.merge(u);
     }
 
-    @Transactional
-    public ArrayList<String> getAllEmails() {
-        Query query = em.createQuery("SELECT u.email FROM UserEntity u");
-        return (ArrayList<String>) query.getResultList();
-    }
-
+    @Override
     @Transactional
     public RegisterEntity getUserByEmail(String email) {
         Query query = em.createQuery("SELECT u, p, a, ph FROM UserEntity u " +
@@ -152,6 +141,7 @@ public class UserDAO implements UserDAOInterface {
         return user;
     }
 
+    @Override
     @Transactional
     public RegisterEntity getUserByID(int userID) {
         Query query = em.createQuery("SELECT u, p, a, ph FROM UserEntity u " +
@@ -171,14 +161,7 @@ public class UserDAO implements UserDAOInterface {
         return user;
     }
 
-    @Transactional
-    public ArrayList<ProfessionsEntity> getAllProfessions() {
-        Query query = em.createQuery("SELECT p FROM ProfessionsEntity p");
-        ArrayList<ProfessionsEntity> list = (ArrayList<ProfessionsEntity>) query.getResultList();
-        list.remove(0);
-        return list;
-    }
-
+    @Override
     @Transactional
     public RegisterEntity editUser(RegisterEntity originalEntity, RegisterEntity updatedUser) {
         if (!(originalEntity.getUserEntity().getFirstName().equals(updatedUser.getUserEntity().getFirstName()))) {
@@ -202,12 +185,6 @@ public class UserDAO implements UserDAOInterface {
 
         return originalEntity;
     }
-//     @Transactional
-//    public void changePassword(RegisterEntity originalEntity) {      
-//            em.merge(originalEntity.getUserEntity().setPasswordHash());            
-//            
-//           
-//    }
 
     //set profile Picture
     @Override
@@ -225,13 +202,4 @@ public class UserDAO implements UserDAOInterface {
             return "dmng.png";
         }
     }
-
-    @Transactional
-    public boolean emailExists(String email) {
-        Query query = em.createQuery("SELECT u.email FROM UserEntity u WHERE email = :email");
-        query.setParameter("email", email);
-        List<String> list = (List<String>) query.getResultList();
-        return !list.isEmpty();
-    }
-
 }

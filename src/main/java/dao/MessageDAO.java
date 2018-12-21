@@ -21,7 +21,8 @@ public class MessageDAO implements MessageDAOInterface {
 
     @Override
     public ArrayList<MessageEntity> getServicesMessages(int serviceID) {
-            Query query = em.createQuery("SELECT m FROM MessageEntity m WHERE m.serviceId="+serviceID+" ORDER BY m.timeSent ASC");
-            return (ArrayList<MessageEntity>) query.getResultList();
+        Query query = em.createQuery("SELECT m FROM MessageEntity m WHERE m.serviceId= :sId ORDER BY m.timeSent ASC");
+        query.setParameter("sId", serviceID);
+        return (ArrayList<MessageEntity>) query.getResultList();
     }
 }
