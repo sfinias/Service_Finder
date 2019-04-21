@@ -18,4 +18,4 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/aos.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/font-awesome.css">
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpNb7KwtNgmsphG-7u8AhPPZ_h_4ZkG5Y&libraries=places,drawing&callback=initMap"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=****&libraries=places,drawing&callback=initMap"></script>
